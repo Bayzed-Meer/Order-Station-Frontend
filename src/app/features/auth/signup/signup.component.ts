@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit {
     }
 
     onSubmit() {
-        this.markFormGroupTouched(this.signupForm);
+        this.signupForm.markAllAsTouched();
 
         if (this.signupForm.valid) {
             this.loading = true;
@@ -74,16 +74,6 @@ export class SignupComponent implements OnInit {
                 )
                 .subscribe();
         }
-    }
-
-    markFormGroupTouched(formGroup: FormGroup) {
-        Object.values(formGroup.controls).forEach((control) => {
-            control.markAsTouched();
-
-            if (control instanceof FormGroup) {
-                this.markFormGroupTouched(control);
-            }
-        });
     }
 
     showSnackbar(message: string) {
