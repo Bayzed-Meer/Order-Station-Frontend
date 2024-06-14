@@ -14,6 +14,7 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent implements OnInit {
     isLoggedIn = false;
+    role = '';
 
     constructor(
         private authService: AuthService,
@@ -23,6 +24,17 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.checkLoggedInStatus();
+        this.checkRole();
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     checkLoggedInStatus(): void {

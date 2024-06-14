@@ -6,7 +6,7 @@ import { inject } from '@angular/core';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthService);
 
-    const accessToken = authService.getAccessToken();
+    const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken) {
         req = req.clone({
@@ -24,7 +24,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             ) {
                 return authService.refreshToken().pipe(
                     switchMap(() => {
-                        const newAccessToken = authService.getAccessToken();
+                        const newAccessToken = localStorage.getItem('accessToken');
                         req = req.clone({
                             setHeaders: {
                                 Authorization: `Bearer ${newAccessToken}`,

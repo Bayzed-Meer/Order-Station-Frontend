@@ -3,7 +3,12 @@
         <li class="flex font-serif gap-4 cursor-pointer">Order Station</li>
 
         <li class="flex gap-8 text-base font-serif">
-            <span class="cursor-pointer" routerLink="signup" routerLinkActive="text-blue-500">
+            <span
+                *ngIf="role === 'admin'"
+                class="cursor-pointer"
+                routerLink="signup"
+                routerLinkActive="text-blue-500"
+            >
                 Signup
             </span>
             <span

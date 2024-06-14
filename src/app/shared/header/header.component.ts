@@ -11,6 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent {
     @Input() isLoggedIn = false;
+    @Input() role = '';
     @Output() signOut = new EventEmitter<void>();
 
     signOutUser(): void {
