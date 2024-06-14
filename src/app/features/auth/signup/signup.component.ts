@@ -16,7 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class SignupComponent implements OnInit {
     signupForm!: FormGroup;
     errorMessage!: string;
-    loading: boolean = false;
+    loading = false;
 
     constructor(
         private formBuilder: FormBuilder,

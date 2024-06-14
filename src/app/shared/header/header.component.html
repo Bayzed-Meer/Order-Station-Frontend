@@ -6,6 +6,14 @@
             <span class="cursor-pointer" routerLink="signup" routerLinkActive="text-blue-500">
                 Signup
             </span>
+            <span
+                *ngIf="!isLoggedIn"
+                class="cursor-pointer"
+                routerLink="signin"
+                routerLinkActive="text-blue-500"
+            >
+                Signin
+            </span>
         </li>
     </ul>
 </nav>

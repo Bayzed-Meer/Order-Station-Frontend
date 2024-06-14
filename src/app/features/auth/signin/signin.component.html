@@ -1,40 +1,10 @@
-<div class="flex justify-center w-3/4 mx-auto mt-12 md:mt-24">
+<div class="flex justify-center w-3/4 mx-auto mt-24 md:mt-36">
     <div class="bg-first rounded-md shadow-md w-full sm:max-w-md">
         <div class="p-8 md:p-12">
             <!-- Title -->
-            <h1 class="font-semibold font-serif text-xl md:text-2xl mb-4 md:mb-6">
-                Create an account
-            </h1>
-            <!-- Sign Up Form -->
-            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-4">
-                <!-- Username Input -->
-                <div>
-                    <label
-                        for="username"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Username
-                    </label>
-                    <input
-                        id="username"
-                        type="text"
-                        formControlName="username"
-                        placeholder="John Cena"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                    <!-- Display username error messages -->
-                    <div
-                        *ngIf="
-                            signupForm.get('username')!.invalid &&
-                            signupForm.get('username')!.touched
-                        "
-                        class="text-red-500 text-xs md:text-sm font-serif mt-1"
-                    >
-                        <span *ngIf="signupForm.get('username')!.errors?.['required']">
-                            Username is required.
-                        </span>
-                    </div>
-                </div>
+            <h1 class="font-semibold font-serif text-xl md:text-2xl mb-4 md:mb-6">Sign In</h1>
+            <!-- Sign In Form -->
+            <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class="space-y-4">
                 <!-- Email Input -->
                 <div>
                     <label
@@ -52,13 +22,13 @@
                     />
                     <!-- Display email error messages -->
                     <div
-                        *ngIf="signupForm.get('email')!.invalid && signupForm.get('email')!.touched"
+                        *ngIf="signinForm.get('email')!.invalid && signinForm.get('email')!.touched"
                         class="text-red-500 text-xs md:text-sm font-serif mt-1"
                     >
-                        <span *ngIf="signupForm.get('email')!.errors?.['required']">
+                        <span *ngIf="signinForm.get('email')!.errors?.['required']">
                             Email is required.
                         </span>
-                        <span *ngIf="signupForm.get('email')!.errors?.['email']">
+                        <span *ngIf="signinForm.get('email')!.errors?.['email']">
                             Invalid email format.
                         </span>
                     </div>
@@ -68,7 +38,7 @@
                 <div>
                     <label
                         for="password"
-                        class="block mb-2 text-sm font-medium font-serif text-gray-900"
+                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
                     >
                         Password
                     </label>
@@ -82,43 +52,15 @@
                     <!-- Password error messages -->
                     <div
                         *ngIf="
-                            signupForm.get('password')!.invalid &&
-                            signupForm.get('password')!.touched
+                            signinForm.get('password')!.invalid &&
+                            signinForm.get('password')!.touched
                         "
                         class="text-red-500 text-xs md:text-sm font-serif mt-1"
                     >
-                        <span *ngIf="signupForm.get('password')!.errors?.['required']">
+                        <span *ngIf="signinForm.get('password')!.errors?.['required']">
                             Password is required.
                         </span>
-                        <span *ngIf="signupForm.get('password')!.errors?.['minlength']">
-                            Password must be at least 8 characters long.
-                        </span>
-                        <span *ngIf="signupForm.get('password')!.errors?.['maxlength']">
-                            Password cannot exceed 32 characters.
-                        </span>
-                        <span *ngIf="signupForm.get('password')!.errors?.['pattern']">
-                            Password must contain at least one uppercase letter, one lowercase
-                            letter, one digit, and one special character (e.g., &#64;, #, $, etc.).
-                        </span>
                     </div>
-                </div>
-
-                <!-- Role Select -->
-                <div>
-                    <label
-                        for="role"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Role
-                    </label>
-                    <select
-                        id="role"
-                        formControlName="role"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    >
-                        <option value="employee">Employee</option>
-                        <option value="staff">Staff</option>
-                    </select>
                 </div>
 
                 <!-- Server-side Error Message -->
@@ -126,8 +68,7 @@
                     {{ errorMessage }}
                 </span>
 
-                <!-- Create Account Button -->
-
+                <!-- Sign In Button -->
                 <button
                     type="submit"
                     [disabled]="loading"
@@ -149,7 +90,7 @@
                             fill="currentColor"
                         />
                     </svg>
-                    <span *ngIf="!loading">Sign Up</span>
+                    <span *ngIf="!loading">Sign In</span>
                 </button>
             </form>
         </div>
