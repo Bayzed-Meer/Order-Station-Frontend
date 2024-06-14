@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -11,4 +11,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent {
     @Input() isLoggedIn = false;
+    @Output() signOut = new EventEmitter<void>();
+
+    signOutUser(): void {
+        this.signOut.emit();
+    }
 }

@@ -28,6 +28,10 @@ export class AuthService {
             );
     }
 
+    signOut(): Observable<void> {
+        return this.http.post<void>(`${this.API}/auth/signout`, {}, { withCredentials: true });
+    }
+
     refreshToken(): Observable<AuthResponse> {
         return this.http.post<AuthResponse>(`${this.API}/auth/refresh-token`, {}).pipe(
             tap((response: AuthResponse) => {
@@ -37,11 +41,22 @@ export class AuthService {
     }
 
     isLoggedIn(): Observable<boolean> {
+        this.checkAccessToken();
         return this.isLoggedIn$.asObservable();
+    }
+
+    private checkAccessToken(): void {
+        const accessToken = this.getAccessToken();
+        if (accessToken) this.isLoggedIn$.next(true);
     }
 
     getAccessToken(): string | null {
         return localStorage.getItem('accessToken');
+    }
+
+    clearAccessToken(): void {
+        localStorage.removeItem('accessToken');
+        this.isLoggedIn$.next(false);
     }
 
     private setAccessToken(accessToken: string): void {

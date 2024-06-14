@@ -1,7 +1,7 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
-import { tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from './core/services/auth.service';
 
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
+        private router: Router,
         private destroyRef: DestroyRef,
     ) {}
 
@@ -30,6 +31,22 @@ export class AppComponent implements OnInit {
             .pipe(
                 tap((status) => (this.isLoggedIn = status)),
                 takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+    }
+
+    signOut(): void {
+        this.authService
+            .signOut()
+            .pipe(
+                tap(() => {
+                    this.authService.clearAccessToken();
+                    this.router.navigate(['signin']);
+                }),
+                catchError((error) => {
+                    console.error('Error during signout', error);
+                    return of(null);
+                }),
             )
             .subscribe();
     }
