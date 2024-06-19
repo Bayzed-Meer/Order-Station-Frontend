@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/auth-response.model';
+import { jwtDecode } from 'jwt-decode';
+import { Token } from '../models/token.model';
 
 @Injectable({
     providedIn: 'root',
@@ -10,7 +12,7 @@ export class AuthService {
     private API = 'http://localhost:3000';
 
     private isLoggedIn$ = new BehaviorSubject<boolean>(false);
-    private role$ = new Subject<string>();
+    private role$ = new BehaviorSubject<string>('');
 
     constructor(private http: HttpClient) {}
 
@@ -25,22 +27,31 @@ export class AuthService {
                 tap((response) => {
                     localStorage.setItem('accessToken', response.accessToken);
                     this.isLoggedIn$.next(true);
-                    this.role$.next(response.role);
+                    this.setRole(response.accessToken);
                 }),
             );
     }
 
     signOut(): Observable<void> {
-        return this.http.post<void>(`${this.API}/auth/signout`, {}, { withCredentials: true });
+        return this.http.post<void>(`${this.API}/auth/signout`, {}, { withCredentials: true }).pipe(
+            tap(() => {
+                this.clearUserInfo();
+            }),
+        );
+    }
+
+    resetPassword(formData: FormData): Observable<{ message: string }> {
+        return this.http.post<{ message: string }>(`${this.API}/auth/reset-password`, formData);
     }
 
     refreshToken(): Observable<AuthResponse> {
         return this.http
-            .post<AuthResponse>(`${this.API}/auth/refresh-token`, {})
+            .post<AuthResponse>(`${this.API}/auth/refresh-token`, {}, { withCredentials: true })
             .pipe(
-                tap((response: AuthResponse) =>
-                    localStorage.setItem('accessToken', response.accessToken),
-                ),
+                tap((response: AuthResponse) => {
+                    localStorage.setItem('accessToken', response.accessToken);
+                    this.setRole(response.accessToken);
+                }),
             );
     }
 
@@ -50,13 +61,27 @@ export class AuthService {
         return this.isLoggedIn$.asObservable();
     }
 
-    clearAccessToken(): void {
+    clearUserInfo(): void {
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('role');
         this.isLoggedIn$.next(false);
         this.role$.next('');
     }
 
     getRole(): Observable<string> {
+        this.initializeRole();
         return this.role$.asObservable();
+    }
+
+    private setRole(token: string): void {
+        const decodedToken: Token = jwtDecode(token);
+        const role = decodedToken?.role || '';
+        localStorage.setItem('role', role);
+        this.role$.next(role);
+    }
+
+    private initializeRole(): void {
+        const token = localStorage.getItem('accessToken');
+        if (token) this.setRole(token);
     }
 }

@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
             .signOut()
             .pipe(
                 tap(() => {
-                    this.authService.clearAccessToken();
                     this.router.navigate(['signin']);
                 }),
                 catchError((error) => {
