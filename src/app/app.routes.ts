@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { AuthService } from './core/services/auth.service';
+import { inject } from '@angular/core';
 
 export const routes: Routes = [
     {
@@ -7,10 +9,20 @@ export const routes: Routes = [
             import('./features/auth/signin/signin.component').then((m) => m.SigninComponent),
     },
     {
-        path: 'admin/dashboard',
+        path: 'admin-dashboard',
         loadComponent: () =>
-            import('./shared/navigation/navigation.component').then((m) => m.NavigationComponent),
+            import('./shared/components/navigation/navigation.component').then(
+                (m) => m.NavigationComponent,
+            ),
+        canActivate: [() => inject(AuthService).isLoggedIn()],
         children: [
+            {
+                path: 'dashboard',
+                loadComponent: () =>
+                    import('./features/admin/dashboard/dashboard.component').then(
+                        (m) => m.DashboardComponent,
+                    ),
+            },
             {
                 path: 'signup',
                 loadComponent: () =>
@@ -21,8 +33,15 @@ export const routes: Routes = [
             {
                 path: 'reset-password',
                 loadComponent: () =>
-                    import('./shared/reset-password/reset-password.component').then(
+                    import('./shared/components/reset-password/reset-password.component').then(
                         (m) => m.ResetPasswordComponent,
+                    ),
+            },
+            {
+                path: 'employees',
+                loadComponent: () =>
+                    import('./features/admin/employees/employees.component').then(
+                        (m) => m.EmployeesComponent,
                     ),
             },
         ],

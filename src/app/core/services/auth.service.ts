@@ -69,7 +69,8 @@ export class AuthService {
     }
 
     getRole(): Observable<string> {
-        this.initializeRole();
+        const role = localStorage.getItem('role');
+        this.role$.next(role || '');
         return this.role$.asObservable();
     }
 
@@ -78,10 +79,5 @@ export class AuthService {
         const role = decodedToken?.role || '';
         localStorage.setItem('role', role);
         this.role$.next(role);
-    }
-
-    private initializeRole(): void {
-        const token = localStorage.getItem('accessToken');
-        if (token) this.setRole(token);
     }
 }

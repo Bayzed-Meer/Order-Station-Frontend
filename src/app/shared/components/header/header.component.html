@@ -1,0 +1,30 @@
+<nav class="shadow-md mb-2">
+    <ul class="flex justify-between items-center mx-auto py-3 w-3/4">
+        <li class="flex font-serif gap-4 cursor-pointer">Order Station</li>
+
+        <li class="flex gap-8 text-base font-serif">
+            @if (isLoggedIn) {
+                <span
+                    class="cursor-pointer"
+                    [routerLink]="role + '-dashboard/dashboard'"
+                    routerLinkActive="text-blue-500"
+                >
+                    Dashboard
+                </span>
+                <span
+                    class="cursor-pointer"
+                    tabindex="0"
+                    (click)="signOutUser()"
+                    (keydown.enter)="signOutUser()"
+                >
+                    SignOut
+                </span>
+            }
+            @if (!isLoggedIn) {
+                <span class="cursor-pointer" routerLink="signin" routerLinkActive="text-blue-500">
+                    Signin
+                </span>
+            }
+        </li>
+    </ul>
+</nav>

@@ -10,17 +10,7 @@ describe('HeaderComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [HeaderComponent],
-            providers: [
-                provideRouter([
-                    {
-                        path: 'signup',
-                        loadComponent: () =>
-                            import('../../features/auth/signup/signup.component').then(
-                                (m) => m.SignupComponent,
-                            ),
-                    },
-                ]),
-            ],
+            providers: [provideRouter([])],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HeaderComponent);

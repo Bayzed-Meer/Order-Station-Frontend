@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/header/header.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from './core/services/auth.service';
@@ -25,16 +25,8 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         this.checkLoggedInStatus();
         this.checkRole();
-    }
-
-    checkRole(): void {
-        this.authService
-            .getRole()
-            .pipe(
-                tap((role) => (this.role = role)),
-                takeUntilDestroyed(this.destroyRef),
-            )
-            .subscribe();
+        if (!this.isLoggedIn) this.router.navigate(['/signin']);
+        else this.router.navigate([`/${this.role}-dashboard/dashboard`]);
     }
 
     checkLoggedInStatus(): void {
@@ -42,6 +34,15 @@ export class AppComponent implements OnInit {
             .isLoggedIn()
             .pipe(
                 tap((status) => (this.isLoggedIn = status)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+    }
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
                 takeUntilDestroyed(this.destroyRef),
             )
             .subscribe();

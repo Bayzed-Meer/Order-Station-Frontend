@@ -1,10 +1,12 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, of, switchMap, tap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthService);
+    const router = inject(Router);
 
     const accessToken = localStorage.getItem('accessToken');
 
@@ -35,7 +37,18 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                         return next(req);
                     }),
                     catchError((refreshError) => {
-                        authService.signOut();
+                        authService
+                            .signOut()
+                            .pipe(
+                                tap(() => {
+                                    router.navigate(['signin']);
+                                }),
+                                catchError((error) => {
+                                    console.error('Error during signout', error);
+                                    return of(null);
+                                }),
+                            )
+                            .subscribe();
                         return throwError(() => refreshError);
                     }),
                 );

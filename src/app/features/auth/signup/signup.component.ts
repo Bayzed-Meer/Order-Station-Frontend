@@ -32,6 +32,7 @@ export class SignupComponent implements OnInit {
     initializeForm(): void {
         this.signupForm = this.formBuilder.group({
             username: ['', Validators.required],
+            id: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             password: [
                 '',
@@ -78,7 +79,7 @@ export class SignupComponent implements OnInit {
 
     showSnackbar(message: string) {
         this.snackBar.open(message, 'Close', {
-            duration: 5000,
+            duration: 3000,
             verticalPosition: 'top',
         });
     }

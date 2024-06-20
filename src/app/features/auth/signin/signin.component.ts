@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-signin',
@@ -20,6 +21,7 @@ export class SigninComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private authService: AuthService,
+        private router: Router,
         private destroyRef: DestroyRef,
     ) {}
 
@@ -45,6 +47,8 @@ export class SigninComponent implements OnInit {
                 .pipe(
                     tap(() => {
                         this.loading = false;
+                        const role = localStorage.getItem('role');
+                        this.router.navigate([`${role}-dashboard/dashboard`]);
                     }),
                     catchError((error) => {
                         this.loading = false;

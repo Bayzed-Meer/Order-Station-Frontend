@@ -8,26 +8,7 @@ describe('AppComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [AppComponent],
-            providers: [
-                provideHttpClient(),
-                provideHttpClientTesting(),
-                provideRouter([
-                    {
-                        path: 'signup',
-                        loadComponent: () =>
-                            import('./features/auth/signup/signup.component').then(
-                                (m) => m.SignupComponent,
-                            ),
-                    },
-                    {
-                        path: 'signin',
-                        loadComponent: () =>
-                            import('./features/auth/signin/signin.component').then(
-                                (m) => m.SigninComponent,
-                            ),
-                    },
-                ]),
-            ],
+            providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
         }).compileComponents();
     });
 
