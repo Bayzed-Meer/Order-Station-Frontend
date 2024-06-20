@@ -38,9 +38,9 @@ export const routes: Routes = [
                     ),
             },
             {
-                path: 'employees',
+                path: 'employee',
                 loadComponent: () =>
-                    import('./features/admin/employees/employees.component').then(
+                    import('./features/admin/employee/employee.component').then(
                         (m) => m.EmployeesComponent,
                     ),
             },

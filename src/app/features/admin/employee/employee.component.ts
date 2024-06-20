@@ -1,20 +1,31 @@
-import { Component, DestroyRef, Input, OnInit } from '@angular/core';
-import { UsersListComponent } from '../../../../shared/components/users-list/users-list.component';
-import { UserDetails } from '../../../../shared/models/user-details.model';
-import { AdminService } from '../../admin.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { EmployeesListComponent } from '../employee/employees-list/employees-list.component';
+import { MatInputModule } from '@angular/material/input';
+import { EmployeesCardComponent } from './employees-card/employees-card.component';
+import { MatIconModule } from '@angular/material/icon';
+import { UserDetails } from '../../../shared/models/user-details.model';
+import { AdminService } from '../admin.service';
 import { catchError, of, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'app-employees-list',
+    selector: 'app-employees',
     standalone: true,
-    imports: [UsersListComponent],
-    templateUrl: './employees-list.component.html',
-    styleUrl: './employees-list.component.scss',
+    imports: [
+        MatFormFieldModule,
+        EmployeesListComponent,
+        MatInputModule,
+        EmployeesCardComponent,
+        MatIconModule,
+    ],
+    templateUrl: './employee.component.html',
+    styleUrl: './employee.component.scss',
 })
-export class EmployeesListComponent implements OnInit {
+export class EmployeesComponent implements OnInit {
+    filter = '';
+    isListView = false;
     employees: UserDetails[] = [];
-    @Input() filter = '';
 
     constructor(
         private adminService: AdminService,
@@ -58,5 +69,13 @@ export class EmployeesListComponent implements OnInit {
                 takeUntilDestroyed(this.destroyRef),
             )
             .subscribe();
+    }
+
+    applyFilter(event: Event) {
+        this.filter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    }
+
+    toggleView() {
+        this.isListView = !this.isListView;
     }
 }

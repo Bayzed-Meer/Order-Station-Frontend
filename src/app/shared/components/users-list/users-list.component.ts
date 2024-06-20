@@ -2,7 +2,6 @@ import {
     AfterViewInit,
     Component,
     EventEmitter,
-    Inject,
     Input,
     OnChanges,
     Output,
@@ -15,25 +14,25 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { UserDetails } from '../../models/user-details.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {
-    MAT_DIALOG_DATA,
-    MatDialog,
-    MatDialogActions,
-    MatDialogClose,
-    MatDialogContent,
-    MatDialogRef,
-    MatDialogTitle,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-users-list',
     templateUrl: './users-list.component.html',
     styleUrls: ['./users-list.component.scss'],
     standalone: true,
-    imports: [MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatButtonModule],
+    imports: [
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatIconModule,
+        MatButtonModule,
+        ConfirmDialogComponent,
+    ],
 })
 export class UsersListComponent implements AfterViewInit, OnChanges {
-    displayedColumns: string[] = ['username', 'email', 'actions'];
+    displayedColumns: string[] = ['username', 'id', 'email', 'actions'];
     dataSource: MatTableDataSource<UserDetails> = new MatTableDataSource<UserDetails>();
 
     @Input() users: UserDetails[] = [];
@@ -83,28 +82,4 @@ export class UsersListComponent implements AfterViewInit, OnChanges {
             }
         });
     }
-}
-
-interface ConfirmDialogData {
-    message: string;
-}
-
-@Component({
-    selector: 'app-confirm-dialog',
-    standalone: true,
-    template: `
-        <h2 mat-dialog-title>Confirm</h2>
-        <mat-dialog-content>{{ data.message }}</mat-dialog-content>
-        <mat-dialog-actions>
-            <button mat-button [mat-dialog-close]="'cancel'" cdkFocusInitial>Cancel</button>
-            <button mat-button [mat-dialog-close]="'delete'">Delete</button>
-        </mat-dialog-actions>
-    `,
-    imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
-})
-export class ConfirmDialogComponent {
-    constructor(
-        public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
-    ) {}
 }

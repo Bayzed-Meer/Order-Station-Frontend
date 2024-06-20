@@ -1,0 +1,6 @@
+<app-users-card
+    [users]="users"
+    [filter]="filter"
+    (editUserEvent)="editUserEvent.emit($event)"
+    (deleteUserEvent)="deleteUserEvent.emit($event)"
+/>
