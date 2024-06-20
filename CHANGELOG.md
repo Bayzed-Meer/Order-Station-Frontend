@@ -1,3 +1,15 @@
+# 1.0.0 (2024-06-20)
+
+
+### Features
+
+* **admin:** add employee list view and router guards ([29cdc9c](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/29cdc9c9cbdba973d81db6d62ee5da443634e008))
+* **auth:** add admin dashboard and reset password ([229db84](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/229db840d0bdeeec1a1fe38b5123ec3135f8cabd))
+* **auth:** store user role for access control ([bbbe991](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/bbbe991e2eaa874b53eb8d1dc0235f76b3341dce))
+* **signin:** add signin functionality with refresh token ([9cbb8f4](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/9cbb8f481cd8067c8473db74ea5bf71854838eef))
+* **signout:** add signout ([fe5da70](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/fe5da70c6d74e2a32507b2e36df7318c339c0535))
+* **signup:** add signup functionality ([3bc56cb](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/3bc56cb1c7708d765bfd79f5396079e45aa2a644))
+
 # 1.0.0 (2024-06-11)
 
 
