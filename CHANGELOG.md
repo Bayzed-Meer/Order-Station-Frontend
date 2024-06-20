@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.0.0...v1.1.0) (2024-06-20)
+
+
+### Features
+
+* **admin:** add employee card view ([606e756](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/606e7560a2bf3d3b0a37992069a2cfa8ce445ea1))
+
 # 1.0.0 (2024-06-20)
 
 
