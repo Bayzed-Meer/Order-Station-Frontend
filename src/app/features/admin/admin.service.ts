@@ -20,4 +20,12 @@ export class AdminService {
             `${this.API}/admin/employees/deleteEmployee/${id}`,
         );
     }
+
+    getAllStaffs(): Observable<UserDetails[]> {
+        return this.http.get<UserDetails[]>(`${this.API}/admin/staffs/getAllStaffs`);
+    }
+
+    deleteStaff(id: string): Observable<{ message: string }> {
+        return this.http.delete<{ message: string }>(`${this.API}/admin/staffs/deleteStaff/${id}`);
+    }
 }

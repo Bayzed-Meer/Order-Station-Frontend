@@ -44,6 +44,11 @@ export const routes: Routes = [
                         (m) => m.EmployeesComponent,
                     ),
             },
+            {
+                path: 'staff',
+                loadComponent: () =>
+                    import('./features/admin/staff/staff.component').then((m) => m.StaffComponent),
+            },
         ],
     },
 ];

@@ -1,0 +1,25 @@
+<mat-form-field>
+    <mat-label>Search...</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Bayzed" />
+</mat-form-field>
+
+<button mat-button (click)="toggleView()">
+    <mat-icon>{{ isListView ? 'view_module' : 'view_list' }}</mat-icon>
+    {{ isListView ? 'Switch to Card View' : 'Switch to List View' }}
+</button>
+
+@if (isListView) {
+    <app-staffs-list
+        [filter]="filter"
+        [users]="staffs"
+        (editUserEvent)="handleEditUser($event)"
+        (deleteUserEvent)="handleDeleteUser($event)"
+    />
+} @else {
+    <app-staffs-card
+        [filter]="filter"
+        [users]="staffs"
+        (editUserEvent)="handleEditUser($event)"
+        (deleteUserEvent)="handleDeleteUser($event)"
+    />
+}

@@ -1,0 +1,7 @@
+<app-users-list
+    [users]="users"
+    [filter]="filter"
+    (editUserEvent)="editUserEvent.emit($event)"
+    (deleteUserEvent)="deleteUserEvent.emit($event)"
+    >/>
+</app-users-list>
