@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../core/services/auth.service';
@@ -14,16 +14,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     styleUrl: './signup.component.scss',
 })
 export class SignupComponent implements OnInit {
+    private authService = inject(AuthService);
+    private destroyRef = inject(DestroyRef);
+    private formBuilder = inject(FormBuilder);
+    private snackBar = inject(MatSnackBar);
+
     signupForm!: FormGroup;
     errorMessage!: string;
     loading = false;
-
-    constructor(
-        private formBuilder: FormBuilder,
-        private authService: AuthService,
-        private destroyRef: DestroyRef,
-        private snackBar: MatSnackBar,
-    ) {}
 
     ngOnInit() {
         this.initializeForm();

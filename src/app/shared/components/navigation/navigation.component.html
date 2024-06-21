@@ -9,7 +9,7 @@
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <mat-nav-list>
             <mat-accordion class="example-headers-align">
-                <a mat-list-item routerLink="dashboard">
+                <a mat-list-item routerLink="admin-dashboard">
                     <mat-icon>dashboard</mat-icon>
                     Dashboard
                 </a>
@@ -43,6 +43,15 @@
                         Staff
                     </a>
                 </mat-expansion-panel>
+                <a
+                    mat-list-item
+                    (click)="confirmSignoutPopUp()"
+                    (keydown)="confirmSignoutPopUp()"
+                    tabindex="0"
+                >
+                    <mat-icon>exit_to_app</mat-icon>
+                    Sign out
+                </a>
             </mat-accordion>
         </mat-nav-list>
     </mat-sidenav>
@@ -58,6 +67,7 @@
                     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
                 </button>
             }
+            <span>Order Station</span>
         </mat-toolbar>
         <router-outlet />
     </mat-sidenav-content>

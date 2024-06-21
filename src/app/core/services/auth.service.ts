@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/auth-response.model';
@@ -9,12 +9,11 @@ import { Token } from '../models/token.model';
     providedIn: 'root',
 })
 export class AuthService {
+    private http = inject(HttpClient);
     private API = 'http://localhost:3000';
 
     private isLoggedIn$ = new BehaviorSubject<boolean>(false);
     private role$ = new BehaviorSubject<string>('');
-
-    constructor(private http: HttpClient) {}
 
     signup(formData: FormData): Observable<{ message: string }> {
         return this.http.post<{ message: string }>(`${this.API}/auth/signup`, formData);

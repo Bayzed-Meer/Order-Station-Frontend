@@ -3,6 +3,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NavigationComponent } from './navigation.component';
 import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('NavigationComponent', () => {
     let component: NavigationComponent;
@@ -11,7 +13,7 @@ describe('NavigationComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
-            providers: [provideRouter([])],
+            providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
         }).compileComponents();
     }));
 

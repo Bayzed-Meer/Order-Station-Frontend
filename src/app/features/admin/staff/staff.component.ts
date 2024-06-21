@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,14 +23,12 @@ import { StaffsCardComponent } from './staffs-card/staffs-card.component';
     styleUrl: './staff.component.scss',
 })
 export class StaffComponent implements OnInit {
+    private adminService = inject(AdminService);
+    private destroyRef = inject(DestroyRef);
+
     filter = '';
     isListView = false;
     staffs: UserDetails[] = [];
-
-    constructor(
-        private adminService: AdminService,
-        private destroyRef: DestroyRef,
-    ) {}
 
     ngOnInit(): void {
         this.loadAllstaffs();

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { UserDetails } from '../../models/user-details.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -14,12 +14,11 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrl: './users-card.component.scss',
 })
 export class UsersCardComponent {
+    private dialog = inject(MatDialog);
     @Input() users: UserDetails[] = [];
     @Input() filter = '';
     @Output() editUserEvent = new EventEmitter<UserDetails>();
     @Output() deleteUserEvent = new EventEmitter<UserDetails>();
-
-    constructor(private dialog: MatDialog) {}
 
     get filteredUsers(): UserDetails[] {
         return this.users.filter(
@@ -29,18 +28,22 @@ export class UsersCardComponent {
         );
     }
 
-    editUser(user: UserDetails) {
+    editUser(user: UserDetails): void {
         this.editUserEvent.emit(user);
     }
 
-    deleteUser(user: UserDetails) {
+    deleteUser(user: UserDetails): void {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
-            data: { message: 'Are you sure you want to delete this user?' },
+            data: {
+                message: 'Are you sure you want to delete this user?',
+                confirmButtonLabel: 'Delete',
+                cancelButtonLabel: 'Cancel',
+            },
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            if (result === 'delete') {
+            if (result === 'confirm') {
                 this.deleteUserEvent.emit(user);
             }
         });

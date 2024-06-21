@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserDetails } from '../../shared/models/user-details.model';
 
@@ -7,9 +7,8 @@ import { UserDetails } from '../../shared/models/user-details.model';
     providedIn: 'root',
 })
 export class AdminService {
+    private http = inject(HttpClient);
     private API = 'http://localhost:3000';
-
-    constructor(private http: HttpClient) {}
 
     getAllEmployees(): Observable<UserDetails[]> {
         return this.http.get<UserDetails[]>(`${this.API}/admin/employees/getAllEmployees`);

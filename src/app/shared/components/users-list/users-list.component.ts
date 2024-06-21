@@ -7,6 +7,7 @@ import {
     Output,
     SimpleChanges,
     ViewChild,
+    inject,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -32,6 +33,8 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     ],
 })
 export class UsersListComponent implements AfterViewInit, OnChanges {
+    private dialog = inject(MatDialog);
+
     displayedColumns: string[] = ['username', 'id', 'email', 'actions'];
     dataSource: MatTableDataSource<UserDetails> = new MatTableDataSource<UserDetails>();
 
@@ -42,8 +45,6 @@ export class UsersListComponent implements AfterViewInit, OnChanges {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-
-    constructor(private dialog: MatDialog) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['users']) {
@@ -66,18 +67,22 @@ export class UsersListComponent implements AfterViewInit, OnChanges {
         }
     }
 
-    editUser(user: UserDetails) {
+    editUser(user: UserDetails): void {
         this.editUserEvent.emit(user);
     }
 
-    deleteUser(user: UserDetails) {
+    deleteUser(user: UserDetails): void {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
-            data: { message: 'Are you sure you want to delete this user?' },
+            data: {
+                message: 'Are you sure you want to delete this user?',
+                confirmButtonLabel: 'Delete',
+                cancelButtonLabel: 'Cancel',
+            },
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-            if (result === 'delete') {
+            if (result === 'confirm') {
                 this.deleteUserEvent.emit(user);
             }
         });

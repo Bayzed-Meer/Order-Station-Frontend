@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { EmployeesListComponent } from '../employee/employees-list/employees-list.component';
 import { MatInputModule } from '@angular/material/input';
@@ -23,14 +23,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     styleUrl: './employee.component.scss',
 })
 export class EmployeesComponent implements OnInit {
+    private adminService = inject(AdminService);
+    private destroyRef = inject(DestroyRef);
+
     filter = '';
     isListView = false;
     employees: UserDetails[] = [];
-
-    constructor(
-        private adminService: AdminService,
-        private destroyRef: DestroyRef,
-    ) {}
 
     ngOnInit(): void {
         this.loadAllEmployees();

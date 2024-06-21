@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -14,16 +14,14 @@ import { Router } from '@angular/router';
     styleUrl: './signin.component.scss',
 })
 export class SigninComponent implements OnInit {
+    private authService = inject(AuthService);
+    private destroyRef = inject(DestroyRef);
+    private formBuilder = inject(FormBuilder);
+    private router = inject(Router);
+
     signinForm!: FormGroup;
     errorMessage = '';
     loading = false;
-
-    constructor(
-        private formBuilder: FormBuilder,
-        private authService: AuthService,
-        private router: Router,
-        private destroyRef: DestroyRef,
-    ) {}
 
     ngOnInit() {
         this.initializeForm();
@@ -47,8 +45,7 @@ export class SigninComponent implements OnInit {
                 .pipe(
                     tap(() => {
                         this.loading = false;
-                        const role = localStorage.getItem('role');
-                        this.router.navigate([`${role}-dashboard/dashboard`]);
+                        this.router.navigate([`/dashboard`]);
                     }),
                     catchError((error) => {
                         this.loading = false;

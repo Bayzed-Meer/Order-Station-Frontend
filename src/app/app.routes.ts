@@ -1,27 +1,28 @@
 import { Routes } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
 import { inject } from '@angular/core';
+import { SigninComponent } from './features/auth/signin/signin.component';
+import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
+import { NavigationComponent } from './shared/components/navigation/navigation.component';
 
 export const routes: Routes = [
     {
         path: 'signin',
-        loadComponent: () =>
-            import('./features/auth/signin/signin.component').then((m) => m.SigninComponent),
+        component: SigninComponent,
     },
     {
-        path: 'admin-dashboard',
-        loadComponent: () =>
-            import('./shared/components/navigation/navigation.component').then(
-                (m) => m.NavigationComponent,
-            ),
+        path: 'dashboard',
+        component: NavigationComponent,
         canActivate: [() => inject(AuthService).isLoggedIn()],
         children: [
             {
-                path: 'dashboard',
-                loadComponent: () =>
-                    import('./features/admin/dashboard/dashboard.component').then(
-                        (m) => m.DashboardComponent,
-                    ),
+                path: '',
+                redirectTo: 'admin-dashboard',
+                pathMatch: 'full',
+            },
+            {
+                path: 'admin-dashboard',
+                component: DashboardComponent,
             },
             {
                 path: 'signup',
