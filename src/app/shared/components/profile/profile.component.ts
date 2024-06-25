@@ -5,11 +5,12 @@ import { UserProfile } from '../../models/user-profile.model';
 import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../utils/dialog-utils';
 import { MatDialog } from '@angular/material/dialog';
+import { GeneralInfoComponent } from '../general-info/general-info.component';
 
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [ProfilePictureComponent],
+    imports: [ProfilePictureComponent, GeneralInfoComponent],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss',
 })

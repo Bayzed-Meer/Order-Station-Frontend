@@ -6,11 +6,13 @@ import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
     selector: 'app-signup',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, SpinnerComponent, MatSelectModule],
     templateUrl: './signup.component.html',
     styleUrl: './signup.component.scss',
 })

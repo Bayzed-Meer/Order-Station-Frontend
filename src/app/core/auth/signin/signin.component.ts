@@ -7,11 +7,12 @@ import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { MatDialog } from '@angular/material/dialog';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 
 @Component({
     selector: 'app-signin',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
     templateUrl: './signin.component.html',
     styleUrl: './signin.component.scss',
 })

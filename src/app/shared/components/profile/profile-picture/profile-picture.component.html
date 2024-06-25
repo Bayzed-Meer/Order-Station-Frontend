@@ -17,7 +17,13 @@
     </button>
 
     <button mat-flat-button color="primary" (click)="upload()">
-        <mat-icon>file_upload</mat-icon>
-        Upload
+        @if (loading) {
+            <app-spinner />
+        } @else {
+            <span>
+                <mat-icon>file_upload</mat-icon>
+                Upload
+            </span>
+        }
     </button>
 </div>

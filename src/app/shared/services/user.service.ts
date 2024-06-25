@@ -20,4 +20,8 @@ export class UserService {
             formData,
         );
     }
+
+    updateUserProfile(formData: FormData): Observable<{ message: string }> {
+        return this.http.patch<{ message: string }>(`${this.API}/user/updateProfile`, formData);
+    }
 }

@@ -11,11 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../utils/dialog-utils';
 import { catchError, of, tap } from 'rxjs';
+import { SpinnerComponent } from '../../spinner/spinner.component';
 
 @Component({
     selector: 'app-profile-picture',
     standalone: true,
-    imports: [MatIconModule, MatButtonModule],
+    imports: [MatIconModule, MatButtonModule, SpinnerComponent],
     templateUrl: './profile-picture.component.html',
     styleUrl: './profile-picture.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,6 +29,7 @@ export class ProfilePictureComponent {
     @Input() image!: string;
     profilePicture: string | ArrayBuffer = '';
     selectedFile: File | null = null;
+    loading = false;
 
     onFileSelected(event: Event) {
         const inputElement = event.target as HTMLInputElement;
