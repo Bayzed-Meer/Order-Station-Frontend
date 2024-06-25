@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { AuthResponse } from '../models/auth-response.model';
+import { AuthResponse } from './models/auth-response.model';
 import { jwtDecode } from 'jwt-decode';
-import { Token } from '../models/token.model';
+import { Token } from './models/token.model';
 
 @Injectable({
     providedIn: 'root',

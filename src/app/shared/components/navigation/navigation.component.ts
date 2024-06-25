@@ -11,7 +11,7 @@ import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { DashboardComponent } from '../../../features/admin/dashboard/dashboard.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../core/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

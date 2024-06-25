@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../auth.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 
 @Component({
     selector: 'app-signup',
@@ -17,10 +18,9 @@ export class SignupComponent implements OnInit {
     private authService = inject(AuthService);
     private destroyRef = inject(DestroyRef);
     private formBuilder = inject(FormBuilder);
-    private snackBar = inject(MatSnackBar);
+    private dialog = inject(MatDialog);
 
     signupForm!: FormGroup;
-    errorMessage!: string;
     loading = false;
 
     ngOnInit() {
@@ -59,13 +59,12 @@ export class SignupComponent implements OnInit {
                 .pipe(
                     tap((response) => {
                         this.loading = false;
-                        this.showSnackbar(response.message);
+                        showMessageDialog(this.dialog, response.message, 'close');
                         this.signupForm.reset();
                     }),
                     catchError((error) => {
                         this.loading = false;
-                        this.errorMessage = error.error.message;
-                        this.showSnackbar('Error creating account');
+                        showMessageDialog(this.dialog, error.error.message, 'close');
                         console.log(error);
                         return of(error);
                     }),
@@ -73,12 +72,5 @@ export class SignupComponent implements OnInit {
                 )
                 .subscribe();
         }
-    }
-
-    showSnackbar(message: string) {
-        this.snackBar.open(message, 'Close', {
-            duration: 3000,
-            verticalPosition: 'top',
-        });
     }
 }

@@ -8,6 +8,8 @@ import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { StaffsListComponent } from './staffs-list/staffs-list.component';
 import { StaffsCardComponent } from './staffs-card/staffs-card.component';
+import { MatDialog } from '@angular/material/dialog';
+import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 
 @Component({
     selector: 'app-staff',
@@ -25,6 +27,7 @@ import { StaffsCardComponent } from './staffs-card/staffs-card.component';
 export class StaffComponent implements OnInit {
     private adminService = inject(AdminService);
     private destroyRef = inject(DestroyRef);
+    private dialog = inject(MatDialog);
 
     filter = '';
     isListView = false;
@@ -56,12 +59,15 @@ export class StaffComponent implements OnInit {
         this.adminService
             .deleteStaff(user.id)
             .pipe(
-                tap(() => {
+                tap((response) => {
                     this.loadAllstaffs();
+                    showMessageDialog(this.dialog, response.message, 'close');
+
                     console.log('Staff deletion successful');
                 }),
                 catchError((error) => {
                     console.log('Error deleting staff', error);
+                    showMessageDialog(this.dialog, error.error.message, 'close');
                     return of(null);
                 }),
                 takeUntilDestroyed(this.destroyRef),

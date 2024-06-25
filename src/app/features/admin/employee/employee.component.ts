@@ -8,6 +8,8 @@ import { UserDetails } from '../../../shared/models/user-details.model';
 import { AdminService } from '../admin.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 
 @Component({
     selector: 'app-employees',
@@ -25,6 +27,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class EmployeesComponent implements OnInit {
     private adminService = inject(AdminService);
     private destroyRef = inject(DestroyRef);
+    private dialog = inject(MatDialog);
 
     filter = '';
     isListView = false;
@@ -56,12 +59,14 @@ export class EmployeesComponent implements OnInit {
         this.adminService
             .deleteEmployee(user.id)
             .pipe(
-                tap(() => {
+                tap((response) => {
                     this.loadAllEmployees();
+                    showMessageDialog(this.dialog, response.message, 'close');
                     console.log('Employee deletion successful');
                 }),
                 catchError((error) => {
                     console.log('Error deleting employee', error);
+                    showMessageDialog(this.dialog, error.error.message, 'close');
                     return of(null);
                 }),
                 takeUntilDestroyed(this.destroyRef),

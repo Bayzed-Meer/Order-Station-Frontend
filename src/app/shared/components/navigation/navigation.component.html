@@ -8,51 +8,40 @@
     >
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <mat-nav-list>
-            <mat-accordion class="example-headers-align">
-                <a mat-list-item routerLink="admin-dashboard">
-                    <mat-icon>dashboard</mat-icon>
-                    Dashboard
-                </a>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <mat-icon>lock</mat-icon> Authentication
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <a mat-list-item routerLink="signup">
-                        <mat-icon>person_add</mat-icon>
-                        Sign up
-                    </a>
-                    <a mat-list-item routerLink="reset-password">
-                        <mat-icon>lock_open</mat-icon>
-                        Reset Password
-                    </a>
-                </mat-expansion-panel>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <mat-icon>people</mat-icon> User Management
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <a mat-list-item routerLink="employee">
-                        <mat-icon>work</mat-icon>
-                        Employee
-                    </a>
-                    <a mat-list-item routerLink="staff">
-                        <mat-icon>supervised_user_circle</mat-icon>
-                        Staff
-                    </a>
-                </mat-expansion-panel>
-                <a
-                    mat-list-item
-                    (click)="confirmSignoutPopUp()"
-                    (keydown)="confirmSignoutPopUp()"
-                    tabindex="0"
-                >
-                    <mat-icon>exit_to_app</mat-icon>
-                    Sign out
-                </a>
-            </mat-accordion>
+            <a mat-list-item routerLink="profile">
+                <mat-icon>account_circle</mat-icon>
+                Profile
+            </a>
+            <a mat-list-item routerLink="admin-dashboard">
+                <mat-icon>dashboard</mat-icon>
+                Dashboard
+            </a>
+            <a mat-list-item routerLink="signup">
+                <mat-icon>person_add</mat-icon>
+                Create User
+            </a>
+            <a mat-list-item routerLink="reset-password">
+                <mat-icon>lock_open</mat-icon>
+                Reset Password
+            </a>
+
+            <a mat-list-item routerLink="employee">
+                <mat-icon>work</mat-icon>
+                Employee
+            </a>
+            <a mat-list-item routerLink="staff">
+                <mat-icon>supervised_user_circle</mat-icon>
+                Staff
+            </a>
+            <a
+                mat-list-item
+                (click)="confirmSignoutPopUp()"
+                (keydown)="confirmSignoutPopUp()"
+                tabindex="0"
+            >
+                <mat-icon>exit_to_app</mat-icon>
+                Sign out
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

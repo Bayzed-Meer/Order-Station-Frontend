@@ -1,10 +1,12 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../auth.service';
 import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { showMessageDialog } from '../../../shared/utils/dialog-utils';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-signin',
@@ -18,9 +20,9 @@ export class SigninComponent implements OnInit {
     private destroyRef = inject(DestroyRef);
     private formBuilder = inject(FormBuilder);
     private router = inject(Router);
+    private dialog = inject(MatDialog);
 
     signinForm!: FormGroup;
-    errorMessage = '';
     loading = false;
 
     ngOnInit() {
@@ -49,7 +51,7 @@ export class SigninComponent implements OnInit {
                     }),
                     catchError((error) => {
                         this.loading = false;
-                        this.errorMessage = error.error.message;
+                        showMessageDialog(this.dialog, error.error.message, 'close');
                         console.error(error);
                         return of(error);
                     }),

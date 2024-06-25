@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { AuthService } from './core/services/auth.service';
+import { AuthService } from './core/auth.service';
 import { inject } from '@angular/core';
-import { SigninComponent } from './features/auth/signin/signin.component';
-import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
+import { SigninComponent } from './core/auth/signin/signin.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
+import { ProfileComponent } from './shared/components/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -17,19 +17,24 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'admin-dashboard',
+                redirectTo: 'profile',
                 pathMatch: 'full',
             },
             {
+                path: 'profile',
+                component: ProfileComponent,
+            },
+            {
                 path: 'admin-dashboard',
-                component: DashboardComponent,
+                loadComponent: () =>
+                    import('./features/admin/dashboard/dashboard.component').then(
+                        (m) => m.DashboardComponent,
+                    ),
             },
             {
                 path: 'signup',
                 loadComponent: () =>
-                    import('./features/auth/signup/signup.component').then(
-                        (m) => m.SignupComponent,
-                    ),
+                    import('./core/auth/signup/signup.component').then((m) => m.SignupComponent),
             },
             {
                 path: 'reset-password',

@@ -2,7 +2,7 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AuthService } from './core/services/auth.service';
+import { AuthService } from './core/auth.service';
 
 @Component({
     selector: 'app-root',

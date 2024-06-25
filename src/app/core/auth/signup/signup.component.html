@@ -143,13 +143,6 @@
                     </select>
                 </div>
 
-                <!-- Server-side Error Message -->
-                @if (errorMessage) {
-                    <span class="text-red-500 text-xs md:text-sm font-serif mt-1">
-                        {{ errorMessage }}
-                    </span>
-                }
-
                 <button
                     type="submit"
                     [disabled]="loading"

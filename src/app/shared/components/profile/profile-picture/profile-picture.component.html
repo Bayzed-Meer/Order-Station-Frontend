@@ -1,0 +1,23 @@
+<div class="profile-picture-container">
+    <div class="profile-picture">
+        @if (profilePicture) {
+            <img [src]="profilePicture" alt="Profile Picture" />
+        } @else if (image) {
+            <img [src]="getUserProfilePicture()" alt="Profile Picture" />
+        } @else {
+            <div>No Profile Picture</div>
+        }
+    </div>
+    <p>Profile Picture</p>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" #fileUpload hidden />
+
+    <button mat-flat-button color="primary" (click)="fileUpload.click()">
+        <mat-icon>add_a_photo</mat-icon>
+        Choose
+    </button>
+
+    <button mat-flat-button color="primary" (click)="upload()">
+        <mat-icon>file_upload</mat-icon>
+        Upload
+    </button>
+</div>
