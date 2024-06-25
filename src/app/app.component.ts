@@ -18,12 +18,25 @@ export class AppComponent implements OnInit {
 
     isLoggedIn = false;
 
+    role = '';
+
     ngOnInit(): void {
+        this.checkRole();
         this.checkLoggedInStatus();
         if (!this.isLoggedIn) this.router.navigate(['/signin']);
-        else this.router.navigate([`/dashboard`]);
+        else if (this.role === 'admin') this.router.navigate([`/admin`]);
+        else this.router.navigate(['/employee']);
     }
 
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+    }
     checkLoggedInStatus(): void {
         this.authService
             .isLoggedIn()

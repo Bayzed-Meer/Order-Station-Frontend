@@ -3,7 +3,7 @@ import { AuthService } from './core/auth.service';
 import { inject } from '@angular/core';
 import { SigninComponent } from './core/auth/signin/signin.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
-import { ProfileComponent } from './shared/components/profile/profile.component';
+import { ProfileComponent } from './features/employee/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -11,21 +11,17 @@ export const routes: Routes = [
         component: SigninComponent,
     },
     {
-        path: 'dashboard',
+        path: 'admin',
         component: NavigationComponent,
         canActivate: [() => inject(AuthService).isLoggedIn()],
         children: [
             {
                 path: '',
-                redirectTo: 'profile',
+                redirectTo: 'dashboard',
                 pathMatch: 'full',
             },
             {
-                path: 'profile',
-                component: ProfileComponent,
-            },
-            {
-                path: 'admin-dashboard',
+                path: 'dashboard',
                 loadComponent: () =>
                     import('./features/admin/dashboard/dashboard.component').then(
                         (m) => m.DashboardComponent,
@@ -54,6 +50,43 @@ export const routes: Routes = [
                 path: 'staff',
                 loadComponent: () =>
                     import('./features/admin/staff/staff.component').then((m) => m.StaffComponent),
+            },
+        ],
+    },
+    {
+        path: 'employee',
+        component: NavigationComponent,
+        canActivate: [() => inject(AuthService).isLoggedIn()],
+        children: [
+            {
+                path: '',
+                redirectTo: 'profile',
+                pathMatch: 'full',
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent,
+            },
+            {
+                path: 'dashboard',
+                loadComponent: () =>
+                    import('./features/admin/dashboard/dashboard.component').then(
+                        (m) => m.DashboardComponent,
+                    ),
+            },
+            {
+                path: 'daily-check-in',
+                loadComponent: () =>
+                    import('./features/employee/daily-check-in/daily-check-in.component').then(
+                        (m) => m.DailyCheckInComponent,
+                    ),
+            },
+            {
+                path: 'reset-password',
+                loadComponent: () =>
+                    import('./shared/components/reset-password/reset-password.component').then(
+                        (m) => m.ResetPasswordComponent,
+                    ),
             },
         ],
     },

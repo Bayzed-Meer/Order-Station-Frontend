@@ -7,15 +7,15 @@ import {
     SimpleChanges,
     inject,
 } from '@angular/core';
-import { UserProfile } from '../../models/user-profile.model';
-import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, of, tap } from 'rxjs';
-import { showMessageDialog } from '../../utils/dialog-utils';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SpinnerComponent } from '../spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
+import { EmployeeService } from '../../employee.service';
+import { UserProfile } from '../../models/user-profile.model';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
+import { showMessageDialog } from '../../../../shared/utils/dialog-utils';
 
 @Component({
     selector: 'app-general-info',
@@ -25,7 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
     styleUrl: './general-info.component.scss',
 })
 export class GeneralInfoComponent implements OnInit, OnChanges {
-    private userService = inject(UserService);
+    private employeeService = inject(EmployeeService);
     private formBuilder = inject(FormBuilder);
     private dialog = inject(MatDialog);
     private destroyRef = inject(DestroyRef);
@@ -40,7 +40,7 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['userProfile'] && changes['userProfile'].currentValue) {
-            this.updateFormFields();
+            this.updateForm();
         }
     }
 
@@ -52,12 +52,12 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
             id: [{ value: '', disabled: true }],
             SBU: ['', Validators.required],
             jobTitle: ['', Validators.required],
-            mealPreferences: ['', Validators.required],
+            mealPreference: ['', Validators.required],
         });
-        if (this.userProfile) this.updateFormFields();
+        if (this.userProfile) this.updateForm();
     }
 
-    updateFormFields(): void {
+    updateForm(): void {
         this.generalInfoForm.patchValue({
             username: this.userProfile.username,
             email: this.userProfile.email,
@@ -76,7 +76,7 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
             this.loading = true;
             const formData = { ...this.generalInfoForm.value };
 
-            this.userService
+            this.employeeService
                 .updateUserProfile(formData)
                 .pipe(
                     tap((response) => {

@@ -4,7 +4,7 @@ import { EmployeesListComponent } from '../employee/employees-list/employees-lis
 import { MatInputModule } from '@angular/material/input';
 import { EmployeesCardComponent } from './employees-card/employees-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { UserDetails } from '../../../shared/models/user-details.model';
+import { UserDetails } from '../../employee/models/user-details.model';
 import { AdminService } from '../admin.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

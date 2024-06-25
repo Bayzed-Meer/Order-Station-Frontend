@@ -6,12 +6,12 @@ import {
     inject,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { UserService } from '../../../services/user.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { showMessageDialog } from '../../../utils/dialog-utils';
 import { catchError, of, tap } from 'rxjs';
-import { SpinnerComponent } from '../../spinner/spinner.component';
+import { EmployeeService } from '../../employee.service';
+import { showMessageDialog } from '../../../../shared/utils/dialog-utils';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 
 @Component({
     selector: 'app-profile-picture',
@@ -22,7 +22,7 @@ import { SpinnerComponent } from '../../spinner/spinner.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePictureComponent {
-    private userService = inject(UserService);
+    private employeeService = inject(EmployeeService);
     private dialog = inject(MatDialog);
     private cdr = inject(ChangeDetectorRef);
 
@@ -51,7 +51,7 @@ export class ProfilePictureComponent {
         if (this.selectedFile) {
             const formData = new FormData();
             formData.append('profilePicture', this.selectedFile);
-            this.userService
+            this.employeeService
                 .uploadProfilePicture(formData)
                 .pipe(
                     tap((response) => {

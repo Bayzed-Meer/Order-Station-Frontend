@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsersListComponent } from '../../../../shared/components/users-list/users-list.component';
-import { UserDetails } from '../../../../shared/models/user-details.model';
+import { UserDetails } from '../../../employee/models/user-details.model';
 
 @Component({
     selector: 'app-employees-list',

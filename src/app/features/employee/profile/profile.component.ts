@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ProfilePictureComponent } from './profile-picture/profile-picture.component';
-import { UserService } from '../../services/user.service';
-import { UserProfile } from '../../models/user-profile.model';
 import { catchError, of, tap } from 'rxjs';
-import { showMessageDialog } from '../../utils/dialog-utils';
 import { MatDialog } from '@angular/material/dialog';
-import { GeneralInfoComponent } from '../general-info/general-info.component';
+import { EmployeeService } from '../employee.service';
+import { UserProfile } from '../models/user-profile.model';
+import { showMessageDialog } from '../../../shared/utils/dialog-utils';
+import { GeneralInfoComponent } from './general-info/general-info.component';
 
 @Component({
     selector: 'app-profile',
@@ -15,13 +15,13 @@ import { GeneralInfoComponent } from '../general-info/general-info.component';
     styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
-    private userService = inject(UserService);
+    private employeeService = inject(EmployeeService);
     private dialog = inject(MatDialog);
 
     userProfile!: UserProfile;
 
     ngOnInit(): void {
-        this.userService
+        this.employeeService
             .getUserProfile()
             .pipe(
                 tap((profile: UserProfile) => {
