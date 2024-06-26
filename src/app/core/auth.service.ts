@@ -62,21 +62,19 @@ export class AuthService {
 
     clearUserInfo(): void {
         localStorage.removeItem('accessToken');
-        localStorage.removeItem('role');
         this.isLoggedIn$.next(false);
         this.role$.next('');
     }
 
     getRole(): Observable<string> {
-        const role = localStorage.getItem('role');
-        this.role$.next(role || '');
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken) this.setRole(accessToken);
         return this.role$.asObservable();
     }
 
     private setRole(token: string): void {
         const decodedToken: Token = jwtDecode(token);
-        const role = decodedToken?.role || '';
-        localStorage.setItem('role', role);
+        const role = decodedToken.role;
         this.role$.next(role);
     }
 }

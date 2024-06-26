@@ -21,11 +21,10 @@ export class AppComponent implements OnInit {
     role = '';
 
     ngOnInit(): void {
-        this.checkRole();
         this.checkLoggedInStatus();
+        this.checkRole();
         if (!this.isLoggedIn) this.router.navigate(['/signin']);
-        else if (this.role === 'admin') this.router.navigate([`/admin`]);
-        else this.router.navigate(['/employee']);
+        else this.router.navigate([`/${this.role}`]);
     }
 
     checkRole(): void {

@@ -41,7 +41,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                             .signOut()
                             .pipe(
                                 tap(() => {
-                                    router.navigate(['signin']);
+                                    router.navigate(['/signin']);
                                 }),
                                 catchError((error) => {
                                     console.error('Error during signout', error);

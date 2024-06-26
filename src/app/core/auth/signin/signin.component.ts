@@ -25,9 +25,11 @@ export class SigninComponent implements OnInit {
 
     signinForm!: FormGroup;
     loading = false;
+    role = '';
 
     ngOnInit() {
         this.initializeForm();
+        this.checkRole();
     }
 
     initializeForm(): void {
@@ -35,6 +37,16 @@ export class SigninComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required]],
         });
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     onSubmit() {
@@ -48,7 +60,7 @@ export class SigninComponent implements OnInit {
                 .pipe(
                     tap(() => {
                         this.loading = false;
-                        this.router.navigate([`/dashboard`]);
+                        this.router.navigate([`/${this.role}`]);
                     }),
                     catchError((error) => {
                         this.loading = false;

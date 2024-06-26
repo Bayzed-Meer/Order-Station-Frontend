@@ -8,35 +8,39 @@
     >
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item routerLink="profile">
-                <mat-icon>account_circle</mat-icon>
-                Profile
-            </a>
-            <a mat-list-item routerLink="dashboard">
-                <mat-icon>dashboard</mat-icon>
-                Dashboard
-            </a>
-            <a mat-list-item routerLink="daily-check-in">
-                <mat-icon>event_note</mat-icon>
-                Daily Check In
-            </a>
-            <a mat-list-item routerLink="signup">
-                <mat-icon>person_add</mat-icon>
-                Create User
-            </a>
+            @if (role === 'admin') {
+                <a mat-list-item routerLink="dashboard">
+                    <mat-icon>dashboard</mat-icon>
+                    Dashboard
+                </a>
+                <a mat-list-item routerLink="signup">
+                    <mat-icon>person_add</mat-icon>
+                    Create User
+                </a>
+                <a mat-list-item routerLink="employee">
+                    <mat-icon>work</mat-icon>
+                    Employee
+                </a>
+                <a mat-list-item routerLink="staff">
+                    <mat-icon>supervised_user_circle</mat-icon>
+                    Staff
+                </a>
+            }
+            @if (role === 'employee') {
+                <a mat-list-item routerLink="profile">
+                    <mat-icon>account_circle</mat-icon>
+                    Profile
+                </a>
+                <a mat-list-item routerLink="daily-check-in">
+                    <mat-icon>event_note</mat-icon>
+                    Daily Check In
+                </a>
+            }
             <a mat-list-item routerLink="reset-password">
                 <mat-icon>lock_open</mat-icon>
                 Reset Password
             </a>
 
-            <a mat-list-item routerLink="employee">
-                <mat-icon>work</mat-icon>
-                Employee
-            </a>
-            <a mat-list-item routerLink="staff">
-                <mat-icon>supervised_user_circle</mat-icon>
-                Staff
-            </a>
             <a
                 mat-list-item
                 (click)="confirmSignoutPopUp()"

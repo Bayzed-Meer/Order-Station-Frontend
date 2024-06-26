@@ -33,9 +33,23 @@ export class DailyCheckInComponent implements OnInit {
 
     initializeForm(): void {
         this.checkInForm = this.formBuilder.group({
-            mealPreference: ['', Validators.required],
             workLocation: ['', Validators.required],
+            mealPreference: [{ value: '', disabled: true }, Validators.required],
         });
+
+        this.checkInForm.get('workLocation')?.valueChanges.subscribe((value) => {
+            this.toggleMealPreferenceState(value);
+        });
+    }
+
+    toggleMealPreferenceState(workLocation: string): void {
+        const mealPreferenceControl = this.checkInForm.get('mealPreference');
+        if (workLocation === 'wfh' || workLocation === 'leave') {
+            mealPreferenceControl?.disable();
+            mealPreferenceControl?.setValue('');
+        } else {
+            mealPreferenceControl?.enable();
+        }
     }
 
     getCurrentPreference(): void {
@@ -59,18 +73,19 @@ export class DailyCheckInComponent implements OnInit {
 
     updateForm(): void {
         if (this.currentPreference) {
-            console.log(this.currentPreference);
-
             this.checkInForm.patchValue({
                 mealPreference: this.currentPreference.mealPreference,
                 workLocation: this.currentPreference.workLocation,
             });
+            this.toggleMealPreferenceState(this.currentPreference.workLocation);
         }
     }
 
     onSubmit(): void {
         if (this.checkInForm.valid) {
             const formData = { ...this.checkInForm.value };
+            if (formData.workLocation === 'wfh' || formData.workLocation === 'leave')
+                formData.mealPreference = '';
 
             this.employeeService
                 .checkIn(formData)
