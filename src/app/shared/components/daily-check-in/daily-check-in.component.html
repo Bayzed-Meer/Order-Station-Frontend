@@ -15,8 +15,10 @@
                     <mat-select id="workLocation" formControlName="workLocation">
                         <mat-option value="mohakhali">Mohakhali</mat-option>
                         <mat-option value="mirpur">Mirpur</mat-option>
-                        <mat-option value="wfh">Work From Home</mat-option>
                         <mat-option value="leave">On Leave</mat-option>
+                        @if (role !== 'staff') {
+                            <mat-option value="wfh">Work From Home</mat-option>
+                        }
                     </mat-select>
                 </div>
                 <div>

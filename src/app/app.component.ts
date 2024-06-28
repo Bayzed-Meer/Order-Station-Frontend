@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
             )
             .subscribe();
     }
+
     checkLoggedInStatus(): void {
         this.authService
             .isLoggedIn()

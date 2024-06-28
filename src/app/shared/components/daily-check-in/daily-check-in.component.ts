@@ -8,6 +8,7 @@ import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DailyCheckInService } from '../../services/daily-check-in.service';
 import { DailyCheckIn } from '../../../features/models/daily-checkIn.model';
+import { AuthService } from '../../../core/auth.service';
 
 @Component({
     selector: 'app-daily-check-in',
@@ -17,18 +18,31 @@ import { DailyCheckIn } from '../../../features/models/daily-checkIn.model';
     styleUrl: './daily-check-in.component.scss',
 })
 export class DailyCheckInComponent implements OnInit {
+    private authService = inject(AuthService);
     private dailyCheckInService = inject(DailyCheckInService);
     private formBuilder = inject(FormBuilder);
     private dialog = inject(MatDialog);
     private destroyRef = inject(DestroyRef);
 
     checkInForm!: FormGroup;
-    loading = false;
     currentPreference!: DailyCheckIn;
+    loading = false;
+    role = '';
 
     ngOnInit(): void {
+        this.checkRole();
         this.getCurrentPreference();
         this.initializeForm();
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     initializeForm(): void {
