@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsersListComponent } from '../../../../shared/components/users-list/users-list.component';
-import { UserDetails } from '../../../employee/models/user-details.model';
+import { UserDetails } from '../../../models/user-details.model';
 
 @Component({
     selector: 'app-employees-list',
@@ -12,6 +12,5 @@ import { UserDetails } from '../../../employee/models/user-details.model';
 export class EmployeesListComponent {
     @Input() filter = '';
     @Input() users: UserDetails[] = [];
-    @Output() editUserEvent = new EventEmitter<UserDetails>();
     @Output() deleteUserEvent = new EventEmitter<UserDetails>();
 }

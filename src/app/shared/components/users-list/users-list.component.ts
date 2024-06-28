@@ -12,11 +12,11 @@ import {
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { UserDetails } from '../../../features/employee/models/user-details.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { UserDetails } from '../../../features/models/user-details.model';
 
 @Component({
     selector: 'app-users-list',
@@ -40,7 +40,6 @@ export class UsersListComponent implements AfterViewInit, OnChanges {
 
     @Input() users: UserDetails[] = [];
     @Input() filter = '';
-    @Output() editUserEvent = new EventEmitter<UserDetails>();
     @Output() deleteUserEvent = new EventEmitter<UserDetails>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -65,10 +64,6 @@ export class UsersListComponent implements AfterViewInit, OnChanges {
         if (this.dataSource.paginator) {
             this.dataSource.paginator.firstPage();
         }
-    }
-
-    editUser(user: UserDetails): void {
-        this.editUserEvent.emit(user);
     }
 
     deleteUser(user: UserDetails): void {

@@ -82,6 +82,20 @@ export const routes: Routes = [
                     ),
             },
             {
+                path: 'beverage-order',
+                loadComponent: () =>
+                    import('./features/employee/beverage-order/beverage-order.component').then(
+                        (m) => m.BeverageOrderComponent,
+                    ),
+            },
+            {
+                path: 'order-status',
+                loadComponent: () =>
+                    import('./features/employee/order-status/order-status.component').then(
+                        (m) => m.OrderStatusComponent,
+                    ),
+            },
+            {
                 path: 'reset-password',
                 loadComponent: () =>
                     import('./shared/components/reset-password/reset-password.component').then(

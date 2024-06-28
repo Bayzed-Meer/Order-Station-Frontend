@@ -9,9 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, of, tap } from 'rxjs';
-import { EmployeeService } from '../../employee.service';
 import { showMessageDialog } from '../../../../shared/utils/dialog-utils';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
+import { EmployeeService } from '../../../services/employee.service';
 
 @Component({
     selector: 'app-profile-picture',

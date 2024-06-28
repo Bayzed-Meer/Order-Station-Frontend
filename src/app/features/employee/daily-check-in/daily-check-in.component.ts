@@ -1,13 +1,13 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EmployeeService } from '../employee.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DailyCheckIn } from '../models/daily-checkIn.model';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
 import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EmployeeService } from '../../services/employee.service';
+import { DailyCheckIn } from '../../models/daily-checkIn.model';
 
 @Component({
     selector: 'app-daily-check-in',
@@ -34,21 +34,26 @@ export class DailyCheckInComponent implements OnInit {
     initializeForm(): void {
         this.checkInForm = this.formBuilder.group({
             workLocation: ['', Validators.required],
-            mealPreference: [{ value: '', disabled: true }, Validators.required],
+            meal: [{ value: '', disabled: true }, Validators.required],
+            snacks: [{ value: '', disabled: true }, Validators.required],
         });
 
         this.checkInForm.get('workLocation')?.valueChanges.subscribe((value) => {
-            this.toggleMealPreferenceState(value);
+            this.toggleMealState(value);
         });
     }
 
-    toggleMealPreferenceState(workLocation: string): void {
-        const mealPreferenceControl = this.checkInForm.get('mealPreference');
+    toggleMealState(workLocation: string): void {
+        const mealControl = this.checkInForm.get('meal');
+        const snacksControl = this.checkInForm.get('snacks');
         if (workLocation === 'wfh' || workLocation === 'leave') {
-            mealPreferenceControl?.disable();
-            mealPreferenceControl?.setValue('');
+            mealControl?.disable();
+            mealControl?.setValue('');
+            snacksControl?.disable();
+            snacksControl?.setValue('');
         } else {
-            mealPreferenceControl?.enable();
+            mealControl?.enable();
+            snacksControl?.enable();
         }
     }
 
@@ -74,10 +79,11 @@ export class DailyCheckInComponent implements OnInit {
     updateForm(): void {
         if (this.currentPreference) {
             this.checkInForm.patchValue({
-                mealPreference: this.currentPreference.mealPreference,
+                meal: this.currentPreference.meal,
+                snacks: this.currentPreference.snacks,
                 workLocation: this.currentPreference.workLocation,
             });
-            this.toggleMealPreferenceState(this.currentPreference.workLocation);
+            this.toggleMealState(this.currentPreference.workLocation);
         }
     }
 
@@ -85,7 +91,7 @@ export class DailyCheckInComponent implements OnInit {
         if (this.checkInForm.valid) {
             const formData = { ...this.checkInForm.value };
             if (formData.workLocation === 'wfh' || formData.workLocation === 'leave')
-                formData.mealPreference = '';
+                formData.meal = '';
 
             this.employeeService
                 .checkIn(formData)

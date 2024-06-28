@@ -12,14 +12,12 @@
     <app-staffs-list
         [filter]="filter"
         [users]="staffs"
-        (editUserEvent)="handleEditUser($event)"
         (deleteUserEvent)="handleDeleteUser($event)"
     />
 } @else {
     <app-staffs-card
         [filter]="filter"
         [users]="staffs"
-        (editUserEvent)="handleEditUser($event)"
         (deleteUserEvent)="handleDeleteUser($event)"
     />
 }

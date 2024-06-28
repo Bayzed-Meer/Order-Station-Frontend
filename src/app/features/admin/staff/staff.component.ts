@@ -2,7 +2,6 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { UserDetails } from '../../employee/models/user-details.model';
 import { AdminService } from '../admin.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -10,6 +9,7 @@ import { StaffsListComponent } from './staffs-list/staffs-list.component';
 import { StaffsCardComponent } from './staffs-card/staffs-card.component';
 import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
+import { UserDetails } from '../../models/user-details.model';
 
 @Component({
     selector: 'app-staff',
@@ -49,10 +49,6 @@ export class StaffComponent implements OnInit {
                 takeUntilDestroyed(this.destroyRef),
             )
             .subscribe();
-    }
-
-    handleEditUser(user: UserDetails): void {
-        console.log('Editing user:', user);
     }
 
     handleDeleteUser(user: UserDetails): void {

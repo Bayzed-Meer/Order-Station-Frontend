@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserProfile } from './models/user-profile.model';
-import { DailyCheckIn } from './models/daily-checkIn.model';
+import { DailyCheckIn } from '../models/daily-checkIn.model';
+import { UserProfile } from '../models/user-profile.model';
 
 @Injectable({
     providedIn: 'root',

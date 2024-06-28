@@ -2,10 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ProfilePictureComponent } from './profile-picture/profile-picture.component';
 import { catchError, of, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { EmployeeService } from '../employee.service';
-import { UserProfile } from '../models/user-profile.model';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { GeneralInfoComponent } from './general-info/general-info.component';
+import { EmployeeService } from '../../services/employee.service';
+import { UserProfile } from '../../models/user-profile.model';
 
 @Component({
     selector: 'app-profile',

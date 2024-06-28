@@ -21,12 +21,24 @@
                 </div>
                 <div>
                     <label
-                        for="mealPreference"
+                        for="meal"
                         class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
                     >
-                        Meal Preferences
+                        Meal
                     </label>
-                    <mat-select id="mealPreference" formControlName="mealPreference">
+                    <mat-select id="meal" formControlName="meal">
+                        <mat-option value="regular">Regular</mat-option>
+                        <mat-option value="diet">Diet</mat-option>
+                    </mat-select>
+                </div>
+                <div>
+                    <label
+                        for="snacks"
+                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
+                    >
+                        Snacks
+                    </label>
+                    <mat-select id="snacks" formControlName="snacks">
                         <mat-option value="regular">Regular</mat-option>
                         <mat-option value="diet">Diet</mat-option>
                     </mat-select>

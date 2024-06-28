@@ -1,0 +1,63 @@
+<form [formGroup]="beverageOrderForm" (ngSubmit)="onSubmit()">
+    <div>
+        <mat-form-field>
+            <mat-label>Tea</mat-label>
+            <input matInput formControlName="teaQuantity" type="number" />
+            <button mat-icon-button type="button" (click)="incrementQuantity('tea')">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button mat-icon-button type="button" (click)="decrementQuantity('tea')">
+                <mat-icon>remove</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Tea Amount</mat-label>
+            <mat-select formControlName="teaAmount">
+                <mat-option value="half">Half cup</mat-option>
+                <mat-option value="full">Full cup</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <!-- Coffee -->
+    <div>
+        <mat-form-field>
+            <mat-label>Coffee</mat-label>
+            <input matInput formControlName="coffeeQuantity" type="number" />
+            <button mat-icon-button type="button" (click)="incrementQuantity('coffee')">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button mat-icon-button type="button" (click)="decrementQuantity('coffee')">
+                <mat-icon>remove</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Coffee Amount</mat-label>
+            <mat-select formControlName="coffeeAmount">
+                <mat-option value="half">Half cup</mat-option>
+                <mat-option value="full">Full cup</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <!-- Additional Notes -->
+    <mat-form-field>
+        <mat-label>Additional Notes</mat-label>
+        <textarea matInput formControlName="notes"></textarea>
+    </mat-form-field>
+
+    <!-- Room Number -->
+    <mat-form-field>
+        <mat-label>Room Number</mat-label>
+        <mat-select formControlName="roomNumber">
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="beverageOrderForm.invalid">
+        Submit Order
+    </button>
+</form>

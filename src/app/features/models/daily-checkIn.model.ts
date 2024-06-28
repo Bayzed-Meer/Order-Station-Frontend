@@ -1,4 +1,5 @@
 export interface DailyCheckIn {
-    mealPreference: string;
+    meal: string;
+    snacks: string;
     workLocation: string;
 }

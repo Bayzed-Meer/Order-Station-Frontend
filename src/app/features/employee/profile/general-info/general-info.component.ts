@@ -12,10 +12,10 @@ import { catchError, of, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSelectModule } from '@angular/material/select';
-import { EmployeeService } from '../../employee.service';
-import { UserProfile } from '../../models/user-profile.model';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { showMessageDialog } from '../../../../shared/utils/dialog-utils';
+import { EmployeeService } from '../../../services/employee.service';
+import { UserProfile } from '../../../models/user-profile.model';
 
 @Component({
     selector: 'app-general-info',
