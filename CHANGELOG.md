@@ -1,3 +1,23 @@
+# [1.2.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.1.0...v1.2.0) (2024-06-28)
+
+
+### Bug Fixes
+
+* **dailyCheckIn:** remove work location wfh for staff ([9f373a9](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/9f373a985733334c4f39b14a2db85de341f9f0c2))
+* **route:** redirection, role based nav links, checkin bug ([536b58a](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/536b58af77982c44be2248c07decdc01501281f0))
+
+
+### Features
+
+* **admin:** add order approval, complete and cancel ([baa9ae6](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/baa9ae67f5e0be84c5a7360fc2eacd745d70d104))
+* **admin:** add staff list & card view ([d55580a](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/d55580afd01215c81622ea42c22fccab2fe83c76))
+* **employee:** add beverage order and showing order status ([f65d72e](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/f65d72e142cfbbf59a11552525eec5d7bcf6f135))
+* **employee:** add daily check in feature ([ae30aaf](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/ae30aaf876cc89a4ac21ddce08a7e7b40c667a34))
+* **order:** add order history ([82dbf51](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/82dbf510f625b4d929335a5e0092f966af11f04c))
+* **profile:** add user general info form CRUD ([17336e4](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/17336e492f5d2023165adb7e4e67f32d03a86d4b))
+* **profile:** add user profile picture upload ([f050ffd](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/f050ffd08451412a9f87a6edc2f4f2df89a8bb57))
+* **signout:** move signout to dashboard and remove header ([c4bd793](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/c4bd79315328c3391ca3515d424e9eb18dbe4fbd))
+
 # [1.1.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.0.0...v1.1.0) (2024-06-20)
 
 
