@@ -31,4 +31,8 @@ export class OrderService {
     completeOrder(id: string): Observable<{ message: string }> {
         return this.http.patch<{ message: string }>(`${this.API}/orders/complete-order`, { id });
     }
+
+    getOrderHistory(): Observable<BeverageOrder[]> {
+        return this.http.get<BeverageOrder[]>(`${this.API}/orders/get-order-history`);
+    }
 }

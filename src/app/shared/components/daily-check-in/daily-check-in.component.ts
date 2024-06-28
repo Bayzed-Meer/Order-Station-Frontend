@@ -6,8 +6,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EmployeeService } from '../../services/employee.service';
-import { DailyCheckIn } from '../../models/daily-checkIn.model';
+import { DailyCheckInService } from '../../services/daily-check-in.service';
+import { DailyCheckIn } from '../../../features/models/daily-checkIn.model';
 
 @Component({
     selector: 'app-daily-check-in',
@@ -17,7 +17,7 @@ import { DailyCheckIn } from '../../models/daily-checkIn.model';
     styleUrl: './daily-check-in.component.scss',
 })
 export class DailyCheckInComponent implements OnInit {
-    private employeeService = inject(EmployeeService);
+    private dailyCheckInService = inject(DailyCheckInService);
     private formBuilder = inject(FormBuilder);
     private dialog = inject(MatDialog);
     private destroyRef = inject(DestroyRef);
@@ -58,7 +58,7 @@ export class DailyCheckInComponent implements OnInit {
     }
 
     getCurrentPreference(): void {
-        this.employeeService
+        this.dailyCheckInService
             .getCheckInStatus()
             .pipe(
                 tap((response) => {
@@ -93,8 +93,8 @@ export class DailyCheckInComponent implements OnInit {
             if (formData.workLocation === 'wfh' || formData.workLocation === 'leave')
                 formData.meal = '';
 
-            this.employeeService
-                .checkIn(formData)
+            this.dailyCheckInService
+                .dailyCheckIn(formData)
                 .pipe(
                     tap((response) => {
                         this.loading = false;

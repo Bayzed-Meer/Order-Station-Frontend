@@ -4,8 +4,8 @@ import { catchError, of, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { GeneralInfoComponent } from './general-info/general-info.component';
-import { EmployeeService } from '../../services/employee.service';
-import { UserProfile } from '../../models/user-profile.model';
+import { ProfileService } from '../../services/profile.service';
+import { UserProfile } from '../../../features/models/user-profile.model';
 
 @Component({
     selector: 'app-profile',
@@ -15,13 +15,13 @@ import { UserProfile } from '../../models/user-profile.model';
     styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
-    private employeeService = inject(EmployeeService);
+    private profileService = inject(ProfileService);
     private dialog = inject(MatDialog);
 
     userProfile!: UserProfile;
 
     ngOnInit(): void {
-        this.employeeService
+        this.profileService
             .getUserProfile()
             .pipe(
                 tap((profile: UserProfile) => {

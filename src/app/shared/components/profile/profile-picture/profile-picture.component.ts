@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../../../shared/utils/dialog-utils';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
-import { EmployeeService } from '../../../services/employee.service';
+import { ProfileService } from '../../../services/profile.service';
 
 @Component({
     selector: 'app-profile-picture',
@@ -22,7 +22,7 @@ import { EmployeeService } from '../../../services/employee.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePictureComponent {
-    private employeeService = inject(EmployeeService);
+    private profileService = inject(ProfileService);
     private dialog = inject(MatDialog);
     private cdr = inject(ChangeDetectorRef);
 
@@ -51,7 +51,7 @@ export class ProfilePictureComponent {
         if (this.selectedFile) {
             const formData = new FormData();
             formData.append('profilePicture', this.selectedFile);
-            this.employeeService
+            this.profileService
                 .uploadProfilePicture(formData)
                 .pipe(
                     tap((response) => {

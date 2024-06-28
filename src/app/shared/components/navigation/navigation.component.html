@@ -17,16 +17,16 @@
                     <mat-icon>person_add</mat-icon>
                     Create User
                 </a>
-                <a mat-list-item routerLink="employee">
+                <a mat-list-item routerLink="all-employees">
                     <mat-icon>work</mat-icon>
-                    Employee
+                    Employees
                 </a>
-                <a mat-list-item routerLink="staff">
+                <a mat-list-item routerLink="all-staffs">
                     <mat-icon>supervised_user_circle</mat-icon>
-                    Staff
+                    Staffs
                 </a>
             }
-            @if (role === 'employee') {
+            @if (role !== 'admin') {
                 <a mat-list-item routerLink="profile">
                     <mat-icon>account_circle</mat-icon>
                     Profile
@@ -35,6 +35,8 @@
                     <mat-icon>event_note</mat-icon>
                     Daily Check In
                 </a>
+            }
+            @if (role === 'employee') {
                 <a mat-list-item routerLink="beverage-order">
                     <mat-icon>local_cafe</mat-icon>
                     Beverage Order
@@ -52,7 +54,6 @@
                 <mat-icon>lock_open</mat-icon>
                 Reset Password
             </a>
-
             <a
                 mat-list-item
                 (click)="confirmSignoutPopUp()"
