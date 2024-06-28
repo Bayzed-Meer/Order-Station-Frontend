@@ -8,5 +8,5 @@ export interface BeverageOrder {
     notes?: string;
     roomNumber: number;
     createdAt?: Date;
-    orderStatus?: 'applied' | 'in progress' | 'completed' | 'cancelled';
+    orderStatus?: string;
 }

@@ -6,15 +6,16 @@ import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
-import { BeverageOrder } from '../../models/beverage-order.model';
-import { OrderService } from '../../services/order.service';
 import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
+import { BeverageOrder } from '../../../features/models/beverage-order.model';
+import { OrderService } from '../../services/order.service';
+import { AuthService } from '../../../core/auth.service';
 
 @Component({
-    selector: 'app-order-status',
+    selector: 'app-current-orders',
     standalone: true,
     imports: [
         MatTableModule,
@@ -27,15 +28,20 @@ import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
         TitleCasePipe,
         CommonModule,
     ],
-    templateUrl: './order-status.component.html',
-    styleUrl: './order-status.component.scss',
+    templateUrl: './current-orders.component.html',
+    styleUrl: './current-orders.component.scss',
 })
-export class OrderStatusComponent implements AfterViewInit, OnInit {
+export class CurrentOrdersComponent implements AfterViewInit, OnInit {
     private dialog = inject(MatDialog);
     private orderService = inject(OrderService);
+    private authService = inject(AuthService);
     private destroyRef = inject(DestroyRef);
 
+    role = '';
+
     displayedColumns: string[] = [
+        'username',
+        'id',
         'teaQuantity',
         'teaAmount',
         'coffeeQuantity',
@@ -52,12 +58,23 @@ export class OrderStatusComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort) sort!: MatSort;
 
     ngOnInit(): void {
+        this.checkRole();
         this.getOrders();
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     getOrders(): void {
         this.orderService
-            .getOrders()
+            .getCurrentOrders()
             .pipe(
                 tap((orders: BeverageOrder[]) => {
                     this.dataSource.data = orders;
@@ -77,12 +94,46 @@ export class OrderStatusComponent implements AfterViewInit, OnInit {
         this.dataSource.sort = this.sort;
     }
 
-    deleteOrder(id: string): void {
+    approveOrder(id: string): void {
+        this.orderService
+            .aprroveOrder(id)
+            .pipe(
+                tap(() => {
+                    this.getOrders();
+                }),
+                catchError((error) => {
+                    showMessageDialog(this.dialog, error.error.message, 'close');
+                    console.log(error);
+                    return of(error);
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+    }
+
+    completeOrder(id: string): void {
+        this.orderService
+            .completeOrder(id)
+            .pipe(
+                tap(() => {
+                    this.getOrders();
+                }),
+                catchError((error) => {
+                    showMessageDialog(this.dialog, error.error.message, 'close');
+                    console.log(error);
+                    return of(error);
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+    }
+
+    cancelOrder(id: string): void {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
             data: {
-                message: 'Are you sure you want to delete this order?',
-                confirmButtonLabel: 'Delete',
+                message: 'Are you sure you want to cancel this order?',
+                confirmButtonLabel: 'Cancel',
                 cancelButtonLabel: 'Close',
             },
         });
@@ -90,7 +141,7 @@ export class OrderStatusComponent implements AfterViewInit, OnInit {
         dialogRef.afterClosed().subscribe((result) => {
             if (result === 'confirm') {
                 this.orderService
-                    .deleteOrder(id)
+                    .cancelOrder(id, this.role)
                     .pipe(
                         tap((response) => {
                             this.getOrders();

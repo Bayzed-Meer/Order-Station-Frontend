@@ -52,7 +52,7 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
             id: [{ value: '', disabled: true }],
             SBU: ['', Validators.required],
             jobTitle: ['', Validators.required],
-            mealPreference: ['', Validators.required],
+            meal: ['', Validators.required],
         });
         if (this.userProfile) this.updateForm();
     }
@@ -65,7 +65,7 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
             contactNumber: this.userProfile.contactNumber,
             SBU: this.userProfile.SBU,
             jobTitle: this.userProfile.jobTitle,
-            mealPreferences: this.userProfile.mealPreferences,
+            meal: this.userProfile.meal,
         });
     }
 

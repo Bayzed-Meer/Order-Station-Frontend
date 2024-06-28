@@ -5,6 +5,23 @@ import { SigninComponent } from './core/auth/signin/signin.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { ProfileComponent } from './features/employee/profile/profile.component';
 
+const sharedRoutes: Routes = [
+    {
+        path: 'reset-password',
+        loadComponent: () =>
+            import('./shared/components/reset-password/reset-password.component').then(
+                (m) => m.ResetPasswordComponent,
+            ),
+    },
+    {
+        path: 'current-orders',
+        loadComponent: () =>
+            import('./shared/components/current-orders/current-orders.component').then(
+                (m) => m.CurrentOrdersComponent,
+            ),
+    },
+];
+
 export const routes: Routes = [
     {
         path: 'signin',
@@ -15,6 +32,7 @@ export const routes: Routes = [
         component: NavigationComponent,
         canActivate: [() => inject(AuthService).isLoggedIn()],
         children: [
+            ...sharedRoutes,
             {
                 path: '',
                 redirectTo: 'dashboard',
@@ -32,13 +50,7 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./core/auth/signup/signup.component').then((m) => m.SignupComponent),
             },
-            {
-                path: 'reset-password',
-                loadComponent: () =>
-                    import('./shared/components/reset-password/reset-password.component').then(
-                        (m) => m.ResetPasswordComponent,
-                    ),
-            },
+
             {
                 path: 'employee',
                 loadComponent: () =>
@@ -58,6 +70,7 @@ export const routes: Routes = [
         component: NavigationComponent,
         canActivate: [() => inject(AuthService).isLoggedIn()],
         children: [
+            ...sharedRoutes,
             {
                 path: '',
                 redirectTo: 'profile',
@@ -66,13 +79,6 @@ export const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent,
-            },
-            {
-                path: 'dashboard',
-                loadComponent: () =>
-                    import('./features/admin/dashboard/dashboard.component').then(
-                        (m) => m.DashboardComponent,
-                    ),
             },
             {
                 path: 'daily-check-in',
@@ -86,20 +92,6 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./features/employee/beverage-order/beverage-order.component').then(
                         (m) => m.BeverageOrderComponent,
-                    ),
-            },
-            {
-                path: 'order-status',
-                loadComponent: () =>
-                    import('./features/employee/order-status/order-status.component').then(
-                        (m) => m.OrderStatusComponent,
-                    ),
-            },
-            {
-                path: 'reset-password',
-                loadComponent: () =>
-                    import('./shared/components/reset-password/reset-password.component').then(
-                        (m) => m.ResetPasswordComponent,
                     ),
             },
         ],

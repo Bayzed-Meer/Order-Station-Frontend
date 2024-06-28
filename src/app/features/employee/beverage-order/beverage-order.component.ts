@@ -11,7 +11,7 @@ import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { OrderService } from '../../services/order.service';
+import { OrderService } from '../../../shared/services/order.service';
 
 @Component({
     selector: 'app-beverage-order',

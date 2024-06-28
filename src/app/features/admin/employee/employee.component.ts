@@ -41,7 +41,9 @@ export class EmployeesComponent implements OnInit {
         this.adminService
             .getAllEmployees()
             .pipe(
-                tap((users) => (this.employees = users)),
+                tap((users) => {
+                    this.employees = users;
+                }),
                 catchError((error) => {
                     console.log('Error fetching employees', error);
                     return of([]);
