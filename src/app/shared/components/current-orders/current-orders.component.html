@@ -50,9 +50,7 @@
         <!-- Created At Column -->
         <ng-container matColumnDef="createdAt">
             <th mat-header-cell *matHeaderCellDef>Created At</th>
-            <td mat-cell *matCellDef="let order">
-                {{ order.createdAt ? (order.createdAt | date: 'medium') : '-' }}
-            </td>
+            <td mat-cell *matCellDef="let order">{{ order.createdAt | timesAgo }}</td>
         </ng-container>
 
         <!-- Order Status Column -->

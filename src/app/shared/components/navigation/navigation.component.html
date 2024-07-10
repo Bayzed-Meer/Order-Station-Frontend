@@ -25,6 +25,10 @@
                     <mat-icon>supervised_user_circle</mat-icon>
                     Staffs
                 </a>
+                <a mat-list-item routerLink="reset-password">
+                    <mat-icon>lock_open</mat-icon>
+                    Reset Password
+                </a>
             }
             @if (role !== 'admin') {
                 <a mat-list-item routerLink="profile">
@@ -50,10 +54,7 @@
                 <mat-icon>history</mat-icon>
                 Order History
             </a>
-            <a mat-list-item routerLink="reset-password">
-                <mat-icon>lock_open</mat-icon>
-                Reset Password
-            </a>
+
             <a
                 mat-list-item
                 (click)="confirmSignoutPopUp()"

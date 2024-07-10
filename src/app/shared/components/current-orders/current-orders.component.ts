@@ -9,10 +9,11 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
 import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { BeverageOrder } from '../../../features/models/beverage-order.model';
 import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../../core/auth.service';
+import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
 
 @Component({
     selector: 'app-current-orders',
@@ -24,9 +25,9 @@ import { AuthService } from '../../../core/auth.service';
         MatIconModule,
         MatButtonModule,
         ConfirmDialogComponent,
-        DatePipe,
         TitleCasePipe,
         CommonModule,
+        TimesAgoPipe,
     ],
     templateUrl: './current-orders.component.html',
     styleUrl: './current-orders.component.scss',
