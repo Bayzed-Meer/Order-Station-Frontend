@@ -39,6 +39,12 @@
     gap: 0.25rem;
 }
 
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .no-data-row .no-data-content {
     display: flex;
     justify-content: center;

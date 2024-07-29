@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import {
     FormBuilder,
@@ -22,7 +21,6 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-signup',
     standalone: true,
     imports: [
-        CommonModule,
         ReactiveFormsModule,
         SpinnerComponent,
         MatSelectModule,

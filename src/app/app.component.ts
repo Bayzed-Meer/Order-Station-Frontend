@@ -27,21 +27,21 @@ export class AppComponent implements OnInit {
         else this.router.navigate([`/${this.role}`]);
     }
 
-    checkRole(): void {
-        this.authService
-            .getRole()
-            .pipe(
-                tap((role) => (this.role = role)),
-                takeUntilDestroyed(this.destroyRef),
-            )
-            .subscribe();
-    }
-
     checkLoggedInStatus(): void {
         this.authService
             .isLoggedIn()
             .pipe(
                 tap((status) => (this.isLoggedIn = status)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
                 takeUntilDestroyed(this.destroyRef),
             )
             .subscribe();

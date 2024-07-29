@@ -8,16 +8,20 @@
                     <mat-option value="mohakhali">Mohakhali</mat-option>
                     <mat-option value="mirpur">Mirpur</mat-option>
                     <mat-option value="leave">On Leave</mat-option>
-                    <mat-option *ngIf="role !== 'staff'" value="wfh">Work From Home</mat-option>
+                    @if (role !== 'staff') {
+                        <mat-option value="wfh">Work From Home</mat-option>
+                    }
                 </mat-select>
-                <mat-error
-                    *ngIf="
-                        checkInForm.get('workLocation')?.invalid &&
-                        checkInForm.get('workLocation')?.touched
-                    "
-                >
-                    Work Location is required
-                </mat-error>
+                @if (
+                    checkInForm.get('workLocation')?.invalid &&
+                    checkInForm.get('workLocation')?.touched
+                ) {
+                    <mat-error>
+                        @if (checkInForm.get('worLocation')?.errors?.['required']) {
+                            <ng-container>Work Location is required</ng-container>
+                        }
+                    </mat-error>
+                }
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Meal</mat-label>
@@ -25,11 +29,14 @@
                     <mat-option value="regular">Regular</mat-option>
                     <mat-option value="diet">Diet</mat-option>
                 </mat-select>
-                <mat-error
-                    *ngIf="checkInForm.get('meal')?.invalid && checkInForm.get('meal')?.touched"
-                >
-                    Meal is required
-                </mat-error>
+
+                @if (checkInForm.get('meal')?.invalid && checkInForm.get('meal')?.touched) {
+                    <mat-error>
+                        @if (checkInForm.get('meal')?.errors?.['required']) {
+                            <ng-container>Meal Location is required</ng-container>
+                        }
+                    </mat-error>
+                }
             </mat-form-field>
             <mat-form-field class="full-width">
                 <mat-label>Snacks</mat-label>
@@ -37,20 +44,21 @@
                     <mat-option value="regular">Regular</mat-option>
                     <mat-option value="diet">Diet</mat-option>
                 </mat-select>
-                <mat-error
-                    *ngIf="checkInForm.get('snacks')?.invalid && checkInForm.get('snacks')?.touched"
-                >
-                    Snacks is required
-                </mat-error>
+                @if (checkInForm.get('snacks')?.invalid && checkInForm.get('snacks')?.touched) {
+                    <mat-error>
+                        @if (checkInForm.get('snacks')?.errors?.['required']) {
+                            <ng-container>Snacks Location is required</ng-container>
+                        }
+                    </mat-error>
+                }
             </mat-form-field>
 
             <button mat-flat-button type="submit" [disabled]="loading" class="submit-button">
-                <ng-container *ngIf="loading">
-                    <app-spinner></app-spinner>
-                </ng-container>
-                <ng-container *ngIf="!loading">
+                @if (loading) {
+                    <app-spinner />
+                } @else {
                     <span>Save</span>
-                </ng-container>
+                }
             </button>
         </form>
     </div>

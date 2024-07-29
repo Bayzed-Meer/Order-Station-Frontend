@@ -9,11 +9,12 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
 import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { BeverageOrder } from '../../../features/models/beverage-order.model';
 import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../../core/auth.service';
 import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
     selector: 'app-current-orders',
@@ -26,8 +27,8 @@ import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
         MatButtonModule,
         ConfirmDialogComponent,
         TitleCasePipe,
-        CommonModule,
         TimesAgoPipe,
+        SpinnerComponent,
     ],
     templateUrl: './current-orders.component.html',
     styleUrl: './current-orders.component.scss',
@@ -39,6 +40,7 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
     private destroyRef = inject(DestroyRef);
 
     role = '';
+    loading = true;
 
     displayedColumns: string[] = [];
     dataSource: MatTableDataSource<BeverageOrder> = new MatTableDataSource<BeverageOrder>();
@@ -53,13 +55,19 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
         this.initializeOrderUpdates();
     }
 
-    initializeOrderUpdates(): void {
-        this.orderService
-            .getOrderUpdates()
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => {
-                this.getOrders();
-            });
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     setUpTableColumn(): void {
@@ -91,26 +99,18 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
                   ];
     }
 
-    checkRole(): void {
-        this.authService
-            .getRole()
-            .pipe(
-                tap((role) => (this.role = role)),
-                takeUntilDestroyed(this.destroyRef),
-            )
-            .subscribe();
-    }
-
     getOrders(): void {
         this.orderService
             .getCurrentOrders()
             .pipe(
                 tap((orders: BeverageOrder[]) => {
                     this.dataSource.data = orders;
+                    this.loading = false;
                 }),
                 catchError((error) => {
                     showMessageDialog(this.dialog, error.error.message, 'close');
                     console.log(error);
+                    this.loading = false;
                     return of([]);
                 }),
                 takeUntilDestroyed(this.destroyRef),
@@ -118,9 +118,13 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
             .subscribe();
     }
 
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+    initializeOrderUpdates(): void {
+        this.orderService
+            .getOrderUpdates()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.getOrders();
+            });
     }
 
     approveOrder(id: string): void {

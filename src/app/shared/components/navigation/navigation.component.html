@@ -8,7 +8,7 @@
     >
         <mat-toolbar class="sidenav-menu">Menu</mat-toolbar>
         <mat-nav-list>
-            <ng-container *ngIf="role === 'admin'">
+            @if (role === 'admin') {
                 <a mat-list-item routerLink="dashboard">
                     <div class="nav-item">
                         <mat-icon>dashboard</mat-icon>
@@ -39,8 +39,8 @@
                         Reset Password
                     </div>
                 </a>
-            </ng-container>
-            <ng-container *ngIf="role !== 'admin'">
+            }
+            @if (role !== 'admin') {
                 <a mat-list-item routerLink="profile">
                     <div class="nav-item">
                         <mat-icon>account_circle</mat-icon>
@@ -53,15 +53,15 @@
                         Daily Check In
                     </div>
                 </a>
-            </ng-container>
-            <ng-container *ngIf="role === 'employee'">
+            }
+            @if (role === 'employee') {
                 <a mat-list-item routerLink="beverage-order">
                     <div class="nav-item">
                         <mat-icon>local_cafe</mat-icon>
                         Beverage Order
                     </div>
                 </a>
-            </ng-container>
+            }
             <a mat-list-item routerLink="current-orders">
                 <div class="nav-item">
                     <mat-icon>assignment</mat-icon>

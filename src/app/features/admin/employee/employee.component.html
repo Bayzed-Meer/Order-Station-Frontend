@@ -1,5 +1,8 @@
 <div class="container">
-    <div class="title"><mat-icon>people</mat-icon> All Employees</div>
+    <div class="title">
+        <mat-icon>people</mat-icon>
+        All Employees
+    </div>
     <div class="search-container">
         <mat-form-field class="search-field">
             <mat-label>Search...</mat-label>
@@ -29,19 +32,17 @@
         </div>
     </div>
 
-    <ng-container *ngIf="isListView; else cardView">
+    @if (isListView) {
         <app-employees-list
             [filter]="filter"
             [users]="employees"
             (deleteUserEvent)="handleDeleteUser($event)"
-        ></app-employees-list>
-    </ng-container>
-
-    <ng-template #cardView>
+        />
+    } @else {
         <app-employees-card
             [filter]="filter"
             [users]="employees"
             (deleteUserEvent)="handleDeleteUser($event)"
-        ></app-employees-card>
-    </ng-template>
+        />
+    }
 </div>

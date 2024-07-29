@@ -7,7 +7,6 @@ import {
     Validators,
 } from '@angular/forms';
 import { AuthService } from '../../auth.service';
-import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -22,7 +21,6 @@ import { MatButtonModule } from '@angular/material/button';
     selector: 'app-signin',
     standalone: true,
     imports: [
-        CommonModule,
         ReactiveFormsModule,
         FormsModule,
         SpinnerComponent,

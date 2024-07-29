@@ -16,18 +16,16 @@
                             <mat-icon>remove</mat-icon>
                         </button>
                     </div>
-                    <mat-error
-                        *ngIf="
-                            beverageOrderForm.get('teaQuantity')!.invalid &&
-                            beverageOrderForm.get('teaQuantity')!.touched
-                        "
-                    >
-                        <ng-container
-                            *ngIf="beverageOrderForm.get('teaQuantity')!.errors?.['required']"
-                        >
-                            Tea quantity is required.
-                        </ng-container>
-                    </mat-error>
+                    @if (
+                        beverageOrderForm.get('teaQuantity')!.invalid &&
+                        beverageOrderForm.get('teaQuantity')!.touched
+                    ) {
+                        <mat-error>
+                            @if (beverageOrderForm.get('teaQuantity')!.errors?.['required']) {
+                                <ng-container> Tea quantity is required. </ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
                 <mat-form-field class="half-width">
                     <mat-label>Tea Amount</mat-label>
@@ -35,18 +33,16 @@
                         <mat-option value="half">Half</mat-option>
                         <mat-option value="full">Full</mat-option>
                     </mat-select>
-                    <mat-error
-                        *ngIf="
-                            beverageOrderForm.get('teaAmount')!.invalid &&
-                            beverageOrderForm.get('teaAmount')!.touched
-                        "
-                    >
-                        <ng-container
-                            *ngIf="beverageOrderForm.get('teaAmount')!.errors?.['required']"
-                        >
-                            Tea amount is required.
-                        </ng-container>
-                    </mat-error>
+                    @if (
+                        beverageOrderForm.get('teaAmount')!.invalid &&
+                        beverageOrderForm.get('teaAmount')!.touched
+                    ) {
+                        <mat-error>
+                            @if (beverageOrderForm.get('teaAmount')!.errors?.['required']) {
+                                <ng-container> Tea amount is required. </ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
             </div>
 
@@ -63,18 +59,16 @@
                             <mat-icon>remove</mat-icon>
                         </button>
                     </div>
-                    <mat-error
-                        *ngIf="
-                            beverageOrderForm.get('coffeeQuantity')!.invalid &&
-                            beverageOrderForm.get('coffeeQuantity')!.touched
-                        "
-                    >
-                        <ng-container
-                            *ngIf="beverageOrderForm.get('coffeeQuantity')!.errors?.['required']"
-                        >
-                            Coffee quantity is required.
-                        </ng-container>
-                    </mat-error>
+                    @if (
+                        beverageOrderForm.get('coffeeQuantity')!.invalid &&
+                        beverageOrderForm.get('coffeeQuantity')!.touched
+                    ) {
+                        <mat-error>
+                            @if (beverageOrderForm.get('coffeeQuantity')!.errors?.['required']) {
+                                <ng-container> Coffee quantity is required. </ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
                 <mat-form-field class="half-width">
                     <mat-label>Coffee Amount</mat-label>
@@ -82,18 +76,16 @@
                         <mat-option value="half">Half </mat-option>
                         <mat-option value="full">Full </mat-option>
                     </mat-select>
-                    <mat-error
-                        *ngIf="
-                            beverageOrderForm.get('coffeeAmount')!.invalid &&
-                            beverageOrderForm.get('coffeeAmount')!.touched
-                        "
-                    >
-                        <ng-container
-                            *ngIf="beverageOrderForm.get('coffeeAmount')!.errors?.['required']"
-                        >
-                            Coffee amount is required.
-                        </ng-container>
-                    </mat-error>
+                    @if (
+                        beverageOrderForm.get('coffeeAmount')!.invalid &&
+                        beverageOrderForm.get('coffeeAmount')!.touched
+                    ) {
+                        <mat-error>
+                            @if (beverageOrderForm.get('coffeeAmount')!.errors?.['required']) {
+                                <ng-container> Coffee amount is required. </ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
             </div>
 
@@ -105,16 +97,16 @@
                     <mat-option value="2">2</mat-option>
                     <mat-option value="3">3</mat-option>
                 </mat-select>
-                <mat-error
-                    *ngIf="
-                        beverageOrderForm.get('roomNumber')!.invalid &&
-                        beverageOrderForm.get('roomNumber')!.touched
-                    "
-                >
-                    <ng-container *ngIf="beverageOrderForm.get('roomNumber')!.errors?.['required']">
-                        Room number is required.
-                    </ng-container>
-                </mat-error>
+                @if (
+                    beverageOrderForm.get('roomNumber')!.invalid &&
+                    beverageOrderForm.get('roomNumber')!.touched
+                ) {
+                    <mat-error>
+                        @if (beverageOrderForm.get('roomNumber')!.errors?.['required']) {
+                            <ng-container> Room number is required. </ng-container>
+                        }
+                    </mat-error>
+                }
             </mat-form-field>
 
             <!-- Additional Notes -->
@@ -125,10 +117,11 @@
 
             <!-- Submit Button -->
             <button mat-flat-button type="submit" [disabled]="loading" class="submit-button">
-                <ng-container *ngIf="loading">
-                    <app-spinner></app-spinner>
-                </ng-container>
-                <ng-container *ngIf="!loading">Submit</ng-container>
+                @if (loading) {
+                    <app-spinner />
+                } @else {
+                    <span>Submit</span>
+                }
             </button>
         </form>
     </div>

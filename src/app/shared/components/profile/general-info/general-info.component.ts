@@ -60,9 +60,7 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['userProfile'] && changes['userProfile'].currentValue) {
-            this.updateForm();
-        }
+        if (changes['userProfile'] && changes['userProfile'].currentValue) this.updateForm();
     }
 
     initializeForm(): void {

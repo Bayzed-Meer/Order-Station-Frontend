@@ -12,6 +12,7 @@ import { BeverageOrder } from '../../../features/models/beverage-order.model';
 import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../../core/auth.service';
 import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
     selector: 'app-order-history',
@@ -27,6 +28,7 @@ import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
         TitleCasePipe,
         CommonModule,
         TimesAgoPipe,
+        SpinnerComponent,
     ],
     templateUrl: './order-history.component.html',
     styleUrl: './order-history.component.scss',
@@ -37,6 +39,7 @@ export class OrderHistoryComponent implements AfterViewInit, OnInit {
     private destroyRef = inject(DestroyRef);
 
     role = '';
+    loading = true;
 
     displayedColumns: string[] = [];
     dataSource: MatTableDataSource<BeverageOrder> = new MatTableDataSource<BeverageOrder>();
@@ -48,6 +51,21 @@ export class OrderHistoryComponent implements AfterViewInit, OnInit {
         this.checkRole();
         this.setUpTableColumn();
         this.getOderHistory();
+    }
+
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     setUpTableColumn(): void {
@@ -77,34 +95,21 @@ export class OrderHistoryComponent implements AfterViewInit, OnInit {
                   ];
     }
 
-    checkRole(): void {
-        this.authService
-            .getRole()
-            .pipe(
-                tap((role) => (this.role = role)),
-                takeUntilDestroyed(this.destroyRef),
-            )
-            .subscribe();
-    }
-
     getOderHistory(): void {
         this.orderService
             .getOrderHistory()
             .pipe(
                 tap((orders: BeverageOrder[]) => {
                     this.dataSource.data = orders;
+                    this.loading = false;
                 }),
                 catchError((error) => {
+                    this.loading = false;
                     console.log(error);
                     return of([]);
                 }),
                 takeUntilDestroyed(this.destroyRef),
             )
             .subscribe();
-    }
-
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
     }
 }

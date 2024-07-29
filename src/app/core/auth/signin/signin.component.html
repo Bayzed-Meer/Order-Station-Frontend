@@ -17,16 +17,16 @@
                     formControlName="email"
                     placeholder="example@gmail.com"
                 />
-                <mat-error
-                    *ngIf="signinForm.get('email')!.invalid && signinForm.get('email')!.touched"
-                >
-                    <ng-container *ngIf="signinForm.get('email')!.errors?.['required']">
-                        Email is required.
-                    </ng-container>
-                    <ng-container *ngIf="signinForm.get('email')!.errors?.['email']">
-                        Invalid email format.
-                    </ng-container>
-                </mat-error>
+
+                @if (signinForm.get('email')!.invalid && signinForm.get('email')!.touched) {
+                    <mat-error>
+                        @if (signinForm.get('email')!.errors?.['required']) {
+                            <ng-container> Email is required. </ng-container>
+                        } @else if (signinForm.get('email')!.errors?.['email']) {
+                            <ng-container> Invalid email format. </ng-container>
+                        }
+                    </mat-error>
+                }
             </mat-form-field>
 
             <mat-form-field class="full-width">
@@ -38,24 +38,21 @@
                     formControlName="password"
                     placeholder="••••••••"
                 />
-                <mat-error
-                    *ngIf="
-                        signinForm.get('password')!.invalid && signinForm.get('password')!.touched
-                    "
-                >
-                    <ng-container *ngIf="signinForm.get('password')!.errors?.['required']">
-                        Password is required.
-                    </ng-container>
-                </mat-error>
+                @if (signinForm.get('password')!.invalid && signinForm.get('password')!.touched) {
+                    <mat-error>
+                        @if (signinForm.get('password')!.errors?.['required']) {
+                            <ng-container> Password is required. </ng-container>
+                        }
+                    </mat-error>
+                }
             </mat-form-field>
 
             <button mat-flat-button type="submit" [disabled]="loading" class="submit-button">
-                <ng-container *ngIf="loading">
-                    <app-spinner></app-spinner>
-                </ng-container>
-                <ng-container *ngIf="!loading">
+                @if (loading) {
+                    <app-spinner />
+                } @else {
                     <span>Sign In</span>
-                </ng-container>
+                }
             </button>
         </form>
     </div>

@@ -1,6 +1,9 @@
 <div class="general-info-container">
     <div>
-        <p class="general-info-title"><mat-icon>description</mat-icon> General Information</p>
+        <p class="general-info-title">
+            <mat-icon>description</mat-icon>
+            General Information
+        </p>
 
         <form [formGroup]="generalInfoForm" (ngSubmit)="onSubmit()" class="general-info-form">
             <div>
@@ -26,9 +29,15 @@
                         <mat-option value="js">JS</mat-option>
                         <mat-option value="nop commerce">Nop Commerce</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="generalInfoForm.get('SBU')?.hasError('required')">
-                        SBU is required
-                    </mat-error>
+                    @if (
+                        generalInfoForm.get('SBU')?.invalid && generalInfoForm.get('SBU')?.touched
+                    ) {
+                        <mat-error>
+                            @if (generalInfoForm.get('SBU')?.errors?.['required']) {
+                                <ng-container>SBU is required</ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
             </div>
 
@@ -41,16 +50,30 @@
                         type="text"
                         formControlName="contactNumber"
                     />
-                    <mat-error *ngIf="generalInfoForm.get('contactNumber')?.hasError('required')">
-                        Contact number is required
-                    </mat-error>
+                    @if (
+                        generalInfoForm.get('contactNumber')?.invalid &&
+                        generalInfoForm.get('contactNumber')?.touched
+                    ) {
+                        <mat-error>
+                            @if (generalInfoForm.get('contactNumber')?.errors?.['required']) {
+                                <ng-container>Contact number is required</ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <mat-label>Job Title</mat-label>
                     <input matInput id="jobTitle" type="text" formControlName="jobTitle" />
-                    <mat-error *ngIf="generalInfoForm.get('jobTitle')?.hasError('required')">
-                        Job title is required
-                    </mat-error>
+                    @if (
+                        generalInfoForm.get('jobTitle')?.invalid &&
+                        generalInfoForm.get('jobTitle')?.touched
+                    ) {
+                        <mat-error>
+                            @if (generalInfoForm.get('jobTitle')?.errors?.['required']) {
+                                <ng-container>Job title is required</ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <mat-label>Meal</mat-label>
@@ -58,9 +81,15 @@
                         <mat-option value="regular">Regular</mat-option>
                         <mat-option value="diet">Diet</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="generalInfoForm.get('meal')?.hasError('required')">
-                        Meal is required
-                    </mat-error>
+                    @if (
+                        generalInfoForm.get('meal')?.invalid && generalInfoForm.get('meal')?.touched
+                    ) {
+                        <mat-error>
+                            @if (generalInfoForm.get('meal')?.errors?.['required']) {
+                                <ng-container>Meal is required</ng-container>
+                            }
+                        </mat-error>
+                    }
                 </mat-form-field>
                 <div class="submit-container">
                     <button
@@ -69,12 +98,11 @@
                         [disabled]="loading"
                         class="submit-button"
                     >
-                        <ng-container *ngIf="loading">
-                            <app-spinner></app-spinner>
-                        </ng-container>
-                        <ng-container *ngIf="!loading">
+                        @if (loading) {
+                            <app-spinner />
+                        } @else {
                             <span>Save</span>
-                        </ng-container>
+                        }
                     </button>
                 </div>
             </div>

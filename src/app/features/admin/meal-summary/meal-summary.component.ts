@@ -11,6 +11,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 
 @Component({
     selector: 'app-meal-summary',
@@ -22,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
         MatSortModule,
         MatPaginatorModule,
         MatIconModule,
+        SpinnerComponent,
     ],
     templateUrl: './meal-summary.component.html',
     styleUrl: './meal-summary.component.scss',
@@ -30,6 +32,8 @@ export class MealSummaryComponent implements OnInit, AfterViewInit {
     private adminService = inject(AdminService);
     private dialog = inject(MatDialog);
     private destroyRef = inject(DestroyRef);
+
+    loading = true;
 
     dataSource: MatTableDataSource<MealSummary> = new MatTableDataSource<MealSummary>();
 
@@ -53,10 +57,12 @@ export class MealSummaryComponent implements OnInit, AfterViewInit {
             .pipe(
                 tap((summary: MealSummary[]) => {
                     this.dataSource.data = summary;
+                    this.loading = false;
                 }),
                 catchError((error) => {
                     showMessageDialog(this.dialog, error.error.message, 'close');
                     console.log(error);
+                    this.loading = false;
                     return of([]);
                 }),
                 takeUntilDestroyed(this.destroyRef),

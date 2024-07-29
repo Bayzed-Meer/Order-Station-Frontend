@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 
 @Component({
     selector: 'app-beverage-summary',
@@ -22,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
         MatSortModule,
         MatPaginatorModule,
         MatIconModule,
+        SpinnerComponent,
     ],
     templateUrl: './beverage-summary.component.html',
     styleUrl: './beverage-summary.component.scss',
@@ -30,6 +32,8 @@ export class BeverageSummaryComponent implements OnInit, AfterViewInit {
     private adminService = inject(AdminService);
     private dialog = inject(MatDialog);
     private destroyRef = inject(DestroyRef);
+
+    loading = true;
 
     displayedColumns: string[] = ['date', 'completedOrders', 'cancelledOrders'];
 
@@ -44,10 +48,12 @@ export class BeverageSummaryComponent implements OnInit, AfterViewInit {
             .pipe(
                 tap((summary: BeverageSummary[]) => {
                     this.dataSource.data = summary;
+                    this.loading = false;
                 }),
                 catchError((error) => {
                     showMessageDialog(this.dialog, error.error.message, 'close');
                     console.log(error);
+                    this.loading = false;
                     return of([]);
                 }),
                 takeUntilDestroyed(this.destroyRef),

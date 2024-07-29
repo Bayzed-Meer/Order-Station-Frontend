@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { UserProfile } from '../../../features/models/user-profile.model';
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-users-list',
@@ -32,7 +32,6 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
         MatButtonModule,
         ConfirmDialogComponent,
         TitleCasePipe,
-        CommonModule,
     ],
 })
 export class UsersListComponent implements AfterViewInit, OnChanges {

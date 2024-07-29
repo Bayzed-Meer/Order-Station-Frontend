@@ -1,5 +1,8 @@
 <div class="container">
-    <div class="title"><mat-icon>history</mat-icon> Order History</div>
+    <div class="title">
+        <mat-icon>history</mat-icon>
+        Order History
+    </div>
 
     <div class="table-container">
         <table mat-table [dataSource]="dataSource" matSort>
@@ -69,10 +72,16 @@
 
             <tr class="no-data-row" *matNoDataRow>
                 <td [attr.colspan]="displayedColumns.length">
-                    <div class="no-data-content">
-                        <mat-icon>search_off</mat-icon>
-                        <div>No order history found</div>
-                    </div>
+                    @if (loading) {
+                        <div class="spinner">
+                            <app-spinner></app-spinner>
+                        </div>
+                    } @else {
+                        <div class="no-data-content">
+                            <mat-icon>search_off</mat-icon>
+                            <div>No order history found</div>
+                        </div>
+                    }
                 </td>
             </tr>
 

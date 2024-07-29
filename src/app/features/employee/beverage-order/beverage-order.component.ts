@@ -9,7 +9,6 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, tap } from 'rxjs';
@@ -26,7 +25,6 @@ import { OrderService } from '../../../shared/services/order.service';
         ReactiveFormsModule,
         SpinnerComponent,
         MatSelectModule,
-        CommonModule,
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
@@ -95,6 +93,7 @@ export class BeverageOrderComponent implements OnInit {
     onSubmit(): void {
         this.beverageOrderForm.markAllAsTouched();
         if (this.beverageOrderForm.valid) {
+            this.loading = true;
             const formData = { ...this.beverageOrderForm.value };
 
             this.orderService

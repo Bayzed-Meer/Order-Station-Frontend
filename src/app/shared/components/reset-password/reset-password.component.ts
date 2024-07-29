@@ -45,8 +45,8 @@ export class ResetPasswordComponent implements OnInit {
     role = '';
 
     ngOnInit() {
-        this.initializeForm();
         this.checkRole();
+        this.initializeForm();
     }
 
     checkRole(): void {

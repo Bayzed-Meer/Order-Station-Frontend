@@ -52,8 +52,8 @@ export class DailyCheckInComponent implements OnInit {
 
     ngOnInit(): void {
         this.checkRole();
-        this.getCurrentPreference();
         this.initializeForm();
+        this.getCurrentPreference();
     }
 
     checkRole(): void {
@@ -101,7 +101,6 @@ export class DailyCheckInComponent implements OnInit {
                     if (this.currentPreference) this.updateForm();
                 }),
                 catchError((error) => {
-                    this.loading = false;
                     showMessageDialog(this.dialog, error.error.message, 'close');
                     console.log(error);
                     return of(error);
@@ -125,6 +124,7 @@ export class DailyCheckInComponent implements OnInit {
     onSubmit(): void {
         this.checkInForm.markAllAsTouched();
         if (this.checkInForm.valid) {
+            this.loading = true;
             const formData = { ...this.checkInForm.value };
             if (formData.workLocation === 'wfh' || formData.workLocation === 'leave')
                 formData.meal = '';
