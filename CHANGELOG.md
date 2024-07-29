@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.4.0...v1.4.1) (2024-07-29)
+
+
+### Bug Fixes
+
+* **build:** add correct build command in the package.json for production ([8aadeb5](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/8aadeb5a589f4c601147ff702594b4a78e82c9e1))
+
 # [1.4.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.3.0...v1.4.0) (2024-07-29)
 
 
