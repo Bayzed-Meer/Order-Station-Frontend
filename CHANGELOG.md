@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.4.1...v1.4.2) (2024-07-29)
+
+
+### Bug Fixes
+
+* **tag:** add correct version name in the sidenav ([de918f3](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/de918f39c60fcd7f9f776ba0fd5a0a84081c5722))
+
 ## [1.4.1](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.4.0...v1.4.1) (2024-07-29)
 
 
