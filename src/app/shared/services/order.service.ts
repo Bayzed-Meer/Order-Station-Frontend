@@ -3,13 +3,14 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BeverageOrder } from '../../features/models/beverage-order.model';
 import { io } from 'socket.io-client';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class OrderService {
     private http = inject(HttpClient);
-    private API = 'http://localhost:3000';
+    private API = environment.apiUrl;
     private socket = io(this.API);
 
     private orderUpdatedSubject = new Subject<void>();

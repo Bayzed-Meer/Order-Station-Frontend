@@ -5,6 +5,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { UserProfile } from '../../../features/models/user-profile.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-users-card',
@@ -18,6 +19,8 @@ export class UsersCardComponent {
     @Input() users: UserProfile[] = [];
     @Input() filter = '';
     @Output() deleteUserEvent = new EventEmitter<UserProfile>();
+
+    apiUrl = environment.apiUrl;
 
     get filteredUsers(): UserProfile[] {
         return this.users.filter(

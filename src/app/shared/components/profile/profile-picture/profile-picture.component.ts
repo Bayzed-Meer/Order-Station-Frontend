@@ -8,6 +8,7 @@ import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.
 import { ProfileService } from '../../../services/profile.service';
 import { CommonModule } from '@angular/common';
 import { UserProfile } from '../../../../features/models/user-profile.model';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-profile-picture',
@@ -66,7 +67,7 @@ export class ProfilePictureComponent {
     }
 
     getUserProfilePicture(): string {
-        if (this.image) return `http://localhost:3000/${this.image}`;
+        if (this.image) return `${environment.apiUrl}/${this.image}`;
         return '';
     }
 }

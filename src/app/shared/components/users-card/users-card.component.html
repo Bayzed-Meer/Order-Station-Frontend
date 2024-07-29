@@ -2,11 +2,7 @@
     <ng-container *ngIf="filteredUsers.length > 0; else noData">
         <div *ngFor="let user of filteredUsers" class="user-card">
             <div class="user-card-header">
-                <img
-                    [src]="'http://localhost:3000/' + user.profilePicture"
-                    alt="Avatar"
-                    class="user-avatar"
-                />
+                <img [src]="apiUrl + '/' + user.profilePicture" alt="Avatar" class="user-avatar" />
                 <div class="user-info">
                     <span class="user-username">{{ user.username }}</span>
                     <span class="user-email">{{ user.email }}</span>

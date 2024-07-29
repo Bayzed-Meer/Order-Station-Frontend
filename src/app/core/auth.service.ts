@@ -4,13 +4,14 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse } from './models/auth-response.model';
 import { jwtDecode } from 'jwt-decode';
 import { Token } from './models/token.model';
+import { environment } from './../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
     private http = inject(HttpClient);
-    private API = 'http://localhost:3000';
+    private API = environment.apiUrl;
 
     private isLoggedIn$ = new BehaviorSubject<boolean>(false);
     private role$ = new BehaviorSubject<string>('');

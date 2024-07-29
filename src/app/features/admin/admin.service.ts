@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { MealSummary } from '../models/meal-summary.model';
 import { BeverageSummary } from '../models/beverage-summary.model';
 import { UserProfile } from '../models/user-profile.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AdminService {
     private http = inject(HttpClient);
-    private API = 'http://localhost:3000';
+    private API = environment.apiUrl;
 
     getAllEmployees(): Observable<UserProfile[]> {
         return this.http.get<UserProfile[]>(`${this.API}/admin/employees/getAllEmployees`);
