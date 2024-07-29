@@ -1,0 +1,138 @@
+.container {
+    padding: 1.5rem 2rem;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: #024988;
+    color: rgb(240, 238, 238);
+    font-size: 1.25rem;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    font-weight: 500;
+}
+
+.search-container {
+    display: flex;
+}
+
+.search-field {
+    width: 94%;
+    margin-right: 0.5rem;
+}
+
+.input-field {
+    width: 100%;
+}
+
+.view-controls {
+    width: 6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.views-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #025dad;
+}
+
+.view-buttons {
+    display: flex;
+    gap: 0.25rem;
+    color: #025dad;
+}
+
+.view-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #cecece;
+}
+
+/* Media Queries */
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 1.75rem;
+    }
+
+    .title {
+        font-size: 0.875rem;
+        padding: 0.25rem;
+        gap: 0.25rem;
+    }
+
+    .search-field {
+        width: 80%;
+    }
+
+    .view-controls {
+        width: 20%;
+    }
+
+    .views-label {
+        font-size: 0.875rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 1rem 1.5rem;
+    }
+
+    .title {
+        font-size: 1rem;
+        padding: 0.25rem;
+        gap: 0.25rem;
+    }
+
+    .search-field {
+        width: 89%;
+    }
+
+    .view-controls {
+        width: 11%;
+    }
+
+    .views-label {
+        font-size: 0.875rem;
+    }
+}
+
+/* Laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .title {
+        font-size: 1rem;
+        padding: 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .search-field {
+        width: 90%;
+    }
+
+    .view-controls {
+        width: 10%;
+    }
+
+    .views-label {
+        font-size: 0.875rem;
+    }
+}

@@ -1,80 +1,62 @@
-<div class="flex justify-center w-3/4 mx-auto mt-24 md:mt-36">
-    <div class="bg-first rounded-md shadow-md w-full sm:max-w-md">
-        <div class="p-8 md:p-12">
-            <!-- Title -->
-            <h1 class="font-semibold font-serif text-xl md:text-2xl mb-4 md:mb-6">Sign In</h1>
-            <!-- Sign In Form -->
-            <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class="space-y-4">
-                <!-- Email Input -->
-                <div>
-                    <label
-                        for="email"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Email
-                    </label>
-                    <input
-                        id="email"
-                        type="email"
-                        formControlName="email"
-                        placeholder="example@gmail.com"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                    <!-- Display email error messages -->
-                    @if (signinForm.get('email')!.invalid && signinForm.get('email')!.touched) {
-                        <div class="text-red-500 text-xs md:text-sm font-serif mt-1">
-                            @if (signinForm.get('email')!.errors?.['required']) {
-                                <span> Email is required. </span>
-                            }
-                            @if (signinForm.get('email')!.errors?.['email']) {
-                                <span> Invalid email format. </span>
-                            }
-                        </div>
-                    }
-                </div>
-
-                <!-- Password Input -->
-                <div>
-                    <label
-                        for="password"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Password
-                    </label>
-                    <input
-                        id="password"
-                        type="password"
-                        formControlName="password"
-                        placeholder="••••••••"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                    <!-- Password error messages -->
-
-                    @if (
-                        signinForm.get('password')!.invalid && signinForm.get('password')!.touched
-                    ) {
-                        <div class="text-red-500 text-xs md:text-sm font-serif mt-1">
-                            @if (signinForm.get('password')!.errors?.['required']) {
-                                <span> Password is required. </span>
-                            }
-                        </div>
-                    }
-                </div>
-
-                <!-- Sign In Button -->
-                <button
-                    type="submit"
-                    [disabled]="loading"
-                    class="relative w-full text-white font-serif bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs md:text-sm p-2 md:p-2.5 text-center"
-                >
-                    @if (loading) {
-                        <app-spinner />
-                    }
-                    @if (!loading) {
-                        <span>Sign In</span>
-                    }
-                </button>
-            </form>
+<div class="container">
+    <div class="form-wrapper">
+        <div class="logo-wrapper">
+            <img src="/assets/brand-logo.png" alt="logo" class="logo" />
+            <div class="logo-text">Order Station</div>
         </div>
+        <div class="welcome-text">Hi, Welcome Back</div>
+        <div class="sub-text">Enter your credentials to continue</div>
+
+        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input
+                    matInput
+                    class="input"
+                    id="email"
+                    formControlName="email"
+                    placeholder="example@gmail.com"
+                />
+                <mat-error
+                    *ngIf="signinForm.get('email')!.invalid && signinForm.get('email')!.touched"
+                >
+                    <ng-container *ngIf="signinForm.get('email')!.errors?.['required']">
+                        Email is required.
+                    </ng-container>
+                    <ng-container *ngIf="signinForm.get('email')!.errors?.['email']">
+                        Invalid email format.
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Password</mat-label>
+                <input
+                    matInput
+                    id="password"
+                    type="password"
+                    formControlName="password"
+                    placeholder="••••••••"
+                />
+                <mat-error
+                    *ngIf="
+                        signinForm.get('password')!.invalid && signinForm.get('password')!.touched
+                    "
+                >
+                    <ng-container *ngIf="signinForm.get('password')!.errors?.['required']">
+                        Password is required.
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-flat-button type="submit" [disabled]="loading" class="submit-button">
+                <ng-container *ngIf="loading">
+                    <app-spinner></app-spinner>
+                </ng-container>
+                <ng-container *ngIf="!loading">
+                    <span>Sign In</span>
+                </ng-container>
+            </button>
+        </form>
     </div>
 </div>

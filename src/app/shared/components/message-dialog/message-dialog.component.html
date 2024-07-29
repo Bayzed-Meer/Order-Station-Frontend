@@ -1,6 +1,10 @@
-<mat-dialog-content>{{ data.message }}</mat-dialog-content>
+<mat-dialog-content class="dialog-content">
+    <mat-icon class="dialog-icon">info</mat-icon>
+    <span>{{ data.message }}</span>
+</mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+        <mat-icon>check_circle</mat-icon>
         {{ data.buttonLabel }}
     </button>
 </mat-dialog-actions>

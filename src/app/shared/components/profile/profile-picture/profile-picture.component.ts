@@ -1,10 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Input,
-    inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,21 +6,24 @@ import { catchError, of, tap } from 'rxjs';
 import { showMessageDialog } from '../../../../shared/utils/dialog-utils';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { ProfileService } from '../../../services/profile.service';
+import { CommonModule } from '@angular/common';
+import { UserProfile } from '../../../../features/models/user-profile.model';
 
 @Component({
     selector: 'app-profile-picture',
     standalone: true,
-    imports: [MatIconModule, MatButtonModule, SpinnerComponent],
+    imports: [MatIconModule, MatButtonModule, SpinnerComponent, CommonModule],
     templateUrl: './profile-picture.component.html',
     styleUrl: './profile-picture.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePictureComponent {
     private profileService = inject(ProfileService);
     private dialog = inject(MatDialog);
     private cdr = inject(ChangeDetectorRef);
 
-    @Input() image!: string;
+    @Input() image?: string;
+    @Input() userProfile?: UserProfile;
+
     profilePicture: string | ArrayBuffer = '';
     selectedFile: File | null = null;
     loading = false;
@@ -69,9 +66,7 @@ export class ProfilePictureComponent {
     }
 
     getUserProfilePicture(): string {
-        if (this.image) {
-            return `http://localhost:3000/${this.image}`;
-        }
+        if (this.image) return `http://localhost:3000/${this.image}`;
         return '';
     }
 }

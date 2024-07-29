@@ -40,19 +40,7 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
 
     role = '';
 
-    displayedColumns: string[] = [
-        'username',
-        'id',
-        'teaQuantity',
-        'teaAmount',
-        'coffeeQuantity',
-        'coffeeAmount',
-        'notes',
-        'roomNumber',
-        'createdAt',
-        'orderStatus',
-        'actions',
-    ];
+    displayedColumns: string[] = [];
     dataSource: MatTableDataSource<BeverageOrder> = new MatTableDataSource<BeverageOrder>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -60,7 +48,47 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
 
     ngOnInit(): void {
         this.checkRole();
+        this.setUpTableColumn();
         this.getOrders();
+        this.initializeOrderUpdates();
+    }
+
+    initializeOrderUpdates(): void {
+        this.orderService
+            .getOrderUpdates()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.getOrders();
+            });
+    }
+
+    setUpTableColumn(): void {
+        this.displayedColumns =
+            this.role !== 'employee'
+                ? [
+                      'username',
+                      'id',
+                      'teaQuantity',
+                      'teaAmount',
+                      'coffeeQuantity',
+                      'coffeeAmount',
+                      'notes',
+                      'roomNumber',
+                      'createdAt',
+                      'orderStatus',
+                      'actions',
+                  ]
+                : [
+                      'teaQuantity',
+                      'teaAmount',
+                      'coffeeQuantity',
+                      'coffeeAmount',
+                      'notes',
+                      'roomNumber',
+                      'createdAt',
+                      'orderStatus',
+                      'actions',
+                  ];
     }
 
     checkRole(): void {
@@ -134,8 +162,8 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
             width: '300px',
             data: {
                 message: 'Are you sure you want to cancel this order?',
-                confirmButtonLabel: 'Cancel',
-                cancelButtonLabel: 'Close',
+                confirmButtonLabel: 'Yes',
+                cancelButtonLabel: 'No',
             },
         });
 

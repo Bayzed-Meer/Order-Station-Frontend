@@ -1,157 +1,108 @@
-<div class="flex justify-center w-3/4 mx-auto mt-12 md:mt-24">
-    <div class="bg-first rounded-md shadow-md w-full sm:max-w-md">
-        <div class="p-8 md:p-12">
-            <!-- Title -->
-            <h1 class="font-semibold font-serif text-xl md:text-2xl mb-4 md:mb-6">
-                Create an account
-            </h1>
-            <!-- Sign Up Form -->
-            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-4">
-                <!-- Username Input -->
-                <div>
-                    <label
-                        for="username"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Username
-                    </label>
-                    <input
-                        id="username"
-                        type="text"
-                        formControlName="username"
-                        placeholder="John Cena"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                    <!-- Display username error messages -->
-                    @if (
+<div class="container">
+    <div class="form-wrapper">
+        <p class="form-title">
+            <mat-icon>person_add</mat-icon>
+            Add New User
+        </p>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="full-width">
+                <mat-label>Username</mat-label>
+                <input matInput id="username" formControlName="username" placeholder="John Cena" />
+                <mat-error
+                    *ngIf="
                         signupForm.get('username')!.invalid && signupForm.get('username')!.touched
-                    ) {
-                        <div class="text-red-500 text-xs md:text-sm font-serif mt-1">
-                            @if (signupForm.get('username')!.errors?.['required']) {
-                                <span> Username is required. </span>
-                            }
-                        </div>
-                    }
-                </div>
-                <!-- ID Input -->
-                <div>
-                    <label
-                        for="id"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        ID
-                    </label>
-                    <input
-                        id="id"
-                        type="text"
-                        formControlName="id"
-                        placeholder="bs123"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                    <!-- Display id error messages -->
-                    @if (signupForm.get('id')!.invalid && signupForm.get('id')!.touched) {
-                        <div class="text-red-500 text-xs md:text-sm font-serif mt-1">
-                            @if (signupForm.get('id')!.errors?.['required']) {
-                                <span> id is required. </span>
-                            }
-                        </div>
-                    }
-                </div>
-                <!-- Email Input -->
-                <div>
-                    <label
-                        for="email"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Email
-                    </label>
-                    <input
-                        id="email"
-                        type="email"
-                        formControlName="email"
-                        placeholder="example@gmail.com"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                    <!-- Display email error messages -->
-                    @if (signupForm.get('email')!.invalid && signupForm.get('email')!.touched) {
-                        <div class="text-red-500 text-xs md:text-sm font-serif mt-1">
-                            @if (signupForm.get('email')!.errors?.['required']) {
-                                <span> Email is required. </span>
-                            }
-                            @if (signupForm.get('email')!.errors?.['email']) {
-                                <span> Invalid email format. </span>
-                            }
-                        </div>
-                    }
-                </div>
-
-                <!-- Password Input -->
-                <div>
-                    <label
-                        for="password"
-                        class="block mb-2 text-sm font-medium font-serif text-gray-900"
-                    >
-                        Password
-                    </label>
-                    <input
-                        id="password"
-                        type="password"
-                        formControlName="password"
-                        placeholder="••••••••"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                    <!-- Password error messages -->
-                    @if (
-                        signupForm.get('password')?.invalid && signupForm.get('password')?.touched
-                    ) {
-                        <div class="text-red-500 text-xs md:text-sm font-serif mt-1">
-                            @if (signupForm.get('password')?.errors?.['required']) {
-                                <span>Password is required.</span>
-                            }
-                            @if (signupForm.get('password')?.errors?.['minlength']) {
-                                <span>Password must be at least 8 characters long.</span>
-                            }
-                            @if (signupForm.get('password')?.errors?.['maxlength']) {
-                                <span>Password cannot exceed 32 characters.</span>
-                            }
-                            @if (signupForm.get('password')?.errors?.['pattern']) {
-                                <span>
-                                    Password must contain at least one uppercase letter, one
-                                    lowercase letter, one digit, and one special character (e.g.,
-                                    "&#64;", #, $, etc.).
-                                </span>
-                            }
-                        </div>
-                    }
-                </div>
-
-                <!-- Role Select -->
-                <div>
-                    <label
-                        for="role"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Role
-                    </label>
-                    <mat-select id="role" formControlName="role">
-                        <mat-option value="employee">Employee</mat-option>
-                        <mat-option value="staff">Staff</mat-option>
-                    </mat-select>
-                </div>
-
-                <button
-                    type="submit"
-                    [disabled]="loading"
-                    class="relative w-full text-white font-serif bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs md:text-sm p-2 md:p-2.5 text-center"
+                    "
                 >
-                    @if (loading) {
-                        <app-spinner />
-                    }
-                    @if (!loading) {
-                        <span>Sign Up</span>
-                    }
-                </button>
-            </form>
-        </div>
+                    <ng-container *ngIf="signupForm.get('username')!.errors?.['required']">
+                        Username is required.
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Role</mat-label>
+                <mat-select id="role" formControlName="role">
+                    <mat-option value="employee">Employee</mat-option>
+                    <mat-option value="staff">Staff</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="signupForm.get('role')!.invalid && signupForm.get('role')!.touched"
+                >
+                    <ng-container *ngIf="signupForm.get('role')!.errors?.['required']">
+                        Role is required.
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>ID</mat-label>
+                <input matInput id="id" formControlName="id" placeholder="BS123" />
+                <mat-error *ngIf="signupForm.get('id')!.invalid && signupForm.get('id')!.touched">
+                    <ng-container *ngIf="signupForm.get('id')!.errors?.['required']">
+                        ID is required.
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input
+                    matInput
+                    id="email"
+                    formControlName="email"
+                    placeholder="example@gmail.com"
+                />
+                <mat-error
+                    *ngIf="signupForm.get('email')!.invalid && signupForm.get('email')!.touched"
+                >
+                    <ng-container *ngIf="signupForm.get('email')!.errors?.['required']">
+                        Email is required.
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.get('email')!.errors?.['email']">
+                        Invalid email format.
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>Password</mat-label>
+                <input
+                    matInput
+                    id="password"
+                    type="password"
+                    formControlName="password"
+                    placeholder="••••••••"
+                />
+                <mat-error
+                    *ngIf="
+                        signupForm.get('password')!.invalid && signupForm.get('password')!.touched
+                    "
+                >
+                    <ng-container *ngIf="signupForm.get('password')!.errors?.['required']">
+                        Password is required.
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.get('password')!.errors?.['minlength']">
+                        Password must be at least 8 characters long.
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.get('password')!.errors?.['maxlength']">
+                        Password cannot exceed 32 characters.
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.get('password')!.errors?.['pattern']">
+                        Password must contain at least one uppercase letter, one lowercase letter,
+                        one digit, and one special character (e.g., '&#64;', #, $, etc.).
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-flat-button type="submit" [disabled]="loading" class="submit-button">
+                <ng-container *ngIf="loading">
+                    <app-spinner></app-spinner>
+                </ng-container>
+                <ng-container *ngIf="!loading">
+                    <span>Submit</span>
+                </ng-container>
+            </button>
+        </form>
     </div>
 </div>

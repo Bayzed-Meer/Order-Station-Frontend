@@ -6,68 +6,94 @@
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false"
     >
-        <mat-toolbar color="primary">Menu</mat-toolbar>
+        <mat-toolbar class="sidenav-menu">Menu</mat-toolbar>
         <mat-nav-list>
-            @if (role === 'admin') {
+            <ng-container *ngIf="role === 'admin'">
                 <a mat-list-item routerLink="dashboard">
-                    <mat-icon>dashboard</mat-icon>
-                    Dashboard
+                    <div class="nav-item">
+                        <mat-icon>dashboard</mat-icon>
+                        Dashboard
+                    </div>
                 </a>
                 <a mat-list-item routerLink="signup">
-                    <mat-icon>person_add</mat-icon>
-                    Create User
+                    <div class="nav-item">
+                        <mat-icon>person_add</mat-icon>
+                        Add User
+                    </div>
                 </a>
                 <a mat-list-item routerLink="all-employees">
-                    <mat-icon>work</mat-icon>
-                    Employees
+                    <div class="nav-item">
+                        <mat-icon>work</mat-icon>
+                        Employees
+                    </div>
                 </a>
                 <a mat-list-item routerLink="all-staffs">
-                    <mat-icon>supervised_user_circle</mat-icon>
-                    Staffs
+                    <div class="nav-item">
+                        <mat-icon>supervised_user_circle</mat-icon>
+                        Staffs
+                    </div>
                 </a>
                 <a mat-list-item routerLink="reset-password">
-                    <mat-icon>lock_open</mat-icon>
-                    Reset Password
+                    <div class="nav-item">
+                        <mat-icon>lock_open</mat-icon>
+                        Reset Password
+                    </div>
                 </a>
-            }
-            @if (role !== 'admin') {
+            </ng-container>
+            <ng-container *ngIf="role !== 'admin'">
                 <a mat-list-item routerLink="profile">
-                    <mat-icon>account_circle</mat-icon>
-                    Profile
+                    <div class="nav-item">
+                        <mat-icon>account_circle</mat-icon>
+                        Profile
+                    </div>
                 </a>
                 <a mat-list-item routerLink="daily-check-in">
-                    <mat-icon>event_note</mat-icon>
-                    Daily Check In
+                    <div class="nav-item">
+                        <mat-icon>event_note</mat-icon>
+                        Daily Check In
+                    </div>
                 </a>
-            }
-            @if (role === 'employee') {
+            </ng-container>
+            <ng-container *ngIf="role === 'employee'">
                 <a mat-list-item routerLink="beverage-order">
-                    <mat-icon>local_cafe</mat-icon>
-                    Beverage Order
+                    <div class="nav-item">
+                        <mat-icon>local_cafe</mat-icon>
+                        Beverage Order
+                    </div>
                 </a>
-            }
+            </ng-container>
             <a mat-list-item routerLink="current-orders">
-                <mat-icon>assignment</mat-icon>
-                Current Orders
+                <div class="nav-item">
+                    <mat-icon>assignment</mat-icon>
+                    Current Orders
+                </div>
             </a>
             <a mat-list-item routerLink="order-history">
-                <mat-icon>history</mat-icon>
-                Order History
+                <div class="nav-item">
+                    <mat-icon>history</mat-icon>
+                    Order History
+                </div>
             </a>
-
             <a
                 mat-list-item
                 (click)="confirmSignoutPopUp()"
                 (keydown)="confirmSignoutPopUp()"
                 tabindex="0"
             >
-                <mat-icon>exit_to_app</mat-icon>
-                Sign out
+                <div class="nav-item">
+                    <mat-icon>exit_to_app</mat-icon>
+                    Sign out
+                </div>
             </a>
         </mat-nav-list>
+        <div class="tag">
+            <img src="/assets/brand-logo.png" alt="logo" class="logo" />
+            <span>Order Station</span>
+            <span>v1.3.0</span>
+        </div>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <mat-toolbar color="primary">
+    <mat-sidenav-content class="sidenav-content">
+        <mat-toolbar color="primary" class="sidenav-content-toolbar">
             @if (isHandset$ | async) {
                 <button
                     type="button"
@@ -78,8 +104,9 @@
                     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
                 </button>
             }
-            <span>Order Station</span>
+            <img src="/assets/brand-logo.png" alt="logo" class="toolbar-logo" />
+            <div class="toolbar-title">Order Station</div>
         </mat-toolbar>
-        <router-outlet />
+        <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

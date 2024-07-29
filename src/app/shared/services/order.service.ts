@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BeverageOrder } from '../../features/models/beverage-order.model';
+import { io } from 'socket.io-client';
 
 @Injectable({
     providedIn: 'root',
@@ -9,6 +10,19 @@ import { BeverageOrder } from '../../features/models/beverage-order.model';
 export class OrderService {
     private http = inject(HttpClient);
     private API = 'http://localhost:3000';
+    private socket = io(this.API);
+
+    private orderUpdatedSubject = new Subject<void>();
+
+    constructor() {
+        this.socket.on('orderUpdated', () => {
+            this.orderUpdatedSubject.next();
+        });
+    }
+
+    getOrderUpdates(): Observable<void> {
+        return this.orderUpdatedSubject.asObservable();
+    }
 
     createOrder(formData: FormData): Observable<{ message: string }> {
         return this.http.post<{ message: string }>(`${this.API}/orders/create-order`, formData);

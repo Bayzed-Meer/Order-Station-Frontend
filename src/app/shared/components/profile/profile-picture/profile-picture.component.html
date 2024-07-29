@@ -1,29 +1,42 @@
-<div class="profile-picture-container">
-    <div class="profile-picture">
-        @if (profilePicture) {
-            <img [src]="profilePicture" alt="Profile Picture" />
-        } @else if (image) {
-            <img [src]="getUserProfilePicture()" alt="Profile Picture" />
-        } @else {
-            <div>No Profile Picture</div>
-        }
+<div class="profile-container">
+    <div class="title"><mat-icon>account_circle</mat-icon>User Profile</div>
+    <div class="profile">
+        <img
+            [src]="profilePicture ? profilePicture : getUserProfilePicture()"
+            alt="Profile Picture"
+            class="profile-picture"
+        />
+        <div class="profile-details">
+            <div class="user-info">
+                <mat-icon>person</mat-icon>
+                <span>{{ userProfile?.username }}</span>
+            </div>
+            <div class="user-info">
+                <mat-icon>badge</mat-icon>
+                <span>{{ userProfile?.id }}</span>
+            </div>
+            <div class="user-info">
+                <mat-icon>alternate_email</mat-icon>
+                <span>{{ userProfile?.email }}</span>
+            </div>
+        </div>
     </div>
-    <p>Profile Picture</p>
-    <input type="file" accept="image/*" (change)="onFileSelected($event)" #fileUpload hidden />
 
-    <button mat-flat-button color="primary" (click)="fileUpload.click()">
-        <mat-icon>add_a_photo</mat-icon>
-        Choose
-    </button>
+    <div class="button-container">
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" #fileUpload hidden />
 
-    <button mat-flat-button color="primary" (click)="upload()">
-        @if (loading) {
-            <app-spinner />
-        } @else {
-            <span>
+        <button mat-stroked-button color="primary" (click)="fileUpload.click()">
+            <mat-icon>add_a_photo</mat-icon>
+            Choose
+        </button>
+
+        <button mat-stroked-button color="primary" (click)="upload()">
+            @if (loading) {
+                <app-spinner />
+            } @else {
                 <mat-icon>file_upload</mat-icon>
-                Upload
-            </span>
-        }
-    </button>
+            }
+            Upload
+        </button>
+    </div>
 </div>

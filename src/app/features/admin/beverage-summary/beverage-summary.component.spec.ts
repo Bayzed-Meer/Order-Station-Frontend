@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BeverageSummaryComponent } from './beverage-summary.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('BeverageSummaryComponent', () => {
     let component: BeverageSummaryComponent;
@@ -10,7 +11,7 @@ describe('BeverageSummaryComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [BeverageSummaryComponent],
+            imports: [BeverageSummaryComponent, NoopAnimationsModule],
             providers: [provideHttpClient(), provideHttpClientTesting()],
         }).compileComponents();
 

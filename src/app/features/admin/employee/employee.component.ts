@@ -9,7 +9,8 @@ import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
-import { UserDetails } from '../../models/user-details.model';
+import { UserProfile } from '../../models/user-profile.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-employees',
@@ -20,6 +21,7 @@ import { UserDetails } from '../../models/user-details.model';
         MatInputModule,
         EmployeesCardComponent,
         MatIconModule,
+        CommonModule,
     ],
     templateUrl: './employee.component.html',
     styleUrl: './employee.component.scss',
@@ -31,7 +33,7 @@ export class EmployeesComponent implements OnInit {
 
     filter = '';
     isListView = false;
-    employees: UserDetails[] = [];
+    employees: UserProfile[] = [];
 
     ngOnInit(): void {
         this.loadAllEmployees();
@@ -53,7 +55,7 @@ export class EmployeesComponent implements OnInit {
             .subscribe();
     }
 
-    handleDeleteUser(user: UserDetails): void {
+    handleDeleteUser(user: UserProfile): void {
         this.adminService
             .deleteEmployee(user.id)
             .pipe(

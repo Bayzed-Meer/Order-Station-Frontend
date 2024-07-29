@@ -1,63 +1,23 @@
-<div class="flex justify-center w-3/4 mx-auto mt-12 md:mt-24">
-    <div class="bg-first rounded-md shadow-md w-full sm:max-w-md">
-        <div class="p-8 md:p-12">
-            <h1 class="font-semibold font-serif text-xl md:text-2xl mb-4 md:mb-6">
-                General Information
-            </h1>
-            <!-- General Info Form -->
-            <form [formGroup]="generalInfoForm" (ngSubmit)="onSubmit()" class="space-y-4">
-                <!-- Username Input -->
-                <div>
-                    <label
-                        for="username"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Username
-                    </label>
-                    <input
-                        id="username"
-                        type="text"
-                        formControlName="username"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                </div>
-                <!-- ID Input -->
-                <div>
-                    <label
-                        for="id"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        ID
-                    </label>
-                    <input
-                        id="id"
-                        type="text"
-                        formControlName="id"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                </div>
-                <!-- Email Input -->
-                <div>
-                    <label
-                        for="email"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Email
-                    </label>
-                    <input
-                        id="general-email"
-                        type="email"
-                        formControlName="email"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                </div>
-                <div>
-                    <label
-                        for="SBU"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        SBU
-                    </label>
+<div class="general-info-container">
+    <div>
+        <p class="general-info-title"><mat-icon>description</mat-icon> General Information</p>
+
+        <form [formGroup]="generalInfoForm" (ngSubmit)="onSubmit()" class="general-info-form">
+            <div>
+                <mat-form-field class="full-width">
+                    <mat-label>Username</mat-label>
+                    <input matInput id="username" type="text" formControlName="username" />
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>ID</mat-label>
+                    <input matInput id="id" type="text" formControlName="id" />
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput id="general-email" type="email" formControlName="email" />
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>SBU</mat-label>
                     <mat-select id="SBU" formControlName="SBU">
                         <mat-option value="fintech">Fintech</mat-option>
                         <mat-option value="healthtech">Healthtech</mat-option>
@@ -66,64 +26,58 @@
                         <mat-option value="js">JS</mat-option>
                         <mat-option value="nop commerce">Nop Commerce</mat-option>
                     </mat-select>
-                </div>
+                    <mat-error *ngIf="generalInfoForm.get('SBU')?.hasError('required')">
+                        SBU is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-                <div>
-                    <label
-                        for="contactNumber"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Contact Number
-                    </label>
+            <div>
+                <mat-form-field class="full-width">
+                    <mat-label>Contact Number</mat-label>
                     <input
+                        matInput
                         id="contactNumber"
-                        type="number"
-                        formControlName="contactNumber"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
-                    />
-                </div>
-                <div>
-                    <label
-                        for="jobTitle"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Job Title
-                    </label>
-                    <input
-                        id="jobTitle"
                         type="text"
-                        formControlName="jobTitle"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 font-serif text-xs md:text-sm rounded-md block w-full p-2 md:p-2.5"
+                        formControlName="contactNumber"
                     />
-                </div>
-
-                <!-- Meal Select -->
-                <div>
-                    <label
-                        for="meal"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Meal
-                    </label>
+                    <mat-error *ngIf="generalInfoForm.get('contactNumber')?.hasError('required')">
+                        Contact number is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Job Title</mat-label>
+                    <input matInput id="jobTitle" type="text" formControlName="jobTitle" />
+                    <mat-error *ngIf="generalInfoForm.get('jobTitle')?.hasError('required')">
+                        Job title is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Meal</mat-label>
                     <mat-select id="meal" formControlName="meal">
                         <mat-option value="regular">Regular</mat-option>
                         <mat-option value="diet">Diet</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="generalInfoForm.get('meal')?.hasError('required')">
+                        Meal is required
+                    </mat-error>
+                </mat-form-field>
+                <div class="submit-container">
+                    <button
+                        mat-flat-button
+                        type="submit"
+                        [disabled]="loading"
+                        class="submit-button"
+                    >
+                        <ng-container *ngIf="loading">
+                            <app-spinner></app-spinner>
+                        </ng-container>
+                        <ng-container *ngIf="!loading">
+                            <span>Save</span>
+                        </ng-container>
+                    </button>
                 </div>
-
-                <button
-                    type="submit"
-                    [disabled]="loading"
-                    class="relative w-full text-white font-serif bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs md:text-sm p-2 md:p-2.5 text-center"
-                >
-                    @if (loading) {
-                        <app-spinner />
-                    }
-                    @if (!loading) {
-                        <span>Save</span>
-                    }
-                </button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>

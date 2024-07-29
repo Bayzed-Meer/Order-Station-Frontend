@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DailyCheckInComponent } from './daily-check-in.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DailyCheckInComponent', () => {
     let component: DailyCheckInComponent;
@@ -10,7 +11,7 @@ describe('DailyCheckInComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DailyCheckInComponent],
+            imports: [DailyCheckInComponent, NoopAnimationsModule],
             providers: [provideHttpClient(), provideHttpClientTesting()],
         }).compileComponents();
 

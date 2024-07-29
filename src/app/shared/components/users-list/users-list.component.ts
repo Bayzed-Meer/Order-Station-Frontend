@@ -16,7 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { UserDetails } from '../../../features/models/user-details.model';
+import { UserProfile } from '../../../features/models/user-profile.model';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-users-list',
@@ -30,17 +31,27 @@ import { UserDetails } from '../../../features/models/user-details.model';
         MatIconModule,
         MatButtonModule,
         ConfirmDialogComponent,
+        TitleCasePipe,
+        CommonModule,
     ],
 })
 export class UsersListComponent implements AfterViewInit, OnChanges {
     private dialog = inject(MatDialog);
 
-    displayedColumns: string[] = ['username', 'id', 'email', 'actions'];
-    dataSource: MatTableDataSource<UserDetails> = new MatTableDataSource<UserDetails>();
+    displayedColumns: string[] = [
+        'username',
+        'id',
+        'email',
+        'contactNumber',
+        'SBU',
+        'jobTitle',
+        'actions',
+    ];
+    dataSource: MatTableDataSource<UserProfile> = new MatTableDataSource<UserProfile>();
 
-    @Input() users: UserDetails[] = [];
+    @Input() users: UserProfile[] = [];
     @Input() filter = '';
-    @Output() deleteUserEvent = new EventEmitter<UserDetails>();
+    @Output() deleteUserEvent = new EventEmitter<UserProfile>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -66,7 +77,7 @@ export class UsersListComponent implements AfterViewInit, OnChanges {
         }
     }
 
-    deleteUser(user: UserDetails): void {
+    deleteUser(user: UserProfile): void {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             width: '300px',
             data: {

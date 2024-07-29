@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GeneralInfoComponent } from './general-info.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('GeneralInfoComponent', () => {
     let component: GeneralInfoComponent;
@@ -10,7 +11,7 @@ describe('GeneralInfoComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [GeneralInfoComponent],
+            imports: [GeneralInfoComponent, NoopAnimationsModule],
             providers: [provideHttpClient(), provideHttpClientTesting()],
         }).compileComponents();
 

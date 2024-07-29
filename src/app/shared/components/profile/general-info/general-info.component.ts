@@ -7,7 +7,13 @@ import {
     SimpleChanges,
     inject,
 } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { catchError, of, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,11 +22,26 @@ import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.
 import { showMessageDialog } from '../../../../shared/utils/dialog-utils';
 import { ProfileService } from '../../../services/profile.service';
 import { UserProfile } from '../../../../features/models/user-profile.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-general-info',
     standalone: true,
-    imports: [ReactiveFormsModule, SpinnerComponent, MatSelectModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatIconModule,
+    ],
     templateUrl: './general-info.component.html',
     styleUrl: './general-info.component.scss',
 })

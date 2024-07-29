@@ -1,20 +1,42 @@
-@for (user of filteredUsers; track $index) {
-    <mat-card class="user-card">
-        <mat-card-header>
-            <div mat-card-avatar class="avatar"></div>
-            <mat-card-title>{{ user.username }}</mat-card-title>
-            <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <p>ID: {{ user.id }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-flat-button color="warn" (click)="deleteUser(user)">
-                <mat-icon>delete</mat-icon>
-                <span class="action-text">Delete User</span>
-            </button>
-        </mat-card-actions>
-    </mat-card>
-} @empty {
-    <div>No data matching for the filter "{{ filter }}"</div>
-}
+<div class="user-grid">
+    <ng-container *ngIf="filteredUsers.length > 0; else noData">
+        <div *ngFor="let user of filteredUsers" class="user-card">
+            <div class="user-card-header">
+                <img
+                    [src]="'http://localhost:3000/' + user.profilePicture"
+                    alt="Avatar"
+                    class="user-avatar"
+                />
+                <div class="user-info">
+                    <span class="user-username">{{ user.username }}</span>
+                    <span class="user-email">{{ user.email }}</span>
+                </div>
+            </div>
+            <div class="user-details">
+                <div class="user-detail">
+                    <mat-icon>badge</mat-icon>
+                    <span>{{ user.id ? user.id : 'No ID available' }}</span>
+                </div>
+                <div class="user-detail">
+                    <mat-icon>phone</mat-icon>
+                    <span>{{
+                        user.contactNumber ? user.contactNumber : 'No contact number available'
+                    }}</span>
+                </div>
+                <div class="user-detail">
+                    <mat-icon>business</mat-icon>
+                    <span>{{ user.SBU ? (user.SBU | titlecase) : 'No SBU available' }}</span>
+                </div>
+                <div class="user-detail">
+                    <mat-icon>work</mat-icon>
+                    <span>{{
+                        user.jobTitle ? (user.jobTitle | titlecase) : 'No job title available'
+                    }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #noData>
+        <div class="no-data">No data matching for the filter "{{ filter }}"</div>
+    </ng-template>
+</div>

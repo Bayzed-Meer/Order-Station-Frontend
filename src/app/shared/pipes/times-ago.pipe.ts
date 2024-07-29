@@ -15,13 +15,13 @@ export class TimesAgoPipe implements PipeTransform {
         const minutes = Math.floor((diffInSeconds % 3600) / 60);
 
         if (days > 0) {
-            return `${days} day${days > 1 ? 's' : ''} ${hours} hour${hours > 1 ? 's' : ''} ago`;
+            return `${days}d ${hours}h ago`;
         } else if (hours > 0) {
-            return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            return `${hours}h ${minutes}m ago`;
         } else if (minutes > 0) {
-            return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            return `${minutes}m ago`;
         } else {
-            return 'just now';
+            return 'just now!';
         }
     }
 }

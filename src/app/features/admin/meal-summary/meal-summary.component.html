@@ -1,33 +1,85 @@
-<div class="flex justify-center items-center h-full">
-    <div class="max-w-5xl w-full bg-white shadow-lg rounded-lg overflow-hidden p-6">
-        <h2 class="text-xl font-bold mb-4 text-center">Meal Summary</h2>
-        <ng-container *ngIf="mealSummary$ | async as summary">
-            <div class="grid grid-cols-2 gap-6">
-                <!-- Today's Counts -->
-                <div class="bg-gray-100 p-4 rounded shadow">
-                    <div class="text-lg font-semibold mb-2">Today</div>
-                    <div class="text-sm font-semibold mb-2">Mirpur Diet Count:</div>
-                    <div class="text-green-600">{{ summary.todayMirpurDietCount }}</div>
-                    <div class="text-sm font-semibold mb-2">Mirpur Regular Count:</div>
-                    <div class="text-green-600">{{ summary.todayMirpurRegularCount }}</div>
-                    <div class="text-sm font-semibold mb-2">Mohakhali Diet Count:</div>
-                    <div class="text-green-600">{{ summary.todayMohakhaliDietCount }}</div>
-                    <div class="text-sm font-semibold mb-2">Mohakhali Regular Count:</div>
-                    <div class="text-green-600">{{ summary.todayMohakhaliRegularCount }}</div>
-                </div>
-                <!-- Yesterday's Counts -->
-                <div class="bg-gray-100 p-4 rounded shadow">
-                    <div class="text-lg font-semibold mb-2">Yesterday</div>
-                    <div class="text-sm font-semibold mb-2">Mirpur Diet Count:</div>
-                    <div class="text-green-600">{{ summary.yesterdayMirpurDietCount }}</div>
-                    <div class="text-sm font-semibold mb-2">Mirpur Regular Count:</div>
-                    <div class="text-green-600">{{ summary.yesterdayMirpurRegularCount }}</div>
-                    <div class="text-sm font-semibold mb-2">Mohakhali Diet Count:</div>
-                    <div class="text-green-600">{{ summary.yesterdayMohakhaliDietCount }}</div>
-                    <div class="text-sm font-semibold mb-2">Mohakhali Regular Count:</div>
-                    <div class="text-green-600">{{ summary.yesterdayMohakhaliRegularCount }}</div>
-                </div>
-            </div>
-        </ng-container>
+<div class="container">
+    <div class="title">
+        <mat-icon>restaurant</mat-icon>
+        Meal Report
+    </div>
+    <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <!-- Date Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{ summary.date | date: 'MMM dd, yyyy' }}
+                </td>
+            </ng-container>
+
+            <!-- Mirpur Diet Count Column -->
+            <ng-container matColumnDef="mirpurDietCount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mirpur Diet</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{ summary.mirpurDietCount }}
+                </td>
+            </ng-container>
+
+            <!-- Mirpur Regular Count Column -->
+            <ng-container matColumnDef="mirpurRegularCount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mirpur Regular</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{ summary.mirpurRegularCount }}
+                </td>
+            </ng-container>
+
+            <!-- Mohakhali Diet Count Column -->
+            <ng-container matColumnDef="mohakhaliDietCount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mohakhali Diet</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{ summary.mohakhaliDietCount }}
+                </td>
+            </ng-container>
+
+            <!-- Mohakhali Regular Count Column -->
+            <ng-container matColumnDef="mohakhaliRegularCount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Mohakhali Regular</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{ summary.mohakhaliRegularCount }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalDiet">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Diet</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{ summary.mirpurDietCount + summary.mohakhaliDietCount }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalRegular">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Regular</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{ summary.mirpurRegularCount + summary.mohakhaliRegularCount }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                <td mat-cell *matCellDef="let summary">
+                    {{
+                        summary.mirpurRegularCount +
+                            summary.mohakhaliRegularCount +
+                            summary.mirpurDietCount +
+                            summary.mohakhaliDietCount
+                    }}
+                </td>
+            </ng-container>
+
+            <!-- Table Rows -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <!-- Paginator -->
+        <mat-paginator
+            [pageSizeOptions]="[7, 14, 21]"
+            aria-label="Select page of orders"
+        ></mat-paginator>
     </div>
 </div>

@@ -11,6 +11,7 @@ import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
 import { BeverageOrder } from '../../../features/models/beverage-order.model';
 import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../../core/auth.service';
+import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
 
 @Component({
     selector: 'app-order-history',
@@ -25,6 +26,7 @@ import { AuthService } from '../../../core/auth.service';
         DatePipe,
         TitleCasePipe,
         CommonModule,
+        TimesAgoPipe,
     ],
     templateUrl: './order-history.component.html',
     styleUrl: './order-history.component.scss',
@@ -36,18 +38,7 @@ export class OrderHistoryComponent implements AfterViewInit, OnInit {
 
     role = '';
 
-    displayedColumns: string[] = [
-        'username',
-        'id',
-        'teaQuantity',
-        'teaAmount',
-        'coffeeQuantity',
-        'coffeeAmount',
-        'notes',
-        'roomNumber',
-        'createdAt',
-        'orderStatus',
-    ];
+    displayedColumns: string[] = [];
     dataSource: MatTableDataSource<BeverageOrder> = new MatTableDataSource<BeverageOrder>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -55,7 +46,35 @@ export class OrderHistoryComponent implements AfterViewInit, OnInit {
 
     ngOnInit(): void {
         this.checkRole();
+        this.setUpTableColumn();
         this.getOderHistory();
+    }
+
+    setUpTableColumn(): void {
+        this.displayedColumns =
+            this.role !== 'employee'
+                ? [
+                      'username',
+                      'id',
+                      'teaQuantity',
+                      'teaAmount',
+                      'coffeeQuantity',
+                      'coffeeAmount',
+                      'notes',
+                      'roomNumber',
+                      'createdAt',
+                      'orderStatus',
+                  ]
+                : [
+                      'teaQuantity',
+                      'teaAmount',
+                      'coffeeQuantity',
+                      'coffeeAmount',
+                      'notes',
+                      'roomNumber',
+                      'createdAt',
+                      'orderStatus',
+                  ];
     }
 
     checkRole(): void {

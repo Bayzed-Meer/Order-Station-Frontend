@@ -1,0 +1,110 @@
+.general-info-container {
+    padding: 2rem;
+    margin: 1.5rem 0rem;
+    background-color: #ffffff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.general-info-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #025dad;
+}
+
+.general-info-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.submit-button {
+    font-size: 0.875rem;
+    text-wrap: nowrap;
+}
+
+/* Media Queries */
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .general-info-container {
+        padding: 1.5rem;
+        margin: 1rem 0rem;
+    }
+
+    .general-info-title {
+        font-size: 0.875rem;
+        gap: 0.5rem;
+    }
+
+    .general-info-form {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .submit-container {
+        display: block;
+        padding: 0 0;
+    }
+
+    .submit-button {
+        font-size: 0.75rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .general-info-container {
+        padding: 1.5rem;
+        margin: 1rem 0rem;
+    }
+
+    .general-info-title {
+        font-size: 1rem;
+        gap: 0.5rem;
+    }
+
+    .general-info-form {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .submit-container {
+        display: block;
+        padding: 0 0;
+    }
+
+    .submit-button {
+        font-size: 0.75rem;
+    }
+}
+
+/* Laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .general-info-container {
+        padding: 1.5rem;
+        margin: 1rem 0rem;
+    }
+
+    .general-info-title {
+        font-size: 1rem;
+        gap: 0.5rem;
+    }
+
+    .submit-button {
+        font-size: 0.875rem;
+    }
+}

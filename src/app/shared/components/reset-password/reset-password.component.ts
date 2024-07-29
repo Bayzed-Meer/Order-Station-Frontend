@@ -1,16 +1,36 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { AuthService } from '../../../core/auth.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../utils/dialog-utils';
+import { SpinnerComponent } from '../spinner/spinner.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-reset-password',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SpinnerComponent,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        MatIconModule,
+    ],
     templateUrl: './reset-password.component.html',
     styleUrl: './reset-password.component.scss',
 })
@@ -22,9 +42,21 @@ export class ResetPasswordComponent implements OnInit {
 
     resetPasswordForm!: FormGroup;
     loading = false;
+    role = '';
 
     ngOnInit() {
         this.initializeForm();
+        this.checkRole();
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     initializeForm(): void {

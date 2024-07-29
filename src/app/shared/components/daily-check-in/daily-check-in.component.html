@@ -1,64 +1,57 @@
-<div class="flex justify-center w-3/4 mx-auto mt-12 md:mt-24">
-    <div class="bg-first rounded-md shadow-md w-full sm:max-w-md">
-        <div class="p-8 md:p-12">
-            <h1 class="font-semibold font-serif text-xl md:text-2xl mb-4 md:mb-6">
-                Daily Check In
-            </h1>
-            <form [formGroup]="checkInForm" (ngSubmit)="onSubmit()" class="space-y-4">
-                <div>
-                    <label
-                        for="workLocation"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Work Location
-                    </label>
-                    <mat-select id="workLocation" formControlName="workLocation">
-                        <mat-option value="mohakhali">Mohakhali</mat-option>
-                        <mat-option value="mirpur">Mirpur</mat-option>
-                        <mat-option value="leave">On Leave</mat-option>
-                        @if (role !== 'staff') {
-                            <mat-option value="wfh">Work From Home</mat-option>
-                        }
-                    </mat-select>
-                </div>
-                <div>
-                    <label
-                        for="meal"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Meal
-                    </label>
-                    <mat-select id="meal" formControlName="meal">
-                        <mat-option value="regular">Regular</mat-option>
-                        <mat-option value="diet">Diet</mat-option>
-                    </mat-select>
-                </div>
-                <div>
-                    <label
-                        for="snacks"
-                        class="block mb-2 text-xs md:text-sm font-medium font-serif text-gray-900"
-                    >
-                        Snacks
-                    </label>
-                    <mat-select id="snacks" formControlName="snacks">
-                        <mat-option value="regular">Regular</mat-option>
-                        <mat-option value="diet">Diet</mat-option>
-                    </mat-select>
-                </div>
-
-                <button
-                    type="submit"
-                    [disabled]="loading"
-                    class="relative w-full text-white font-serif bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-xs md:text-sm p-2 md:p-2.5 text-center"
+<div class="container">
+    <div class="form-wrapper">
+        <p class="form-title"><mat-icon>today</mat-icon> Daily Check In</p>
+        <form [formGroup]="checkInForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="full-width">
+                <mat-label>Work Location</mat-label>
+                <mat-select formControlName="workLocation" id="workLocation">
+                    <mat-option value="mohakhali">Mohakhali</mat-option>
+                    <mat-option value="mirpur">Mirpur</mat-option>
+                    <mat-option value="leave">On Leave</mat-option>
+                    <mat-option *ngIf="role !== 'staff'" value="wfh">Work From Home</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="
+                        checkInForm.get('workLocation')?.invalid &&
+                        checkInForm.get('workLocation')?.touched
+                    "
                 >
-                    @if (loading) {
-                        <app-spinner />
-                    }
-                    @if (!loading) {
-                        <span>Save</span>
-                    }
-                </button>
-            </form>
-        </div>
+                    Work Location is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <mat-label>Meal</mat-label>
+                <mat-select formControlName="meal" id="meal">
+                    <mat-option value="regular">Regular</mat-option>
+                    <mat-option value="diet">Diet</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="checkInForm.get('meal')?.invalid && checkInForm.get('meal')?.touched"
+                >
+                    Meal is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <mat-label>Snacks</mat-label>
+                <mat-select formControlName="snacks" id="snacks">
+                    <mat-option value="regular">Regular</mat-option>
+                    <mat-option value="diet">Diet</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="checkInForm.get('snacks')?.invalid && checkInForm.get('snacks')?.touched"
+                >
+                    Snacks is required
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-flat-button type="submit" [disabled]="loading" class="submit-button">
+                <ng-container *ngIf="loading">
+                    <app-spinner></app-spinner>
+                </ng-container>
+                <ng-container *ngIf="!loading">
+                    <span>Save</span>
+                </ng-container>
+            </button>
+        </form>
     </div>
 </div>

@@ -1,0 +1,160 @@
+.user-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+}
+
+.user-card {
+    background-color: #ffffff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+}
+
+.user-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.user-username {
+    color: #025dad;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.user-email {
+    color: #024988;
+    word-break: break-all;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.user-details {
+    padding: 0.5rem 0;
+}
+
+.user-detail {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.no-data {
+    color: #024988;
+    padding: 1rem;
+    font-weight: 500;
+}
+
+mat-icon {
+    color: #024988;
+}
+
+/* Media Queries */
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .user-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .user-card {
+        padding: 0.75rem;
+    }
+
+    .user-avatar {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+
+    .user-username {
+        font-size: 1rem;
+    }
+
+    .user-email {
+        font-size: 0.875rem;
+    }
+
+    .user-detail {
+        gap: 0.25rem;
+        font-size: 0.875rem;
+    }
+
+    .no-data {
+        padding: 0.5rem;
+    }
+
+    mat-icon {
+        font-size: 1.25rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .user-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .user-card {
+        padding: 0.875rem;
+    }
+
+    .user-avatar {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .user-username {
+        font-size: 1rem;
+    }
+
+    .user-email {
+        font-size: 0.875rem;
+    }
+
+    .user-detail {
+        gap: 0.25rem;
+        font-size: 0.875rem;
+    }
+
+    .no-data {
+        padding: 0.5rem;
+    }
+
+    mat-icon {
+        font-size: 1.25rem;
+    }
+}
+
+/* Laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .user-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .user-card {
+        padding: 1rem;
+    }
+
+    .user-detail {
+        gap: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .no-data {
+        padding: 0.5rem;
+    }
+}

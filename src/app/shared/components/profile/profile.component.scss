@@ -1,0 +1,61 @@
+.container {
+    padding: 1.5rem 2rem;
+}
+
+.flex-container {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.profile-picture {
+    width: 33.33%;
+}
+
+.reset-password {
+    width: 66.66%;
+}
+
+/* Media Queries */
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 1.75rem;
+    }
+
+    .flex-container {
+        display: block;
+    }
+}
+
+/* Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 1rem 1.5rem;
+    }
+
+    .flex-container {
+        display: block;
+    }
+}
+
+/* Laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 1rem 1.5rem;
+    }
+
+    .flex-container {
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-picture {
+        width: 40%;
+    }
+
+    .reset-password {
+        width: 60%;
+    }
+}

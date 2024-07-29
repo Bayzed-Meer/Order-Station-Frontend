@@ -1,0 +1,146 @@
+.container {
+    padding: 1.5rem 2rem;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: #024988;
+    color: rgb(240, 238, 238);
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.table-container {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    background-color: #ffffff;
+}
+
+.table-container th {
+    background-color: #024988;
+    color: white;
+}
+
+.table-container td {
+    padding: 1rem;
+}
+
+.table-container mat-paginator {
+    color: #000;
+}
+
+.no-data-row .no-data-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #025dad;
+}
+
+/* Media Queries */
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 1.75rem;
+    }
+
+    .title {
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        padding: 0.25rem;
+        gap: 0.25rem;
+    }
+
+    .table-container {
+        padding: 0.5rem;
+        overflow-x: auto;
+    }
+
+    .table-container th {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .table-container td {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .table-container mat-paginator {
+        font-size: 0.625rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 1.5rem 1.5rem;
+    }
+
+    .title {
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        padding: 0.25rem;
+        gap: 0.5rem;
+    }
+
+    .table-container {
+        padding: 0.75rem;
+        overflow-x: auto;
+    }
+
+    .table-container th {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .table-container td {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .table-container mat-paginator {
+        font-size: 0.625rem;
+    }
+}
+
+/* Laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 1.5rem 1.5rem;
+    }
+
+    .title {
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        padding: 0.25rem;
+        gap: 0.5rem;
+    }
+
+    .table-container {
+        padding: 0.75rem;
+        overflow-x: auto;
+    }
+
+    .table-container th {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .table-container td {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .table-container mat-paginator {
+        font-size: 0.75rem;
+    }
+}

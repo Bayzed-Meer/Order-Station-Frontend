@@ -1,5 +1,11 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
@@ -9,11 +15,26 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DailyCheckInService } from '../../services/daily-check-in.service';
 import { DailyCheckIn } from '../../../features/models/daily-checkIn.model';
 import { AuthService } from '../../../core/auth.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-daily-check-in',
     standalone: true,
-    imports: [ReactiveFormsModule, SpinnerComponent, MatSelectModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatIconModule,
+    ],
     templateUrl: './daily-check-in.component.html',
     styleUrl: './daily-check-in.component.scss',
 })
@@ -102,6 +123,7 @@ export class DailyCheckInComponent implements OnInit {
     }
 
     onSubmit(): void {
+        this.checkInForm.markAllAsTouched();
         if (this.checkInForm.valid) {
             const formData = { ...this.checkInForm.value };
             if (formData.workLocation === 'wfh' || formData.workLocation === 'leave')

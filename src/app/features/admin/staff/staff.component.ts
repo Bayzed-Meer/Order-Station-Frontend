@@ -9,7 +9,8 @@ import { StaffsListComponent } from './staffs-list/staffs-list.component';
 import { StaffsCardComponent } from './staffs-card/staffs-card.component';
 import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
-import { UserDetails } from '../../models/user-details.model';
+import { UserProfile } from '../../models/user-profile.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-staff',
@@ -20,6 +21,7 @@ import { UserDetails } from '../../models/user-details.model';
         MatInputModule,
         StaffsCardComponent,
         MatIconModule,
+        CommonModule,
     ],
     templateUrl: './staff.component.html',
     styleUrl: './staff.component.scss',
@@ -31,7 +33,7 @@ export class StaffComponent implements OnInit {
 
     filter = '';
     isListView = false;
-    staffs: UserDetails[] = [];
+    staffs: UserProfile[] = [];
 
     ngOnInit(): void {
         this.loadAllstaffs();
@@ -51,7 +53,7 @@ export class StaffComponent implements OnInit {
             .subscribe();
     }
 
-    handleDeleteUser(user: UserDetails): void {
+    handleDeleteUser(user: UserProfile): void {
         this.adminService
             .deleteStaff(user.id)
             .pipe(

@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -8,11 +14,23 @@ import { MatDialog } from '@angular/material/dialog';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-signup',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, SpinnerComponent, MatSelectModule],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        SpinnerComponent,
+        MatSelectModule,
+        FormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+    ],
     templateUrl: './signup.component.html',
     styleUrl: './signup.component.scss',
 })

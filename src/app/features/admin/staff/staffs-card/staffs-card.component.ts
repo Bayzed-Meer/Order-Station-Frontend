@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsersCardComponent } from '../../../../shared/components/users-card/users-card.component';
-import { UserDetails } from '../../../models/user-details.model';
+import { UserProfile } from '../../../models/user-profile.model';
 
 @Component({
     selector: 'app-staffs-card',
@@ -11,6 +11,6 @@ import { UserDetails } from '../../../models/user-details.model';
 })
 export class StaffsCardComponent {
     @Input() filter = '';
-    @Input() users: UserDetails[] = [];
-    @Output() deleteUserEvent = new EventEmitter<UserDetails>();
+    @Input() users: UserProfile[] = [];
+    @Output() deleteUserEvent = new EventEmitter<UserProfile>();
 }

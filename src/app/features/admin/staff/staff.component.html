@@ -1,23 +1,47 @@
-<mat-form-field>
-    <mat-label>Search...</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Bayzed" />
-</mat-form-field>
+<div class="container">
+    <div class="title"><mat-icon>people</mat-icon> All Staffs</div>
+    <div class="search-container">
+        <mat-form-field class="search-field">
+            <mat-label>Search...</mat-label>
+            <input matInput class="input-field" (keyup)="applyFilter($event)" />
+        </mat-form-field>
 
-<button mat-button (click)="toggleView()">
-    <mat-icon>{{ isListView ? 'view_module' : 'view_list' }}</mat-icon>
-    {{ isListView ? 'Switch to Card View' : 'Switch to List View' }}
-</button>
+        <div class="view-controls">
+            <div class="views-label">Views</div>
+            <div class="view-buttons">
+                <button
+                    mat-icon-button
+                    (click)="toggleView()"
+                    class="view-button"
+                    [ngClass]="!isListView ? 'active' : ''"
+                >
+                    <mat-icon>view_module</mat-icon>
+                </button>
+                <button
+                    mat-icon-button
+                    (click)="toggleView()"
+                    class="view-button"
+                    [ngClass]="isListView ? 'active' : ''"
+                >
+                    <mat-icon>view_list</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
 
-@if (isListView) {
-    <app-staffs-list
-        [filter]="filter"
-        [users]="staffs"
-        (deleteUserEvent)="handleDeleteUser($event)"
-    />
-} @else {
-    <app-staffs-card
-        [filter]="filter"
-        [users]="staffs"
-        (deleteUserEvent)="handleDeleteUser($event)"
-    />
-}
+    <ng-container *ngIf="isListView; else cardView">
+        <app-staffs-list
+            [filter]="filter"
+            [users]="staffs"
+            (deleteUserEvent)="handleDeleteUser($event)"
+        ></app-staffs-list>
+    </ng-container>
+
+    <ng-template #cardView>
+        <app-staffs-card
+            [filter]="filter"
+            [users]="staffs"
+            (deleteUserEvent)="handleDeleteUser($event)"
+        ></app-staffs-card>
+    </ng-template>
+</div>

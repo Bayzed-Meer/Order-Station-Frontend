@@ -1,74 +1,90 @@
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="username">
-            <th mat-header-cell *matHeaderCellDef>Username</th>
-            <td mat-cell *matCellDef="let order">{{ order.username || '-' }}</td>
-        </ng-container>
+<div class="container">
+    <div class="title"><mat-icon>history</mat-icon> Order History</div>
 
-        <!-- ID Column (Conditionally) -->
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>ID</th>
-            <td mat-cell *matCellDef="let order">{{ order.employeeID || '-' }}</td>
-        </ng-container>
+    <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <!-- Username Column -->
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+                <td mat-cell *matCellDef="let order">{{ order.username || '-' }}</td>
+            </ng-container>
 
-        <!-- Tea Quantity Column -->
-        <ng-container matColumnDef="teaQuantity">
-            <th mat-header-cell *matHeaderCellDef>Tea Quantity</th>
-            <td mat-cell *matCellDef="let order">{{ order.teaQuantity || '-' }}</td>
-        </ng-container>
+            <!-- ID Column (Conditionally) -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                <td mat-cell *matCellDef="let order">{{ order.employeeID || '-' }}</td>
+            </ng-container>
 
-        <!-- Tea Amount Column -->
-        <ng-container matColumnDef="teaAmount">
-            <th mat-header-cell *matHeaderCellDef>Tea Amount</th>
-            <td mat-cell *matCellDef="let order">{{ order.teaAmount || '-' }}</td>
-        </ng-container>
+            <!-- Tea Quantity Column -->
+            <ng-container matColumnDef="teaQuantity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tea Quantity</th>
+                <td mat-cell *matCellDef="let order">{{ order.teaQuantity || '-' }}</td>
+            </ng-container>
 
-        <!-- Coffee Quantity Column -->
-        <ng-container matColumnDef="coffeeQuantity">
-            <th mat-header-cell *matHeaderCellDef>Coffee Quantity</th>
-            <td mat-cell *matCellDef="let order">{{ order.coffeeQuantity || '-' }}</td>
-        </ng-container>
+            <!-- Tea Amount Column -->
+            <ng-container matColumnDef="teaAmount">
+                <th mat-header-cell *matHeaderCellDef>Tea Amount</th>
+                <td mat-cell *matCellDef="let order">{{ order.teaAmount || '-' }}</td>
+            </ng-container>
 
-        <!-- Coffee Amount Column -->
-        <ng-container matColumnDef="coffeeAmount">
-            <th mat-header-cell *matHeaderCellDef>Coffee Amount</th>
-            <td mat-cell *matCellDef="let order">{{ order.coffeeAmount || '-' }}</td>
-        </ng-container>
+            <!-- Coffee Quantity Column -->
+            <ng-container matColumnDef="coffeeQuantity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Coffee Quantity</th>
+                <td mat-cell *matCellDef="let order">{{ order.coffeeQuantity || '-' }}</td>
+            </ng-container>
 
-        <!-- Notes Column -->
-        <ng-container matColumnDef="notes">
-            <th mat-header-cell *matHeaderCellDef>Notes</th>
-            <td mat-cell *matCellDef="let order">{{ order.notes || '-' }}</td>
-        </ng-container>
+            <!-- Coffee Amount Column -->
+            <ng-container matColumnDef="coffeeAmount">
+                <th mat-header-cell *matHeaderCellDef>Coffee Amount</th>
+                <td mat-cell *matCellDef="let order">{{ order.coffeeAmount || '-' }}</td>
+            </ng-container>
 
-        <!-- Room Number Column -->
-        <ng-container matColumnDef="roomNumber">
-            <th mat-header-cell *matHeaderCellDef>Room Number</th>
-            <td mat-cell *matCellDef="let order">{{ order.roomNumber || '-' }}</td>
-        </ng-container>
+            <!-- Notes Column -->
+            <ng-container matColumnDef="notes">
+                <th mat-header-cell *matHeaderCellDef>Notes</th>
+                <td mat-cell *matCellDef="let order">{{ order.notes || '-' }}</td>
+            </ng-container>
 
-        <!-- Created At Column -->
-        <ng-container matColumnDef="createdAt">
-            <th mat-header-cell *matHeaderCellDef>Created At</th>
-            <td mat-cell *matCellDef="let order">
-                {{ order.createdAt ? (order.createdAt | date: 'medium') : '-' }}
-            </td>
-        </ng-container>
+            <!-- Room Number Column -->
+            <ng-container matColumnDef="roomNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Room Number</th>
+                <td mat-cell *matCellDef="let order">{{ order.roomNumber || '-' }}</td>
+            </ng-container>
 
-        <!-- Order Status Column -->
-        <ng-container matColumnDef="orderStatus">
-            <th mat-header-cell *matHeaderCellDef>Order Status</th>
-            <td mat-cell *matCellDef="let order">
-                {{ order.orderStatus | titlecase }}
-            </td>
-        </ng-container>
+            <!-- Created At Column -->
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
+                <td mat-cell *matCellDef="let order">{{ order.createdAt | timesAgo }}</td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+            <!-- Order Status Column -->
+            <ng-container matColumnDef="orderStatus">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Status</th>
+                <td mat-cell *matCellDef="let order">
+                    {{ order.orderStatus | titlecase }}
+                </td>
+            </ng-container>
 
-    <mat-paginator
-        [pageSizeOptions]="[5, 10, 25]"
-        aria-label="Select page of orders"
-    ></mat-paginator>
+            <!-- No Data Row -->
+
+            <tr class="no-data-row" *matNoDataRow>
+                <td [attr.colspan]="displayedColumns.length">
+                    <div class="no-data-content">
+                        <mat-icon>search_off</mat-icon>
+                        <div>No order history found</div>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Table Header and Rows -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <!-- Paginator -->
+        <mat-paginator
+            [pageSizeOptions]="[5, 10, 25]"
+            aria-label="Select page of orders"
+        ></mat-paginator>
+    </div>
 </div>

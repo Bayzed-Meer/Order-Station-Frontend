@@ -1,5 +1,11 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -8,11 +14,22 @@ import { Router } from '@angular/router';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { MatDialog } from '@angular/material/dialog';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-signin',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SpinnerComponent,
+        MatInputModule,
+        MatFormFieldModule,
+        MatButtonModule,
+    ],
     templateUrl: './signin.component.html',
     styleUrl: './signin.component.scss',
 })

@@ -1,7 +1,20 @@
-<mat-dialog-content>{{ data.message }}</mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-content>
+    <div class="dialog-content">
+        <div>
+            <mat-icon class="dialog-icon">info</mat-icon>
+        </div>
+        <div>
+            {{ data.message }}
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="'cancel'" cdkFocusInitial>
+        <mat-icon>close</mat-icon>
         {{ data.cancelButtonLabel }}
     </button>
-    <button mat-button [mat-dialog-close]="'confirm'">{{ data.confirmButtonLabel }}</button>
+    <button mat-button [mat-dialog-close]="'confirm'">
+        <mat-icon>check_circle</mat-icon>
+        {{ data.confirmButtonLabel }}
+    </button>
 </mat-dialog-actions>
