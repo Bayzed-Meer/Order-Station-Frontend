@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.3.0...v1.4.0) (2024-07-29)
+
+
+### Features
+
+* **environment:** add environemnt variables for development and production mode ([9dabe99](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/9dabe99da70f4a42263c307a7cdd898144ad4d5d))
+
 # [1.3.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.2.0...v1.3.0) (2024-07-29)
 
 
