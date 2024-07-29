@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.2.0...v1.3.0) (2024-07-29)
+
+
+### Features
+
+* **admin:** add meal summary and beverage summary reports in admin dashboard ([b04993e](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/b04993ee1ff662c473da33c3d39343b260f4ad9c))
+* **UI & Websocket:** add responsive ui design and real time updates on orders ([63a5676](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/63a56764bdfa6ea449e0ffdbe341db1b0a4c9a94))
+
 # [1.2.0](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.1.0...v1.2.0) (2024-06-28)
 
 
