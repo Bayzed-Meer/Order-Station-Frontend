@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.4.2...v1.4.3) (2024-08-01)
+
+
+### Bug Fixes
+
+* **Date:** timezone related bug ([d9a8637](https://github.com/Bayzed-Meer/Order-Station-Frontend/commit/d9a8637a3c8554e05a8dfb73eb1496202e10595d))
+
 ## [1.4.2](https://github.com/Bayzed-Meer/Order-Station-Frontend/compare/v1.4.1...v1.4.2) (2024-07-29)
 
 
