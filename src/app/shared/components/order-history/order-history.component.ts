@@ -7,12 +7,13 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { BeverageOrder } from '../../../features/models/beverage-order.model';
 import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../../core/auth.service';
 import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
     selector: 'app-order-history',
@@ -26,9 +27,9 @@ import { SpinnerComponent } from '../spinner/spinner.component';
         ConfirmDialogComponent,
         DatePipe,
         TitleCasePipe,
-        CommonModule,
         TimesAgoPipe,
         SpinnerComponent,
+        MatInputModule,
     ],
     templateUrl: './order-history.component.html',
     styleUrl: './order-history.component.scss',
@@ -111,5 +112,10 @@ export class OrderHistoryComponent implements AfterViewInit, OnInit {
                 takeUntilDestroyed(this.destroyRef),
             )
             .subscribe();
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 }

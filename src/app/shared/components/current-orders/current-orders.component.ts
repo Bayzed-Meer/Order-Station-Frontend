@@ -15,6 +15,7 @@ import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../../core/auth.service';
 import { TimesAgoPipe } from '../../pipes/times-ago.pipe';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
     selector: 'app-current-orders',
@@ -29,6 +30,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
         TitleCasePipe,
         TimesAgoPipe,
         SpinnerComponent,
+        MatInputModule,
     ],
     templateUrl: './current-orders.component.html',
     styleUrl: './current-orders.component.scss',
@@ -190,5 +192,9 @@ export class CurrentOrdersComponent implements AfterViewInit, OnInit {
                     .subscribe();
             }
         });
+    }
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 }

@@ -15,6 +15,10 @@
     font-weight: 500;
 }
 
+.filter {
+    width: 100%;
+}
+
 .table-container {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     padding: 1rem;
@@ -26,12 +30,17 @@
     color: white;
 }
 
-.table-container td {
-    padding: 1rem;
+.table-container tr:nth-child(even) td {
+    background-color: #f2f2f2;
+}
+
+.table-container tr:nth-child(odd) td {
+    background-color: #f9f9f9;
 }
 
 .table-container mat-paginator {
     color: #000;
+    background-color: white;
 }
 
 .spinner {
@@ -45,9 +54,8 @@
     justify-content: center;
     align-items: center;
     gap: 0.25rem;
-    font-size: 1.25rem;
     font-weight: 500;
-    color: #025dad;
+    padding: 0.5rem;
 }
 
 /* Media Queries */

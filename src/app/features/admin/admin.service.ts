@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MealSummary } from '../models/meal-summary.model';
@@ -31,11 +31,17 @@ export class AdminService {
         return this.http.delete<{ message: string }>(`${this.API}/admin/staffs/deleteStaff/${id}`);
     }
 
-    getMealSummary(): Observable<MealSummary[]> {
-        return this.http.get<MealSummary[]>(`${this.API}/admin/getMealSummary`);
+    getMealSummary(startDate: Date, endDate: Date): Observable<MealSummary[]> {
+        const params = new HttpParams()
+            .set('startDate', startDate.toISOString())
+            .set('endDate', endDate.toISOString());
+        return this.http.get<MealSummary[]>(`${this.API}/admin/getMealSummary`, { params });
     }
 
-    getbeverageSummary(): Observable<BeverageSummary[]> {
-        return this.http.get<BeverageSummary[]>(`${this.API}/admin/getBeverageSummary`);
+    getbeverageSummary(startDate: Date, endDate: Date): Observable<BeverageSummary[]> {
+        const params = new HttpParams()
+            .set('startDate', startDate.toISOString())
+            .set('endDate', endDate.toISOString());
+        return this.http.get<BeverageSummary[]>(`${this.API}/admin/getBeverageSummary`, { params });
     }
 }
