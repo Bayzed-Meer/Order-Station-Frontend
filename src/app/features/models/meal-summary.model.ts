@@ -1,5 +1,5 @@
 export interface MealSummary {
-    date: Date;
+    date: string;
     mirpurDietCount: number;
     mirpurRegularCount: number;
     mohakhaliDietCount: number;

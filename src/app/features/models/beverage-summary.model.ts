@@ -1,5 +1,5 @@
 export interface BeverageSummary {
-    date: Date;
+    date: string;
     completedOrders: number;
     inProgressOrders: number;
     appliedOrders: number;
