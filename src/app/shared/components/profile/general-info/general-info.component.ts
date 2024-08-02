@@ -27,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../../../core/auth.service';
 
 @Component({
     selector: 'app-general-info',
@@ -47,20 +48,33 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class GeneralInfoComponent implements OnInit, OnChanges {
     private profileService = inject(ProfileService);
+    private authService = inject(AuthService);
     private formBuilder = inject(FormBuilder);
     private dialog = inject(MatDialog);
     private destroyRef = inject(DestroyRef);
 
     @Input() userProfile!: UserProfile;
     generalInfoForm!: FormGroup;
+    role = '';
     loading = false;
 
     ngOnInit(): void {
         this.initializeForm();
+        this.checkRole();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['userProfile'] && changes['userProfile'].currentValue) this.updateForm();
+    }
+
+    checkRole(): void {
+        this.authService
+            .getRole()
+            .pipe(
+                tap((role) => (this.role = role)),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
 
     initializeForm(): void {
@@ -71,7 +85,7 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
             id: [{ value: '', disabled: true }],
             SBU: ['', Validators.required],
             jobTitle: ['', Validators.required],
-            meal: ['', Validators.required],
+            clientInfo: ['', Validators.required],
         });
         if (this.userProfile) this.updateForm();
     }
@@ -84,7 +98,7 @@ export class GeneralInfoComponent implements OnInit, OnChanges {
             contactNumber: this.userProfile.contactNumber,
             SBU: this.userProfile.SBU,
             jobTitle: this.userProfile.jobTitle,
-            meal: this.userProfile.meal,
+            clientInfo: this.userProfile.clientInfo,
         });
     }
 

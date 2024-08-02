@@ -6,5 +6,5 @@ export interface UserProfile {
     id: string;
     SBU: string;
     jobTitle: string;
-    meal: string;
+    clientInfo: string;
 }

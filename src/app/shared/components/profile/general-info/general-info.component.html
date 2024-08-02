@@ -22,12 +22,16 @@
                 <mat-form-field class="full-width">
                     <mat-label>SBU</mat-label>
                     <mat-select id="SBU" formControlName="SBU">
-                        <mat-option value="fintech">Fintech</mat-option>
-                        <mat-option value="healthtech">Healthtech</mat-option>
-                        <mat-option value="usa">USA</mat-option>
-                        <mat-option value="europe">Europe</mat-option>
-                        <mat-option value="js">JS</mat-option>
-                        <mat-option value="nop commerce">Nop Commerce</mat-option>
+                        @if (role === 'employee') {
+                            <mat-option value="fintech">Fintech</mat-option>
+                            <mat-option value="healthtech">Healthtech</mat-option>
+                            <mat-option value="usa">USA</mat-option>
+                            <mat-option value="europe">Europe</mat-option>
+                            <mat-option value="js">JS</mat-option>
+                            <mat-option value="nop commerce">Nop Commerce</mat-option>
+                        } @else {
+                            <mat-option value="support">Support</mat-option>
+                        }
                     </mat-select>
                     @if (
                         generalInfoForm.get('SBU')?.invalid && generalInfoForm.get('SBU')?.touched
@@ -76,17 +80,22 @@
                     }
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <mat-label>Meal</mat-label>
-                    <mat-select id="meal" formControlName="meal">
-                        <mat-option value="regular">Regular</mat-option>
-                        <mat-option value="diet">Diet</mat-option>
+                    <mat-label>Client Info</mat-label>
+                    <mat-select id="clientInfo" formControlName="clientInfo">
+                        @if (role === 'employee') {
+                            <mat-option value="regional">Regional</mat-option>
+                            <mat-option value="outsource">Outsource</mat-option>
+                        } @else {
+                            <mat-option value="support">Support</mat-option>
+                        }
                     </mat-select>
                     @if (
-                        generalInfoForm.get('meal')?.invalid && generalInfoForm.get('meal')?.touched
+                        generalInfoForm.get('clientInfo')?.invalid &&
+                        generalInfoForm.get('clientInfo')?.touched
                     ) {
                         <mat-error>
-                            @if (generalInfoForm.get('meal')?.errors?.['required']) {
-                                <ng-container>Meal is required</ng-container>
+                            @if (generalInfoForm.get('clientInfo')?.errors?.['required']) {
+                                <ng-container>Client Info is required</ng-container>
                             }
                         </mat-error>
                     }
