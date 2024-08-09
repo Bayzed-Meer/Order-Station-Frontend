@@ -7,31 +7,24 @@
             <div class="input-group">
                 <mat-form-field class="half-width">
                     <mat-label>Tea</mat-label>
-                    <div class="quantity-controls">
-                        <input matInput formControlName="teaQuantity" type="number" />
-                        <button mat-icon-button type="button" (click)="incrementQuantity('tea')">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-icon-button type="button" (click)="decrementQuantity('tea')">
-                            <mat-icon>remove</mat-icon>
-                        </button>
-                    </div>
+                    <input matInput formControlName="teaQuantity" type="number" />
                     @if (
                         beverageOrderForm.get('teaQuantity')!.invalid &&
                         beverageOrderForm.get('teaQuantity')!.touched
                     ) {
                         <mat-error>
                             @if (beverageOrderForm.get('teaQuantity')!.errors?.['required']) {
-                                <ng-container> Tea quantity is required. </ng-container>
+                                <ng-container> Tea is required. </ng-container>
                             }
                         </mat-error>
                     }
                 </mat-form-field>
                 <mat-form-field class="half-width">
-                    <mat-label>Tea Amount</mat-label>
+                    <mat-label>Amount</mat-label>
                     <mat-select formControlName="teaAmount">
                         <mat-option value="half">Half</mat-option>
                         <mat-option value="full">Full</mat-option>
+                        <mat-option value="">N/A</mat-option>
                     </mat-select>
                     @if (
                         beverageOrderForm.get('teaAmount')!.invalid &&
@@ -39,7 +32,7 @@
                     ) {
                         <mat-error>
                             @if (beverageOrderForm.get('teaAmount')!.errors?.['required']) {
-                                <ng-container> Tea amount is required. </ng-container>
+                                <ng-container> Amount is required. </ng-container>
                             }
                         </mat-error>
                     }
@@ -50,31 +43,24 @@
             <div class="input-group">
                 <mat-form-field class="half-width">
                     <mat-label>Coffee</mat-label>
-                    <div class="quantity-controls">
-                        <input matInput formControlName="coffeeQuantity" type="number" />
-                        <button mat-icon-button type="button" (click)="incrementQuantity('coffee')">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                        <button mat-icon-button type="button" (click)="decrementQuantity('coffee')">
-                            <mat-icon>remove</mat-icon>
-                        </button>
-                    </div>
+                    <input matInput formControlName="coffeeQuantity" type="number" />
                     @if (
                         beverageOrderForm.get('coffeeQuantity')!.invalid &&
                         beverageOrderForm.get('coffeeQuantity')!.touched
                     ) {
                         <mat-error>
                             @if (beverageOrderForm.get('coffeeQuantity')!.errors?.['required']) {
-                                <ng-container> Coffee quantity is required. </ng-container>
+                                <ng-container> Coffee is required. </ng-container>
                             }
                         </mat-error>
                     }
                 </mat-form-field>
                 <mat-form-field class="half-width">
-                    <mat-label>Coffee Amount</mat-label>
+                    <mat-label>Amount</mat-label>
                     <mat-select formControlName="coffeeAmount">
                         <mat-option value="half">Half </mat-option>
                         <mat-option value="full">Full </mat-option>
+                        <mat-option value="">N/A</mat-option>
                     </mat-select>
                     @if (
                         beverageOrderForm.get('coffeeAmount')!.invalid &&
@@ -82,7 +68,7 @@
                     ) {
                         <mat-error>
                             @if (beverageOrderForm.get('coffeeAmount')!.errors?.['required']) {
-                                <ng-container> Coffee amount is required. </ng-container>
+                                <ng-container> Amount is required. </ng-container>
                             }
                         </mat-error>
                     }

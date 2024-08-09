@@ -8,6 +8,7 @@ export class TimesAgoPipe implements PipeTransform {
     transform(value: string): string {
         const now = new Date();
         const createdAt = new Date(value);
+        createdAt.setHours(createdAt.getHours() - 6);
         const diffInSeconds = Math.floor((now.getTime() - createdAt.getTime()) / 1000);
 
         const days = Math.floor(diffInSeconds / 86400);

@@ -9,10 +9,6 @@
     gap: 1rem;
 }
 
-.filter {
-    width: 25%;
-}
-
 .title {
     display: flex;
     justify-content: center;
@@ -24,11 +20,6 @@
     padding: 0.5rem;
     gap: 0.5rem;
     font-weight: 500;
-    width: 40%;
-}
-
-.date-picker {
-    width: 25%;
 }
 
 .search-icon {
@@ -38,6 +29,7 @@
 .table-container {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     padding: 1rem;
+    overflow-x: auto;
     background-color: #ffffff;
 }
 
@@ -85,10 +77,20 @@
     }
 
     .title {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         font-size: 0.875rem;
         padding: 0.25rem;
         gap: 0.25rem;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .filter,
+    .date-picker {
+        width: 100%;
     }
 
     .table-container {

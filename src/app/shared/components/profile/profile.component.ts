@@ -6,12 +6,12 @@ import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { GeneralInfoComponent } from './general-info/general-info.component';
 import { ProfileService } from '../../services/profile.service';
 import { UserProfile } from '../../../features/models/user-profile.model';
-import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { ChangePasswordComponent } from '../../../core/auth/change-password/change-password.component';
 
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [ProfilePictureComponent, GeneralInfoComponent, ResetPasswordComponent],
+    imports: [ProfilePictureComponent, GeneralInfoComponent, ChangePasswordComponent],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss',
 })

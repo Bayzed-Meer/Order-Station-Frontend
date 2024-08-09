@@ -1,11 +1,5 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import {
-    AbstractControl,
-    FormBuilder,
-    FormGroup,
-    ReactiveFormsModule,
-    Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -44,16 +38,16 @@ export class BeverageOrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.initializeForm();
-        this.onQuantityChange();
+        this.setUpValidators();
     }
 
     initializeForm(): void {
         this.beverageOrderForm = this.formBuilder.group(
             {
-                teaQuantity: [0, Validators.required],
-                teaAmount: ['', this.amountValidator('teaQuantity')],
-                coffeeQuantity: [0, Validators.required],
-                coffeeAmount: ['', this.amountValidator('coffeeQuantity')],
+                teaQuantity: [null],
+                teaAmount: [''],
+                coffeeQuantity: [null],
+                coffeeAmount: [''],
                 notes: [''],
                 roomNumber: ['', Validators.required],
             },
@@ -61,38 +55,95 @@ export class BeverageOrderComponent implements OnInit {
         );
     }
 
-    amountValidator(quantityControlName: string) {
-        return (control: AbstractControl) => {
-            const quantityControl = control.parent?.get(quantityControlName);
-            if (quantityControl && quantityControl.value > 0 && !control.value) {
-                return { required: true };
-            }
-            return null;
-        };
+    setUpValidators(): void {
+        const teaQuantityControl = this.beverageOrderForm.get('teaQuantity');
+        const coffeeQuantityControl = this.beverageOrderForm.get('coffeeQuantity');
+        const teaAmountControl = this.beverageOrderForm.get('teaAmount');
+        const coffeeAmountControl = this.beverageOrderForm.get('coffeeAmount');
+
+        teaQuantityControl?.valueChanges
+            .pipe(
+                tap((value) => {
+                    teaAmountControl?.setValidators(value > 0 ? Validators.required : null);
+                    teaAmountControl?.updateValueAndValidity();
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+
+        coffeeQuantityControl?.valueChanges
+            .pipe(
+                tap((value) => {
+                    coffeeAmountControl?.setValidators(value > 0 ? Validators.required : null);
+                    coffeeAmountControl?.updateValueAndValidity();
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+
+        teaAmountControl?.valueChanges
+            .pipe(
+                tap((value) => {
+                    teaQuantityControl?.setValidators(
+                        value === 'half' || value === 'full' ? Validators.required : null,
+                    );
+                    teaQuantityControl?.updateValueAndValidity();
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
+
+        coffeeAmountControl?.valueChanges
+            .pipe(
+                tap((value) => {
+                    coffeeQuantityControl?.setValidators(
+                        value === 'half' || value === 'full' ? Validators.required : null,
+                    );
+                    coffeeQuantityControl?.updateValueAndValidity();
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe();
     }
-    validateTeaAndCoffee(group: FormGroup) {
-        const teaQuantity = group.get('teaQuantity')!.value;
-        const coffeeQuantity = group.get('coffeeQuantity')!.value;
 
-        if (teaQuantity === 0 && coffeeQuantity === 0) return { invalidBeverageOrder: true };
-        else return null;
+    validateTeaAndCoffee(group: FormGroup): Record<string, boolean> | null {
+        const teaQuantity = group.get('teaQuantity')?.value;
+        const coffeeQuantity = group.get('coffeeQuantity')?.value;
+        const teaAmount = group.get('teaAmount')?.value;
+        const coffeeAmount = group.get('coffeeAmount')?.value;
+
+        if (
+            teaQuantity === null &&
+            coffeeQuantity === null &&
+            teaAmount === '' &&
+            coffeeAmount === ''
+        )
+            return { invalidBeverageOrder: true };
+        else if (teaQuantity <= 0 || coffeeQuantity <= 0) return { invalidQuantity: true };
+        return null;
     }
 
-    onQuantityChange(): void {
-        this.beverageOrderForm.get('teaQuantity')!.valueChanges.subscribe(() => {
-            const teaAmountControl = this.beverageOrderForm.get('teaAmount');
-            teaAmountControl?.updateValueAndValidity();
-        });
-
-        this.beverageOrderForm.get('coffeeQuantity')!.valueChanges.subscribe(() => {
-            const coffeeAmountControl = this.beverageOrderForm.get('coffeeAmount');
-            coffeeAmountControl?.updateValueAndValidity();
-        });
+    checkPopUp(): void {
+        if (
+            this.beverageOrderForm.errors?.['invalidBeverageOrder'] &&
+            !this.beverageOrderForm.get('roomNumber')?.errors?.['required']
+        ) {
+            showMessageDialog(
+                this.dialog,
+                'Please select at least one between tea or coffee.',
+                'Close',
+            );
+        } else if (this.beverageOrderForm.errors?.['invalidQuantity']) {
+            showMessageDialog(this.dialog, 'Quantity must be greater then zero', 'Close');
+        }
     }
 
     onSubmit(): void {
         this.beverageOrderForm.markAllAsTouched();
+        this.checkPopUp();
         if (this.beverageOrderForm.valid) {
+            console.log(this.beverageOrderForm.value);
+
             this.loading = true;
             const formData = { ...this.beverageOrderForm.value };
 
@@ -112,18 +163,6 @@ export class BeverageOrderComponent implements OnInit {
                     takeUntilDestroyed(this.destroyRef),
                 )
                 .subscribe();
-        }
-    }
-
-    incrementQuantity(drink: string) {
-        const currentQuantity = this.beverageOrderForm.get(`${drink}Quantity`)!.value;
-        this.beverageOrderForm.get(`${drink}Quantity`)!.setValue(currentQuantity + 1);
-    }
-
-    decrementQuantity(drink: string) {
-        const currentQuantity = this.beverageOrderForm.get(`${drink}Quantity`)!.value;
-        if (currentQuantity > 0) {
-            this.beverageOrderForm.get(`${drink}Quantity`)!.setValue(currentQuantity - 1);
         }
     }
 }

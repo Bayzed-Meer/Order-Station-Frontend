@@ -40,8 +40,16 @@ export class AuthService {
         );
     }
 
+    forgotPassword(formData: FormData): Observable<{ message: string }> {
+        return this.http.post<{ message: string }>(`${this.API}/auth/forgot-password`, formData);
+    }
+
     resetPassword(formData: FormData): Observable<{ message: string }> {
         return this.http.post<{ message: string }>(`${this.API}/auth/reset-password`, formData);
+    }
+
+    changePassword(formData: FormData): Observable<{ message: string }> {
+        return this.http.post<{ message: string }>(`${this.API}/auth/change-password`, formData);
     }
 
     refreshToken(): Observable<AuthResponse> {

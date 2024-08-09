@@ -22,6 +22,7 @@
 .table-container {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     padding: 1rem;
+    overflow-x: auto;
     background-color: #ffffff;
 }
 
@@ -76,7 +77,6 @@
 
     .table-container {
         padding: 0.5rem;
-        overflow-x: auto;
     }
 
     .table-container th {
@@ -109,7 +109,6 @@
 
     .table-container {
         padding: 0.75rem;
-        overflow-x: auto;
     }
 
     .table-container th {
@@ -142,7 +141,6 @@
 
     .table-container {
         padding: 0.75rem;
-        overflow-x: auto;
     }
 
     .table-container th {

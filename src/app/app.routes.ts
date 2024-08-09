@@ -7,12 +7,13 @@ import { ProfileComponent } from './shared/components/profile/profile.component'
 
 const sharedRoutes: Routes = [
     {
-        path: 'reset-password',
+        path: 'change-password',
         loadComponent: () =>
-            import('./shared/components/reset-password/reset-password.component').then(
-                (m) => m.ResetPasswordComponent,
+            import('./core/auth/change-password/change-password.component').then(
+                (m) => m.ChangePasswordComponent,
             ),
     },
+
     {
         path: 'current-orders',
         loadComponent: () =>
@@ -31,8 +32,27 @@ const sharedRoutes: Routes = [
 
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'signin',
+        pathMatch: 'full',
+    },
+    {
         path: 'signin',
         component: SigninComponent,
+    },
+    {
+        path: 'reset-password',
+        loadComponent: () =>
+            import('./core/auth/reset-password/reset-password.component').then(
+                (m) => m.ResetPasswordComponent,
+            ),
+    },
+    {
+        path: 'forgot-password',
+        loadComponent: () =>
+            import('./core/auth/forgot-password/forgot-password.component').then(
+                (m) => m.ForgotPasswordComponent,
+            ),
     },
     {
         path: 'admin',

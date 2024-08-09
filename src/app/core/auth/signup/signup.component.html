@@ -73,10 +73,19 @@
                 <input
                     matInput
                     id="password"
-                    type="password"
+                    [type]="hidePassword ? 'password' : 'text'"
                     formControlName="password"
                     placeholder="••••••••"
                 />
+                <button
+                    mat-icon-button
+                    matIconSuffix
+                    type="button"
+                    class="hideIcon"
+                    (click)="togglePasswordVisibility()"
+                >
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
                 @if (signupForm.get('password')!.invalid && signupForm.get('password')!.touched) {
                     <mat-error>
                         @if (signupForm.get('password')!.errors?.['required']) {

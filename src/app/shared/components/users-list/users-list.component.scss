@@ -1,6 +1,7 @@
 .table-container {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     padding: 1rem;
+    overflow-x: auto;
     background-color: #ffffff;
 }
 
@@ -9,12 +10,17 @@
     color: white;
 }
 
-.table-container td {
-    padding: 1rem;
+.table-container tr:nth-child(even) td {
+    background-color: #f2f2f2;
+}
+
+.table-container tr:nth-child(odd) td {
+    background-color: #f9f9f9;
 }
 
 .table-container mat-paginator {
     color: #000;
+    background-color: white;
 }
 
 .no-data-row {

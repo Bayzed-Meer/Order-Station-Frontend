@@ -1,4 +1,5 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
     FormBuilder,
     FormGroup,
@@ -6,80 +7,65 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../../core/auth.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { showMessageDialog } from '../../../shared/utils/dialog-utils';
-import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
+import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 
 @Component({
-    selector: 'app-signup',
+    selector: 'app-forgot-password',
     standalone: true,
     imports: [
+        CommonModule,
+        FormsModule,
         ReactiveFormsModule,
         SpinnerComponent,
-        MatSelectModule,
-        FormsModule,
-        MatInputModule,
+        MatFormFieldModule,
         MatButtonModule,
+        MatInputModule,
         MatIconModule,
     ],
-    templateUrl: './signup.component.html',
-    styleUrl: './signup.component.scss',
+    templateUrl: './forgot-password.component.html',
+    styleUrl: './forgot-password.component.scss',
 })
-export class SignupComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
     private authService = inject(AuthService);
     private destroyRef = inject(DestroyRef);
     private formBuilder = inject(FormBuilder);
     private dialog = inject(MatDialog);
 
-    signupForm!: FormGroup;
+    forgotPasswordForm!: FormGroup;
     loading = false;
-    hidePassword = true;
 
     ngOnInit() {
         this.initializeForm();
     }
 
     initializeForm(): void {
-        this.signupForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            id: ['', Validators.required],
+        this.forgotPasswordForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
-            password: [
-                '',
-                [
-                    Validators.required,
-                    Validators.minLength(8),
-                    Validators.maxLength(32),
-                    Validators.pattern(
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/,
-                    ),
-                ],
-            ],
-            role: ['', Validators.required],
         });
     }
 
     onSubmit() {
-        this.signupForm.markAllAsTouched();
+        this.forgotPasswordForm.markAllAsTouched();
 
-        if (this.signupForm.valid) {
+        if (this.forgotPasswordForm.valid) {
             this.loading = true;
-            const formData = { ...this.signupForm.value };
+            const formData = { ...this.forgotPasswordForm.value };
 
             this.authService
-                .signup(formData)
+                .forgotPassword(formData)
                 .pipe(
                     tap((response) => {
                         this.loading = false;
                         showMessageDialog(this.dialog, response.message, 'close');
-                        this.signupForm.reset();
                     }),
                     catchError((error) => {
                         this.loading = false;
@@ -91,9 +77,5 @@ export class SignupComponent implements OnInit {
                 )
                 .subscribe();
         }
-    }
-
-    togglePasswordVisibility() {
-        this.hidePassword = !this.hidePassword;
     }
 }

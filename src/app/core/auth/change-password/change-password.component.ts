@@ -11,15 +11,15 @@ import { AuthService } from '../../../core/auth.service';
 import { catchError, of, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { showMessageDialog } from '../../utils/dialog-utils';
-import { SpinnerComponent } from '../spinner/spinner.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
+import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 
 @Component({
-    selector: 'app-reset-password',
+    selector: 'app-change-password',
     standalone: true,
     imports: [
         CommonModule,
@@ -31,18 +31,20 @@ import { MatIconModule } from '@angular/material/icon';
         MatInputModule,
         MatIconModule,
     ],
-    templateUrl: './reset-password.component.html',
-    styleUrl: './reset-password.component.scss',
+    templateUrl: './change-password.component.html',
+    styleUrl: './change-password.component.scss',
 })
-export class ResetPasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit {
     private authService = inject(AuthService);
     private destroyRef = inject(DestroyRef);
     private formBuilder = inject(FormBuilder);
     private dialog = inject(MatDialog);
 
-    resetPasswordForm!: FormGroup;
+    changePasswordForm!: FormGroup;
     loading = false;
     role = '';
+    hideCurrentPassword = true;
+    hideNewPassword = true;
 
     ngOnInit() {
         this.checkRole();
@@ -60,7 +62,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     initializeForm(): void {
-        this.resetPasswordForm = this.formBuilder.group({
+        this.changePasswordForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
             currentPassword: ['', Validators.required],
             newPassword: [
@@ -78,19 +80,19 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     onSubmit() {
-        this.resetPasswordForm.markAllAsTouched();
+        this.changePasswordForm.markAllAsTouched();
 
-        if (this.resetPasswordForm.valid) {
+        if (this.changePasswordForm.valid) {
             this.loading = true;
-            const formData = { ...this.resetPasswordForm.value };
+            const formData = { ...this.changePasswordForm.value };
 
             this.authService
-                .resetPassword(formData)
+                .changePassword(formData)
                 .pipe(
                     tap((response) => {
                         this.loading = false;
                         showMessageDialog(this.dialog, response.message, 'close');
-                        this.resetPasswordForm.reset();
+                        this.changePasswordForm.reset();
                     }),
                     catchError((error) => {
                         this.loading = false;
@@ -102,5 +104,12 @@ export class ResetPasswordComponent implements OnInit {
                 )
                 .subscribe();
         }
+    }
+
+    toggleCurrentPasswordVisibility() {
+        this.hideCurrentPassword = !this.hideCurrentPassword;
+    }
+    toggleNewPasswordVisibility() {
+        this.hideNewPassword = !this.hideNewPassword;
     }
 }

@@ -9,13 +9,14 @@ import {
 import { AuthService } from '../../auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { showMessageDialog } from '../../../shared/utils/dialog-utils';
 import { MatDialog } from '@angular/material/dialog';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-signin',
@@ -27,6 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
         MatInputModule,
         MatFormFieldModule,
         MatButtonModule,
+        RouterLink,
+        MatIconModule,
     ],
     templateUrl: './signin.component.html',
     styleUrl: './signin.component.scss',
@@ -41,6 +44,7 @@ export class SigninComponent implements OnInit {
     signinForm!: FormGroup;
     loading = false;
     role = '';
+    hidePassword = true;
 
     ngOnInit() {
         this.initializeForm();
@@ -87,5 +91,9 @@ export class SigninComponent implements OnInit {
                 )
                 .subscribe();
         }
+    }
+
+    togglePasswordVisibility() {
+        this.hidePassword = !this.hidePassword;
     }
 }

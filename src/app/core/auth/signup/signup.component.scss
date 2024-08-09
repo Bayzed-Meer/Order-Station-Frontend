@@ -27,6 +27,10 @@
     width: 100%;
 }
 
+.hideIcon {
+    margin-right: 1rem;
+}
+
 .submit-button {
     text-wrap: nowrap;
     font-size: 0.875rem;
@@ -38,7 +42,7 @@
 @media (max-width: 480px) {
     .form-wrapper {
         padding: 1.5rem;
-        width: 50%;
+        width: 60%;
     }
 
     .form-title {
